@@ -1517,4 +1517,37 @@ public class ProdutoDAO {
             throw new SQLException(ex);
         }
     }
+
+    public synchronized static boolean verficaUsoEcommerce(int codProd, byte tipoProd) throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            switch(tipoProd){
+                case 1:
+                    stmt = con.prepareStatement("SELECT USO_ECOMMERCE FROM PRODUTOS WHERE CODIGO = ?");
+                    stmt.setInt(1, codProd);
+                    break;
+                case 2:
+                    stmt = con.prepareStatement("SELECT USO_ECOMMERCE FROM PRODUTOS_PR_ENT WHERE CODIGO = ?");
+                    stmt.setInt(1, codProd);
+                    break;
+            }
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                switch(rs.getByte("USO_ECOMMERCE")){
+                    case 1:
+                        return true;
+                    case 0:
+                        return false;
+                }
+            }
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return false;
+    }
 }

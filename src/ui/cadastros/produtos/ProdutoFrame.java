@@ -1126,6 +1126,9 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
 
                     switch (String.valueOf(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 1))) {
                         case "PP":
+                            if (ProdutoDAO.verficaUsoEcommerce(Integer.valueOf(COD_PROD), (byte) 1)) {
+                                Controle.avisosUsuario((byte) 2, "ESTE PRODUTO ESTÁ SENDO UTILIZADO NO ECOMMERCE!\nEDITÁ-LO AFETARÁ AMBOS OS SISTEMAS.");
+                            }
                             ProdutoBEAN produtoPP = ProdutoDAO.retornaInfoProd(COD_PROD, (byte) 1);
                             jftfDescricaoProduto.setText(produtoPP.getDescricao());
                             jftfLarguraProduto.setValue(produtoPP.getLargura());
@@ -1174,6 +1177,9 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                             }
                             break;
                         case "PE":
+                            if (ProdutoDAO.verficaUsoEcommerce(Integer.valueOf(COD_PROD), (byte) 2)) {
+                                Controle.avisosUsuario((byte) 2, "ESTE PRODUTO ESTÁ SENDO UTILIZADO NO ECOMMERCE!\nEDITÁ-LO AFETARÁ AMBOS OS SISTEMAS.");
+                            }
                             //CARREGA OS DADOS DO BD------------------------------------
                             ProdutoPrEntBEAN produtoPE = ProdutoDAO.retornaPeEdicao(COD_PROD);
                             //----------------------------------------------------------
@@ -1630,6 +1636,7 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                     = Integer.valueOf(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 0).toString());
             switch (String.valueOf(tblConsulta.getValueAt(tblConsulta.getSelectedRow(), 1))) {
                 case "PP":
+
                     if (orcamentoNovo | orcamentoEditar) {
                         btnSelecionar.setEnabled(true);
                     } else {

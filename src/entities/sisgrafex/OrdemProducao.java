@@ -1136,7 +1136,7 @@ public class OrdemProducao {
                                     tblPapel.addCell(cell2);
                                     document.add(tblPapel);
                                     tblPapel.deleteBodyRows();
-                                    cell2 = new PdfPCell(new Phrase("PERCA: " + df.format(calculo.getPerca()) + "%", FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
+                                    cell2 = new PdfPCell(new Phrase("PERDA: " + df.format(calculo.getPerca()) + "%", FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
                                     cell2.setBorder(Rectangle.RIGHT | Rectangle.LEFT | Rectangle.BOTTOM);
                                     cell2.setColspan(3);
                                     cell1.setPaddingBottom(5);

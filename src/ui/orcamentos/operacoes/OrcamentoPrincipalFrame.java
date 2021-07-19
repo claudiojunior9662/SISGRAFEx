@@ -4029,7 +4029,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         papeisCadastroBEAN.getCorFrente(),
                         papeisCadastroBEAN.getCorVerso(),
                         0,
-                        10d,
+                        5d,
                         0,
                         0,
                         0,
