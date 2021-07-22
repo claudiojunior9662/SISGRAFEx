@@ -29,7 +29,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.6.0";
-    private static final String update = "2";
+    private static final String update = "3";
     private static UsuarioBEAN atendenteLogado;
 
     public static UsuarioBEAN getUsrLogado() {
@@ -361,9 +361,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 2 (06-04-2021)\n"
-                            + "- Correção no título da proposta de orçamento, quando pedido de venda ou OP;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 3 (06-04-2021)\n"
+                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 3 (06-04-2021)\n"
                             + "- Atualização dos títulos das tabelas de consulta Orçamento, OP e Faturamento;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 3 (08-04-2021)\n"
                             + "- Correção no bug ao preencher a tela de pesquisa de Ordem de produção;\n"
@@ -388,10 +386,13 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Implementação do recálculo;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 2 (14-07-2021)\n"
                             + "- Atualizações não comitadas;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 3 (22-07-2021)\n"
+                            + "- Correções na edição dos produtos pronta entrega;\n"
+                            + "- Correções de atualização do módulo integrador;\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à SPD;\n"
-                            + "SPD - Seção de Processamento de Dados - Missão de Grandeza, Servir!");
+                            + "Seç Infor - Seção de Informática - Missão de Grandeza, Servir!");
                     Controle.stsOrcamento = OrcamentoDAO.retornaStsOrcamento();
                     Controle.stsOp = OrdemProducaoDAO.retornaStsOp();
                 } else {

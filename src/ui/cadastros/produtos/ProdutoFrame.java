@@ -1062,7 +1062,7 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                     }
 
                     /**
-                     * Seleciona a aba 2
+                     * Seleciona a aba 1
                      */
                     tabPane.setSelectedIndex(0);
 
@@ -1070,6 +1070,7 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                      * Define a função como alterar estoque
                      */
                     FUNCAO = 3;
+                    estadoAlterarEstoque();
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
@@ -1723,6 +1724,15 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
         jftfQtdMinProduto.setEnabled(true);
         jckbQtdMaxProduto.setEnabled(true);
         jckbUtilizadoEcommerce.setEnabled(true);
+        
+        tabPaneInfoProduto.setSelectedIndex(2);
+        tabPaneInfoProduto.setEnabledAt(0, false);
+        tabPaneInfoProduto.setEnabledAt(1, false);
+        tabPaneInfoProduto.setEnabledAt(2, true);
+        tabPaneInfoProduto.setEnabledAt(3, true);
+        tabPaneInfoProduto.setEnabledAt(4, true);
+        tabPaneInfoProduto.setEnabledAt(5, false);
+        
     }
 
     /**

@@ -56,7 +56,10 @@ public class IntegracaoLojaIntegrada {
      * Realiza requisição GET para o e-commerce
      *
      * @param tipo 1 - Categorias, 2 - Pedidos Gerais, 3 - Pedidos Específicos
-     * @throws Exception
+     * @param requisicao
+     * @return
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     public static Object realizaRequisicaoGET(byte tipo, Object requisicao) throws IOException, InterruptedException {
         try {
@@ -125,6 +128,8 @@ public class IntegracaoLojaIntegrada {
                                     + "pedido/search/"
                                     + "?since_criado="
                                     + Controle.dataPadraoLojaIntegrada.format(Controle.SYNC_PEDIDOS)
+                                    + "T"
+                                    + Controle.horaPadraoLojaIntegrada.format(Controle.SYNC_PEDIDOS)
                                     + "&format="
                                     + Controle.FORMATO_SAIDA
                                     + "&"
@@ -136,11 +141,10 @@ public class IntegracaoLojaIntegrada {
                             .GET()
                             .build();
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    
+
                     JSONObject json = new JSONObject(response.body());
                     JSONArray jsonArray = json.getJSONArray("objects");
                     for (int i = 0; i < (int) json.getJSONObject("meta").get("total_count"); i++) {
-                        System.out.println(jsonArray.getJSONObject(i).get("id_externo"));
                         ordersGeral.add(new Order(
                                 jsonArray.getJSONObject(i).getString("cliente"),
                                 Timestamp.valueOf(jsonArray.getJSONObject(i).getString("data_criacao").replace("T", " ")),
@@ -348,8 +352,6 @@ public class IntegracaoLojaIntegrada {
                             .build();
                     response = client.send(request,
                             HttpResponse.BodyHandlers.ofString());
-                    System.out.println(response);
-                    System.out.println(request);
                     break;
                 case 2:
                     break;
@@ -407,8 +409,6 @@ public class IntegracaoLojaIntegrada {
                             .build();
                     response = client.send(request,
                             HttpResponse.BodyHandlers.ofString());
-                    System.out.println(response);
-                    System.out.println(request);
 
                     JSONObject json = new JSONObject(response.body());
                     ProdutoDAO.atualizaCodigoLI(Integer.valueOf(product.getId()), (int) json.get("id"), product.getSku().contains("PP") ? (byte) 1 : (byte) 2);
@@ -434,7 +434,8 @@ public class IntegracaoLojaIntegrada {
      * Realiza requisições PUT para o e-commerce
      *
      * @param tipo 1 - Alterar produto, 2 - Alterar/Adicionar preço produto, 3 -
-     * Alterar/Adicionar estoque produto, 4 - Atualiza ID Externo pedido
+     * Alterar/Adicionar estoque produto, 4 - Atualiza ID Externo pedido, 5 -
+     * Atualiza status do pedido
      * @param requisicao
      * @throws IOException
      * @throws InterruptedException
@@ -923,12 +924,12 @@ public class IntegracaoLojaIntegrada {
                                     }
 
                                     realizaRequisicaoPUT((byte) 4, orderDet.getOrcamento().getCod());
-                                    Controle.atualizaSyncPedidos(new java.sql.Timestamp(new Date().getTime()));
                                     break;
                             }
                         }
                         labelSincronizacao.setText("ÚLTIMA SINCRONIZAÇÃO: " + new java.sql.Timestamp(new Date().getTime()).toString());
-                        Thread.sleep(300000);
+                        Controle.atualizaSyncPedidos(new java.sql.Timestamp(new Date().getTime()));
+                        Thread.sleep(30000);
                     }
                 } catch (InterruptedException | IOException | SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);

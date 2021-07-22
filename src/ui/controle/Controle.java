@@ -92,6 +92,7 @@ public class Controle {
     public static SimpleDateFormat horaPadrao = new SimpleDateFormat("HH:mm:ss");
     public static SimpleDateFormat horaPadraoDiretorio = new SimpleDateFormat("HH-mm-ss");
     public static SimpleDateFormat dataPadraoLojaIntegrada = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat horaPadraoLojaIntegrada = new SimpleDateFormat("HH:mm:ss");
     public static DecimalFormat formatoVlrPadrao = new DecimalFormat("###,##0.00");
     public static String tipoDesign = "";
     public static String urlTempWindows = System.getProperty("java.io.tmpdir") + "\\";
@@ -584,11 +585,13 @@ public class Controle {
     public static void atualizaSyncPedidos(java.sql.Timestamp novoDateTime){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
+        System.out.println(novoDateTime);
         try{
             stmt = con.prepareStatement("UPDATE tabela_controle "
                     + "SET tabela_controle.SYNC_PEDIDOS = ? ");
             stmt.setTimestamp(1, novoDateTime);
             stmt.executeUpdate();
+            SYNC_PEDIDOS = novoDateTime;
         }catch(SQLException ex){
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
