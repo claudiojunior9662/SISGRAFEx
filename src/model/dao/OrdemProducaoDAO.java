@@ -1114,12 +1114,13 @@ public class OrdemProducaoDAO {
         try {
             stmt = con.prepareStatement("SELECT cod "
                     + "FROM tabela_ordens_producao "
-                    + "WHERE cod != ? "
-                    + "AND orcamento_base = ? "
-                    + "AND status != 'ENTREGUE' "
-                    + "AND status != 'CANCELADA'");
-            stmt.setInt(1, codOp);
-            stmt.setInt(2, codOrc);
+                    + "WHERE orcamento_base = ? "
+                    + "AND status != 11 "
+                    + "AND status != 12 "
+                    + "AND cod != ?");
+            stmt.setInt(1, codOrc);
+            stmt.setInt(2, codOp);
+            System.out.println(stmt);
             rs = stmt.executeQuery();
             return rs.next();
         } catch (SQLException ex) {

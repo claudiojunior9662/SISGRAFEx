@@ -256,10 +256,6 @@ public class RelatoriosPapeisDAO {
 
         try {
 
-            if (rs.wasNull()) {
-                throw new ConsultaSemResultadoException();
-            }
-
             while (rs.next()) {
                 Papel papeis = new Papel();
 

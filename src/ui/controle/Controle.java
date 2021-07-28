@@ -44,7 +44,7 @@ public class Controle {
      * @param tipoVersao 1 - produção 2 - desenvolvimento rede 3 -
      * desenvolvimento local 4 - peixoto
      */
-    private static byte tipoVersao = 1;
+    private static byte tipoVersao = 3;
 
     //VARIÁVEIS DE SISTEMA------------------------------------------------------
     //CONEXÃO COM SERVIDOR ARQUIVOS---------------------------------------------

@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import entities.sisgrafex.ProdOrcamento;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ui.cadastros.produtos.ProdutoPrEntBEAN;
 
 /**
@@ -1526,17 +1524,21 @@ public class ProdutoDAO {
         try{
             switch(tipoProd){
                 case 1:
-                    stmt = con.prepareStatement("SELECT USO_ECOMMERCE FROM PRODUTOS WHERE CODIGO = ?");
+                    stmt = con.prepareStatement("SELECT produtos.USO_ECOMMERCE "
+                            + "FROM PRODUTOS "
+                            + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProd);
                     break;
                 case 2:
-                    stmt = con.prepareStatement("SELECT USO_ECOMMERCE FROM PRODUTOS_PR_ENT WHERE CODIGO = ?");
+                    stmt = con.prepareStatement("SELECT produtos.USO_ECOMMERCE "
+                            + "FROM PRODUTOS_PR_ENT "
+                            + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProd);
                     break;
             }
             rs = stmt.executeQuery();
             if(rs.next()){
-                switch(rs.getByte("USO_ECOMMERCE")){
+                switch(rs.getByte("produtos.USO_ECOMMERCE")){
                     case 1:
                         return true;
                     case 0:

@@ -822,7 +822,8 @@ public class IntegracaoLojaIntegrada {
                                         EnderecoDAO.gravarEnderecos(orderDet.getEndereco());
                                         codigoEndereco.add(orderDet.getEndereco().getCodigo());
                                         enderecoNovo = true;
-                                    } /**
+                                    } 
+                                    /**
                                      * Se o endereço existir, atribui o código
                                      * ao cliente
                                      */
@@ -830,6 +831,7 @@ public class IntegracaoLojaIntegrada {
                                         orderDet.getEndereco().setCodigo(EnderecoDAO.retornaCodPorCep(orderDet.getEndereco().getCep()));
                                         codigoEndereco.add(orderDet.getEndereco().getCodigo());
                                     }
+                                    
                                     /**
                                      * Verifica se o contato está cadastrado no
                                      * sistema
@@ -843,7 +845,9 @@ public class IntegracaoLojaIntegrada {
                                         ContatoDAO.gravaContatos(orderDet.getContato());
                                         codigoContato.add(orderDet.getContato().getCod());
                                         contatoNovo = true;
-                                    }/**
+                                    }
+                                    
+                                    /**
                                      * Se o contato existir, atribui o código ao
                                      * cliente
                                      */
@@ -851,6 +855,7 @@ public class IntegracaoLojaIntegrada {
                                         orderDet.getContato().setCod(ContatoDAO.retornaCodPorTelefone(orderDet.getContato()));
                                         codigoContato.add(orderDet.getContato().getCod());
                                     }
+                                    
                                     /**
                                      * Verifica se o cliente está cadastrado no
                                      * sistema

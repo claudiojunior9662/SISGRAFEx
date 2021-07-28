@@ -1322,257 +1322,6 @@ public class FatFrame extends javax.swing.JInternalFrame {
     public static javax.swing.JFormattedTextField vlrTotalNota;
     // End of variables declaration//GEN-END:variables
 
-//    public void gerarArquivoPdf() {
-//        NotaDAO dao = new NotaDAO();
-//
-//        com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4, 30, 20, 20, 30);
-//
-//        CODIGO_FAT = Integer.valueOf(numeroNota.getValue().toString());
-//
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//
-//                    loading.setVisible(true);
-//                    loading.setText("GERANDO PDF...");
-//
-//                    PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("java.io.tmpdir") + "/notaVenda" + CODIGO_FAT + ".pdf"));
-//                    //------------------------------------------------------
-//                    document.setMargins(20, 20, 20, 20);
-//                    document.setPageSize(PageSize.A4);
-//                    document.open();
-//                    //------------------------------------------------------
-//                    DecimalFormat df = new DecimalFormat("###,##0.00");
-//                    PdfPTable tblGuiaEntrega = new PdfPTable(new float[]{3f, 8f, 3f});
-//                    tblGuiaEntrega.setWidthPercentage(100);
-//
-//                    NotaCredito nota = NotaDAO.selNotaVenda(CODIGO_FAT);
-//                    PdfPCell cell1 = null;
-//                    PdfPCell cell2 = null;
-//                    PdfPCell cell3 = null;
-//                    PdfPCell cell4 = null;
-//                    PdfPCell cell5 = null;
-//
-//                    Cliente cliente = ClienteDAO.selInfoNota(
-//                            (byte) nota.getTipoPessoa(), nota.getCodCliente());
-//                    if (nota.getTipoPessoa() == 1) {
-//                        cell1 = new PdfPCell(new Phrase("RECEBEMOS DE ESTABELECIMENTO GENERAL GUSTAVO CORDEIRO DE FARIAS "
-//                                + "OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO"
-//                                + "\nEMISSÃO: " + nota.getData() + " - DEST/REM: " + cliente.getNome()
-//                                + " - VALOR TOTAL: R$ " + df.format(nota.getValor()), FontFactory.getFont("arial.ttf", 8)));
-//                    } else if (nota.getTipoPessoa() == 2) {
-//                        if (cliente.getNomeFantasia() == null) {
-//                            cell1 = new PdfPCell(new Phrase("RECEBEMOS DE ESTABELECIMENTO GENERAL GUSTAVO CORDEIRO DE FARIAS "
-//                                    + "OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO"
-//                                    + "\nEMISSÃO: " + nota.getData() + " - DEST/REM: " + cliente.getNome()
-//                                    + " - VALOR TOTAL: R$ " + df.format(nota.getValor()), FontFactory.getFont("arial.ttf", 8)));
-//                        } else {
-//                            cell1 = new PdfPCell(new Phrase("RECEBEMOS DE ESTABELECIMENTO GENERAL GUSTAVO CORDEIRO DE FARIAS "
-//                                    + "OS PRODUTOS/SERVIÇOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO"
-//                                    + "\nEMISSÃO: " + nota.getData() + " - DEST/REM: " + cliente.getNome() + " (" + cliente.getNomeFantasia() + " )"
-//                                    + " - VALOR TOTAL: R$ " + df.format(nota.getValor()), FontFactory.getFont("arial.ttf", 8)));
-//                        }
-//                    }
-//                    cell1.setColspan(2);
-//                    cell1.setHorizontalAlignment(1);
-//                    cell2 = new PdfPCell(new Phrase((nota.getSerie() == 1 ? "NV\nNº " : "NC\nNº ") + CODIGO_FAT + "\nSÉRIE " + nota.getSerie(), FontFactory.getFont("arial.ttf", 12, Font.BOLD)));
-//                    cell2.setHorizontalAlignment(1);
-//                    cell2.setVerticalAlignment(2);
-//                    cell2.setRowspan(2);
-//                    tblGuiaEntrega.addCell(cell1);
-//                    tblGuiaEntrega.addCell(cell2);
-//
-//                    cell1 = new PdfPCell(new Phrase("DATA DE RECEBIMENTO:\n\n\n", FontFactory.getFont("arial.ttf", 8)));
-//                    cell2 = new PdfPCell(new Phrase("IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR:\n\n\n", FontFactory.getFont("arial.ttf", 8)));
-//                    tblGuiaEntrega.addCell(cell1);
-//                    tblGuiaEntrega.addCell(cell2);
-//                    document.add(tblGuiaEntrega);
-//                    document.add(new Paragraph("------------------------------------------------------------------------------------------------------------------------------------------\n\n"));
-//
-//                    //INDENTIFICAÇÃO DO REMETENTE-------------------
-//                    PdfPTable identificacaoEmitente = new PdfPTable(new float[]{8f, 3f});
-//                    identificacaoEmitente.setWidthPercentage(100);
-//
-//                    identificacaoEmitente.addCell(createImageCell());
-//                    cell2 = new PdfPCell();
-//                    Paragraph p1 = new Paragraph();
-//                    p1 = new Paragraph(nota.getSerie() == 1 ? "NV" : "NC", FontFactory.getFont("arial.ttf", 11, Font.BOLD));
-//                    p1.setAlignment(Element.ALIGN_CENTER);
-//                    cell2.addElement(p1);
-//                    p1 = new Paragraph(nota.getSerie() == 1 ? "NOTA DE VENDA\n " : "NOTA DE CRÉDITO\n ", FontFactory.getFont("arial.ttf", 9));
-//                    p1.setAlignment(Element.ALIGN_CENTER);
-//                    cell2.addElement(p1);
-//                    p1 = new Paragraph("Nº " + nota.getCod() + "\n", FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    p1.setAlignment(Element.ALIGN_CENTER);
-//                    cell2.addElement(p1);
-//                    p1 = new Paragraph("SÉRIE " + nota.getSerie(), FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    p1.setAlignment(Element.ALIGN_CENTER);
-//                    cell2.addElement(p1);
-//                    identificacaoEmitente.addCell(cell2);
-//                    cell1 = new PdfPCell(new Phrase("NATUREZA DA OPERAÇÃO:\n\nPRODUTO PARA CONSUMIDOR", FontFactory.getFont("arial.ttf", 9)));
-//                    cell2 = new PdfPCell(new Phrase("CNPJ:\n\n09.574.722/0001-24", FontFactory.getFont("arial.ttf", 9)));
-//                    identificacaoEmitente.addCell(cell1);
-//                    identificacaoEmitente.addCell(cell2);
-//                    document.add(identificacaoEmitente);
-//                    //IDENTIFICAÇÃO DO DESTINATÁRIO-----------------
-//                    PdfPTable identificacaoDestinatario = new PdfPTable(new float[]{5f, 5f, 5f, 5f});
-//                    identificacaoDestinatario.setWidthPercentage(100);
-//
-//                    p1 = new Paragraph("DESTINATÁRIO/REMETENTE\n\n", FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    document.add(p1);
-//
-//                    if (nota.getTipoPessoa() == 1) {
-//                        cell1 = new PdfPCell(new Phrase("NOME/RAZÃO SOCIAL - CÓDIGO\n\n" + cliente.getNome() + " - " + nota.getCodCliente(), FontFactory.getFont("arial.ttf", 9)));
-//                        cell2 = new PdfPCell(new Phrase("CNPJ/CPF\n\n" + cliente.getCpf(), FontFactory.getFont("arial.ttf", 9)));
-//                    } else if (nota.getTipoPessoa() == 2) {
-//                        if (cliente.getNomeFantasia() == null) {
-//                            cell1 = new PdfPCell(new Phrase("NOME/RAZÃO SOCIAL - CÓDIGO\n\n" + cliente.getNome() + " - " + nota.getCodCliente(), FontFactory.getFont("arial.ttf", 9)));
-//                        } else {
-//                            cell1 = new PdfPCell(new Phrase("NOME/RAZÃO SOCIAL - CÓDIGO\n\n" + cliente.getNome() + " (" + cliente.getNomeFantasia() + ") - " + nota.getCodCliente(), FontFactory.getFont("arial.ttf", 9)));
-//                        }
-//                        cell2 = new PdfPCell(new Phrase("CNPJ/CPF\n\n" + cliente.getCnpj(), FontFactory.getFont("arial.ttf", 9)));
-//                    }
-//                    cell1.setColspan(2);
-//                    cell3 = new PdfPCell(new Phrase("DATA DA EMISSÃO\n\n" + nota.getData(), FontFactory.getFont("arial.ttf", 9)));
-//                    identificacaoDestinatario.addCell(cell1);
-//                    identificacaoDestinatario.addCell(cell2);
-//                    identificacaoDestinatario.addCell(cell3);
-//
-//                    EnderecoBEAN endereco
-//                            = ClienteDAO.selInfoEndereco(nota.getCodEndereco());
-//                    cell1 = new PdfPCell(new Phrase("LOGADOURO\n\n" + endereco.getLogadouro(), FontFactory.getFont("arial.ttf", 9)));
-//                    identificacaoDestinatario.addCell(cell1);
-//                    cell2 = new PdfPCell(new Phrase("BAIRRO\n\n" + endereco.getBairro(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell3 = new PdfPCell(new Phrase("CIDADE\n\n" + endereco.getCidade(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell4 = new PdfPCell(new Phrase("CEP\n\n" + EnderecoBEAN.retornaCepFormatado(endereco.getCep()), FontFactory.getFont("arial.ttf", 9)));
-//                    cell1 = new PdfPCell(new Phrase("UF\n\n" + endereco.getUf(), FontFactory.getFont("arial.ttf", 9)));
-//
-//                    identificacaoDestinatario.addCell(cell2);
-//                    identificacaoDestinatario.addCell(cell3);
-//                    identificacaoDestinatario.addCell(cell4);
-//                    identificacaoDestinatario.addCell(cell1);
-//
-//                    ContatoBEAN contato = ClienteDAO.selInfoContato(nota.getCodContato());
-//                    cell2 = new PdfPCell(new Phrase("FONE/FAX\n\n" + contato.getTelefone(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell3 = new PdfPCell(new Phrase("CONTATO\n\n" + contato.getNomeContato(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell3.setColspan(2);
-//
-//                    identificacaoDestinatario.addCell(cell2);
-//                    identificacaoDestinatario.addCell(cell3);
-//
-//                    document.add(identificacaoDestinatario);
-//                    //VALORES---------------------------------------
-//                    Paragraph p = new Paragraph("DESCRIÇÃO DE VALORES\n\n", FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    document.add(p);
-//                    PdfPTable tblValores = new PdfPTable(new float[]{5f, 5f, 5f, 5f, 5f});
-//                    tblValores.setWidthPercentage(100);
-//
-//                    ProdOrcamento prodOrc
-//                            = OrcamentoDAO.selecionaInformacoesProduto(nota.getCodOrc(), nota.getCodProduto());
-//                    if (nota.getCodOp() == 0) {
-//                        cell1 = new PdfPCell(new Phrase("VALOR UNITÁRIO\n\nR$ " + df.format(ProdutoDAO.retornaVlrPe(nota.getCodProduto())), FontFactory.getFont("arial.ttf", 9)));
-//                    } else {
-//                        cell1 = new PdfPCell(new Phrase("VALOR UNITÁRIO\n\nR$ " + df.format(
-//                                prodOrc.getPrecoUnitario()), FontFactory.getFont("arial.ttf", 9)));
-//                    }
-//                    cell2 = new PdfPCell(new Phrase("QUANTIDADE\n\n" + nota.getQuantidadeEntregue(), FontFactory.getFont("arial.ttf", 9)));
-//
-//                    cell3 = new PdfPCell(new Phrase("VALOR FRETE\n\n"
-//                            + "R$ " + (nota.getFatFrete() == 1
-//                                    ? df.format(OrcamentoDAO.retornaValorFrete(nota.getCodOrc()))
-//                                    : "0,00"),
-//                            FontFactory.getFont("arial.ttf", 9)));
-//                    cell4 = new PdfPCell(new Phrase("VALOR SERVIÇOS\n\nR$ " + (nota.getFatServicos() == 1
-//                            ? df.format(ServicoDAO.retornaVlrSvOrcExistente(nota.getCodOrc()))
-//                            : "0,00"), FontFactory.getFont("arial.ttf", 9)));
-//                    cell5 = new PdfPCell(new Phrase("VALOR TOTAL DA NOTA\n\n" + "R$ " + df.format(nota.getValor()), FontFactory.getFont("arial.ttf", 9, BaseColor.WHITE)));
-//                    cell5.setBackgroundColor(BaseColor.GRAY);
-//                    tblValores.addCell(cell1);
-//                    tblValores.addCell(cell2);
-//                    tblValores.addCell(cell3);
-//                    tblValores.addCell(cell4);
-//                    tblValores.addCell(cell5);
-//                    document.add(tblValores);
-//                    //TRANSPORTE----------------------------------------
-//                    p = new Paragraph("TRANSPORTADOR/VOLUMES TRANSPORTADOS\n\n", FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    document.add(p);
-//                    PdfPTable tblTransporte = new PdfPTable(new float[]{5f, 5f, 5f, 5f});
-//                    tblTransporte.setWidthPercentage(100);
-//
-//                    TransporteBEAN transporte = NotaDAO.selTransporte(CODIGO_FAT);
-//                    cell1 = new PdfPCell(new Phrase("RAZÃO SOCIAL\n\n" + transporte.getNomeTransportador(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell1.setColspan(2);
-//                    cell2 = new PdfPCell(new Phrase("MODALIDADE\n\n" + transporte.getModalidadeFrete(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell3 = new PdfPCell(new Phrase("PESO PRODUTO\n\n" + transporte.getPesoProduto(), FontFactory.getFont("arial.ttf", 9)));
-//                    tblTransporte.addCell(cell1);
-//                    tblTransporte.addCell(cell2);
-//                    tblTransporte.addCell(cell3);
-//
-//                    cell1 = new PdfPCell(new Phrase("RELAÇÃO DE VOLUMES", FontFactory.getFont("arial.ttf", 9)));
-//                    cell1.setColspan(4);
-//                    tblTransporte.addCell(cell1);
-//
-//                    cell1 = new PdfPCell(new Phrase("NÚMERO", FontFactory.getFont("arial.ttf", 9)));
-//                    cell2 = new PdfPCell(new Phrase("ALTURA", FontFactory.getFont("arial.ttf", 9)));
-//                    cell3 = new PdfPCell(new Phrase("LARGURA", FontFactory.getFont("arial.ttf", 9)));
-//                    cell4 = new PdfPCell(new Phrase("PESO", FontFactory.getFont("arial.ttf", 9)));
-//                    tblTransporte.addCell(cell1);
-//                    tblTransporte.addCell(cell2);
-//                    tblTransporte.addCell(cell3);
-//                    tblTransporte.addCell(cell4);
-//                    for (VolumeBEAN volume : NotaDAO.selecionaVolumes(transporte.getCod())) {
-//                        cell1 = new PdfPCell(new Phrase(String.valueOf(volume.getNumeroVolume()), FontFactory.getFont("arial.ttf", 9)));
-//                        cell2 = new PdfPCell(new Phrase(df.format(volume.getAlturaVolume()), FontFactory.getFont("arial.ttf", 9)));
-//                        cell3 = new PdfPCell(new Phrase(df.format(volume.getLarguraVolume()), FontFactory.getFont("arial.ttf", 9)));
-//                        cell4 = new PdfPCell(new Phrase(df.format(volume.getPesoVolume()), FontFactory.getFont("arial.ttf", 9)));
-//                        tblTransporte.addCell(cell1);
-//                        tblTransporte.addCell(cell2);
-//                        tblTransporte.addCell(cell3);
-//                        tblTransporte.addCell(cell4);
-//                    }
-//                    document.add(tblTransporte);
-//                    //PRODUTOS------------------------------------------
-//                    p = new Paragraph("DESCRIÇÃO DO PRODUTO/SERVIÇO\n\n", FontFactory.getFont("arial.ttf", 9, Font.BOLD));
-//                    document.add(p);
-//                    PdfPTable produto = new PdfPTable(new float[]{5f, 5f});
-//                    produto.setWidthPercentage(100);
-//
-//                    cell1 = new PdfPCell(new Phrase("CÓDIGO\n\n" + nota.getCodProduto(), FontFactory.getFont("arial.ttf", 9)));
-//                    cell2 = new PdfPCell(new Phrase("DESCRIÇÃO\n\n" + prodOrc.getDescricaoProduto(), FontFactory.getFont("arial.ttf", 9)));
-//
-//                    produto.addCell(cell1);
-//                    produto.addCell(cell2);
-//                    document.add(produto);
-//
-//                    //OBSERVAÇÕES---------------------------------------
-//                    p = new Paragraph("OBSERVAÇÕES\n\n", FontFactory.getFont("arial.ttf", 9, java.awt.Font.BOLD));
-//                    document.add(p);
-//                    PdfPTable observacoes = new PdfPTable(new float[]{5f});
-//                    observacoes.setWidthPercentage(100);
-//
-//                    cell1 = new PdfPCell(new Phrase(nota.getObservacoes(), FontFactory.getFont("arial.ttf", 8)));
-//                    observacoes.addCell(cell1);
-//                    document.add(observacoes);
-//
-//                    document.close();
-//                } catch (Exception ex) {
-//                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-//                    EnvioExcecao.envio();
-//                }
-//
-//                try {
-//                    java.awt.Desktop.getDesktop().open(new File(System.getProperty("java.io.tmpdir") + "/notaVenda" + CODIGO_FAT + ".pdf"));
-//                } catch (IOException ex) {
-//                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-//                    EnvioExcecao.envio();
-//                }
-//
-//                loading.setVisible(false);
-//                CODIGO_FAT = 0;
-//            }
-//        }.start();
-//    }
     //ESTADOS DA UI-------------------------------------------------------------
     public void estadoInicial() {
         EDITAR = false;
@@ -2332,12 +2081,16 @@ public class FatFrame extends javax.swing.JInternalFrame {
             /**
              * Altera o status da ordem de produção
              */
+            byte statusOp = 0;
             if ((int) qtdSerEntregue.getValue()
                     < (int) qtdSolicitada.getValue() - (int) qtdEntregue.getValue()) {
                 OrdemProducaoDAO.alteraStatus((byte) 12, FAT.getCodOp());
+                statusOp = (byte) 12;
             } else if ((int) qtdSerEntregue.getValue()
                     == (int) qtdSolicitada.getValue() - (int) qtdEntregue.getValue()) {
                 OrdemProducaoDAO.alteraStatus((byte) 11, FAT.getCodOp());
+                statusOp = (byte) 11;
+                
             }
 
             /**
@@ -2359,15 +2112,9 @@ public class FatFrame extends javax.swing.JInternalFrame {
                         op.getTipoPessoa(),
                         FAT.getVlrFat(),
                         (byte) 2);
-                if (!OrdemProducaoDAO.verificaOpOrcEntregues(FAT.getCodOrc(), FAT.getCodOp())) {
+                if (OrdemProducaoDAO.verificaOpOrcEntregues(FAT.getCodOrc(), FAT.getCodOp())) {
                     STATUS_FATURAMENTO = 1;
-                    if ((int) qtdSerEntregue.getValue()
-                            < (int) qtdSolicitada.getValue() - (int) qtdEntregue.getValue()) {
-                        OrcamentoDAO.alteraStatus(FAT.getCodOrc(), (byte) 8);
-                    } else if ((int) qtdSerEntregue.getValue()
-                            == (int) qtdSolicitada.getValue() - (int) qtdEntregue.getValue()) {
-                        OrcamentoDAO.alteraStatus(FAT.getCodOrc(), (byte) 9);
-                    }
+                    OrcamentoDAO.alteraStatus(FAT.getCodOrc(), WIDTH);
                 } else {
                     FAT.setFreteFat((byte) 0);
                     FAT.setServicosFat((byte) 0);
@@ -2376,8 +2123,14 @@ public class FatFrame extends javax.swing.JInternalFrame {
                             Double.valueOf(valorServicos.getValue().toString())
                             + Double.valueOf(valorFrete.getValue().toString()),
                             (byte) 2);
-                    OrcamentoDAO.alteraStatus(FAT.getCodOrc(), (byte) 8);
                 }
+            }
+            
+            /**
+             * Atualiza o status do orçamento
+             */
+            if(!OrdemProducaoDAO.verificaOpOrcEntregues(FAT.getCodOrc(), FAT.getCodOp())){
+                OrcamentoDAO.alteraStatus(FAT.getCodOrc(), 9);
             }
 
             /**

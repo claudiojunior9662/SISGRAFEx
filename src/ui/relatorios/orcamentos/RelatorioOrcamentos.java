@@ -1012,110 +1012,236 @@ public class RelatorioOrcamentos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listaPesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaClienteMouseClicked
-        nomeCliente.setText(listaPesquisaCliente.getSelectedValue());
+    private void porDtEmissaoOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porDtEmissaoOrdActionPerformed
+
+    }//GEN-LAST:event_porDtEmissaoOrdActionPerformed
+
+    private void porQtdDescrescenteOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porQtdDescrescenteOrdActionPerformed
+
+    }//GEN-LAST:event_porQtdDescrescenteOrdActionPerformed
+
+    private void botaoGeraRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGeraRelatorioActionPerformed
+        new Thread() {
+            @Override
+            public void run() {
+                if (verificaCondicoes()) {
+                    geraRelatorio();
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_botaoGeraRelatorioActionPerformed
+
+    private void porQtdCrescenteOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porQtdCrescenteOrdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porQtdCrescenteOrdActionPerformed
+
+    private void campoDescontoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDescontoItemStateChanged
+        if (campoDesconto.isSelected()) {
+            porPercentagemDescontoOrd.setEnabled(true);
+        } else {
+            porPercentagemDescontoOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoDescontoItemStateChanged
+
+    private void campoEmissorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoEmissorItemStateChanged
+        if (campoEmissor.isSelected() == true) {
+            porEmissorOrd.setEnabled(true);
+        } else {
+            porEmissorOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoEmissorItemStateChanged
+
+    private void campoCodigoOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoCodigoOrcamentoItemStateChanged
+        if (campoCodigoOrcamento.isSelected()) {
+            porCodOrcOrd.setEnabled(true);
+        } else {
+            porCodOrcOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoCodigoOrcamentoItemStateChanged
+
+    private void campoDataValidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataValidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDataValidadeActionPerformed
+
+    private void campoDataValidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDataValidadeItemStateChanged
+        if (campoDataValidade.isSelected() == true) {
+            porDtValidadeOrd.setEnabled(true);
+        } else {
+            porDtValidadeOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoDataValidadeItemStateChanged
+
+    private void campoCodigoOpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoCodigoOpItemStateChanged
+
+    }//GEN-LAST:event_campoCodigoOpItemStateChanged
+
+    private void campoDataEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDataEmissaoItemStateChanged
+        if (campoDataEmissao.isSelected() == true) {
+            porDtEmissaoOrd.setEnabled(true);
+            porVlrFreteOrd.setEnabled(true);
+        } else {
+            porDtEmissaoOrd.setEnabled(false);
+            porVlrFreteOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoDataEmissaoItemStateChanged
+
+    private void campoValorUnitarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoValorUnitarioItemStateChanged
+        if (campoValorUnitario.isSelected() == true) {
+            porVlrTotalOrd.setEnabled(true);
+            porPercentagemCifOrd.setEnabled(true);
+        } else {
+            porVlrTotalOrd.setEnabled(false);
+            porPercentagemCifOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoValorUnitarioItemStateChanged
+
+    private void campoQuantidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoQuantidadeItemStateChanged
+        if (campoQuantidade.isSelected() == true) {
+            porQtdCrescenteOrd.setEnabled(true);
+            porQtdDescrescenteOrd.setEnabled(true);
+        } else {
+            porQtdCrescenteOrd.setEnabled(false);
+            porQtdDescrescenteOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoQuantidadeItemStateChanged
+
+    private void campoTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoTipoPessoaItemStateChanged
+        if (campoTipoPessoa.isSelected() == true) {
+            porTipoPessoaOrd.setEnabled(true);
+        } else {
+            porTipoPessoaOrd.setEnabled(false);
+        }
+    }//GEN-LAST:event_campoTipoPessoaItemStateChanged
+
+    private void campoNomeClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoNomeClienteItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeClienteItemStateChanged
+
+    private void porPeriodoEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porPeriodoEmissaoItemStateChanged
+        if (porPeriodoEmissao.isSelected() == true) {
+            diaEmissao.setEnabled(false);
+            diaEntrega.setEnabled(false);
+            periodoInicioEmissao.setEnabled(true);
+            periodoFimEmissao.setEnabled(true);
+            periodoInicioEntrega.setEnabled(false);
+            periodoFimEntrega.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_porPeriodoEmissaoItemStateChanged
+
+    private void porDiaEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDiaEmissaoItemStateChanged
+        if (porDiaEmissao.isSelected() == true) {
+            diaEmissao.setEnabled(true);
+            diaEntrega.setEnabled(false);
+            periodoInicioEmissao.setEnabled(false);
+            periodoFimEmissao.setEnabled(false);
+            periodoInicioEntrega.setEnabled(false);
+            periodoFimEntrega.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_porDiaEmissaoItemStateChanged
+
+    private void porTodosPeriodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTodosPeriodosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porTodosPeriodosActionPerformed
+
+    private void porTodosPeriodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosPeriodosItemStateChanged
+        if (porTodosPeriodos.isSelected() == true) {
+            diaEmissao.setEnabled(false);
+            diaEntrega.setEnabled(false);
+            periodoInicioEmissao.setEnabled(false);
+            periodoFimEmissao.setEnabled(false);
+            periodoInicioEntrega.setEnabled(false);
+            periodoFimEntrega.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_porTodosPeriodosItemStateChanged
+
+    private void porPeriodoEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porPeriodoEntregaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porPeriodoEntregaActionPerformed
+
+    private void porPeriodoEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porPeriodoEntregaItemStateChanged
+        if (porPeriodoEntrega.isSelected() == true) {
+            diaEmissao.setEnabled(false);
+            diaEntrega.setEnabled(false);
+            periodoInicioEmissao.setEnabled(false);
+            periodoFimEmissao.setEnabled(false);
+            periodoInicioEntrega.setEnabled(true);
+            periodoFimEntrega.setEnabled(true);
+
+        }
+    }//GEN-LAST:event_porPeriodoEntregaItemStateChanged
+
+    private void porDiaEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDiaEntregaItemStateChanged
+        if (porDiaEntrega.isSelected() == true) {
+            diaEmissao.setEnabled(false);
+            diaEntrega.setEnabled(true);
+            periodoInicioEmissao.setEnabled(false);
+            periodoFimEmissao.setEnabled(false);
+            periodoInicioEntrega.setEnabled(false);
+            periodoFimEntrega.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_porDiaEntregaItemStateChanged
+
+    private void porEmissorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porEmissorItemStateChanged
+        if (porEmissor.isSelected() == true) {
+            comboEmissores.setEnabled(true);
+        } else {
+            comboEmissores.setEnabled(false);
+        }
+    }//GEN-LAST:event_porEmissorItemStateChanged
+
+    private void porTodosEmissoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosEmissoresItemStateChanged
+        if (porEmissor.isSelected() == true) {
+            comboEmissores.setEnabled(true);
+        } else {
+            comboEmissores.setEnabled(false);
+        }
+    }//GEN-LAST:event_porTodosEmissoresItemStateChanged
+
+    private void listaPesquisaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaProdutosMouseClicked
+        descricaoProduto.setText(listaPesquisaProdutos.getSelectedValue().toString());
         new Thread() {
             @Override
             public void run() {
                 try {
-                    cliente = ClienteDAO.retornaTipoCodClienteRelatorio(listaPesquisaCliente.getSelectedValue());
-                    listaPesquisaCliente.setVisible(false);
+                    produto = ProdutoDAO.retornaProdutoRelatorio(listaPesquisaProdutos.getSelectedValue().toString());
+                    listaPesquisaProdutos.setVisible(false);
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
             }
         }.start();
-    }//GEN-LAST:event_listaPesquisaClienteMouseClicked
+    }//GEN-LAST:event_listaPesquisaProdutosMouseClicked
 
-    private void porCodigoClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoClienteItemStateChanged
-        if (porCodigoCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(true);
-            codigoCliente.setEnabled(true);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
-        } else if (porNomeCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(true);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
-        } else if (porTipoPessoaCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(true);
-            pessoaJuridica.setEnabled(true);
-        } else {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
+    private void porTodosProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosProdutosItemStateChanged
+        if (porTodosProdutos.isSelected()) {
+            codigoProduto.setEnabled(false);
+            descricaoProduto.setEnabled(false);
+            listaPesquisaProdutos.setVisible(false);
+            tipoProduto.setEnabled(false);
         }
-    }//GEN-LAST:event_porCodigoClienteItemStateChanged
+    }//GEN-LAST:event_porTodosProdutosItemStateChanged
 
-    private void porNomeClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porNomeClienteItemStateChanged
-        if (porCodigoCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(true);
-            codigoCliente.setEnabled(true);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
-        } else if (porNomeCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(true);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
-        } else if (porTipoPessoaCliente.isSelected() == true) {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(true);
-            pessoaJuridica.setEnabled(true);
-        } else {
-            comboTipoPessoa.setEnabled(false);
-            codigoCliente.setEnabled(false);
-            nomeCliente.setEnabled(false);
-            listaPesquisaCliente.setVisible(false);
-            pessoaFisica.setEnabled(false);
-            pessoaJuridica.setEnabled(false);
-        }
-    }//GEN-LAST:event_porNomeClienteItemStateChanged
-
-    private void porNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porNomeClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_porNomeClienteActionPerformed
-
-    private void nomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeClienteActionPerformed
-
-    private void nomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeClienteKeyReleased
+    private void descricaoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoProdutoKeyReleased
         new Thread() {
             @Override
             public void run() {
                 try {
-                    listaPesquisaCliente.setModel(model);
+                    listaPesquisaProdutos.setModel(model);
                     model.removeAllElements();
 
-                    for (String cliente : ClienteDAO.retornaPesquisaClientesAproximada(nomeCliente.getText())) {
-                        model.addElement(cliente);
+                    for (String descricao : ProdutoDAO.retornaPesquisaProdutosAproximada(descricaoProduto.getText())) {
+                        model.addElement(descricao);
                     }
 
                     if (model.isEmpty()) {
-                        listaPesquisaCliente.setVisible(false);
+                        listaPesquisaProdutos.setVisible(false);
                     } else {
-                        listaPesquisaCliente.setVisible(true);
+                        listaPesquisaProdutos.setVisible(true);
                     }
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
@@ -1123,7 +1249,110 @@ public class RelatorioOrcamentos extends javax.swing.JInternalFrame {
                 }
             }
         }.start();
-    }//GEN-LAST:event_nomeClienteKeyReleased
+    }//GEN-LAST:event_descricaoProdutoKeyReleased
+
+    private void codigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoProdutoActionPerformed
+
+    private void porTipoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTipoProdutoItemStateChanged
+        if (porTipoProduto.isSelected()) {
+            codigoProduto.setEnabled(false);
+            descricaoProduto.setEnabled(false);
+            listaPesquisaProdutos.setVisible(false);
+            tipoProduto.setEnabled(true);
+        }
+    }//GEN-LAST:event_porTipoProdutoItemStateChanged
+
+    private void porDescricaoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDescricaoProdutoItemStateChanged
+        if (porDescricaoProduto.isSelected()) {
+            codigoProduto.setEnabled(false);
+            descricaoProduto.setEnabled(true);
+            listaPesquisaProdutos.setVisible(false);
+            tipoProduto.setEnabled(false);
+        }
+    }//GEN-LAST:event_porDescricaoProdutoItemStateChanged
+
+    private void porCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_porCodigoProdutoMouseClicked
+
+    }//GEN-LAST:event_porCodigoProdutoMouseClicked
+
+    private void porCodigoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoProdutoItemStateChanged
+        if (porCodigoProduto.isSelected()) {
+            codigoProduto.setEnabled(true);
+            descricaoProduto.setEnabled(false);
+            listaPesquisaProdutos.setVisible(false);
+            tipoProduto.setEnabled(false);
+        }
+    }//GEN-LAST:event_porCodigoProdutoItemStateChanged
+
+    private void porTodosOrcamentosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosOrcamentosItemStateChanged
+        if (porTodosOrcamentos.isSelected()) {
+            codigoOrcamento.setEnabled(false);
+            statusOrcamento.setEnabled(false);
+            valorTotalInicial.setEnabled(false);
+            valorTotalFinal.setEnabled(false);
+        }
+    }//GEN-LAST:event_porTodosOrcamentosItemStateChanged
+
+    private void porValorTotalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porValorTotalItemStateChanged
+        if (porValorTotal.isSelected()) {
+            codigoOrcamento.setEnabled(false);
+            statusOrcamento.setEnabled(false);
+            valorTotalInicial.setEnabled(true);
+            valorTotalFinal.setEnabled(true);
+        }
+    }//GEN-LAST:event_porValorTotalItemStateChanged
+
+    private void porStatusOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porStatusOrcamentoItemStateChanged
+        if (porStatusOrcamento.isSelected()) {
+            codigoOrcamento.setEnabled(false);
+            statusOrcamento.setEnabled(true);
+            valorTotalInicial.setEnabled(false);
+            valorTotalFinal.setEnabled(false);
+        }
+    }//GEN-LAST:event_porStatusOrcamentoItemStateChanged
+
+    private void porCodigoOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoOrcamentoItemStateChanged
+        if (porCodigoOrcamento.isSelected()) {
+            codigoOrcamento.setEnabled(true);
+            statusOrcamento.setEnabled(false);
+            valorTotalInicial.setEnabled(false);
+            valorTotalFinal.setEnabled(false);
+        }
+    }//GEN-LAST:event_porCodigoOrcamentoItemStateChanged
+
+    private void porTodosClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosClientesItemStateChanged
+        if (porCodigoCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(true);
+            codigoCliente.setEnabled(true);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
+        } else if (porNomeCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(true);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
+        } else if (porTipoPessoaCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(true);
+            pessoaJuridica.setEnabled(true);
+        } else {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
+        }
+    }//GEN-LAST:event_porTodosClientesItemStateChanged
 
     private void porTipoPessoaClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTipoPessoaClienteItemStateChanged
         if (porCodigoCliente.isSelected() == true) {
@@ -1158,7 +1387,40 @@ public class RelatorioOrcamentos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_porTipoPessoaClienteItemStateChanged
 
-    private void porTodosClientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosClientesItemStateChanged
+    private void nomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeClienteKeyReleased
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    listaPesquisaCliente.setModel(model);
+                    model.removeAllElements();
+
+                    for (String cliente : ClienteDAO.retornaPesquisaClientesAproximada(nomeCliente.getText())) {
+                        model.addElement(cliente);
+                    }
+
+                    if (model.isEmpty()) {
+                        listaPesquisaCliente.setVisible(false);
+                    } else {
+                        listaPesquisaCliente.setVisible(true);
+                    }
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_nomeClienteKeyReleased
+
+    private void nomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeClienteActionPerformed
+
+    private void porNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porNomeClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_porNomeClienteActionPerformed
+
+    private void porNomeClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porNomeClienteItemStateChanged
         if (porCodigoCliente.isSelected() == true) {
             comboTipoPessoa.setEnabled(true);
             codigoCliente.setEnabled(true);
@@ -1188,317 +1450,55 @@ public class RelatorioOrcamentos extends javax.swing.JInternalFrame {
             pessoaFisica.setEnabled(false);
             pessoaJuridica.setEnabled(false);
         }
-    }//GEN-LAST:event_porTodosClientesItemStateChanged
+    }//GEN-LAST:event_porNomeClienteItemStateChanged
 
-    private void porCodigoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoProdutoItemStateChanged
-        if (porCodigoProduto.isSelected()) {
-            codigoProduto.setEnabled(true);
-            descricaoProduto.setEnabled(false);
-            listaPesquisaProdutos.setVisible(false);
-            tipoProduto.setEnabled(false);
+    private void porCodigoClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoClienteItemStateChanged
+        if (porCodigoCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(true);
+            codigoCliente.setEnabled(true);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
+        } else if (porNomeCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(true);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
+        } else if (porTipoPessoaCliente.isSelected() == true) {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(true);
+            pessoaJuridica.setEnabled(true);
+        } else {
+            comboTipoPessoa.setEnabled(false);
+            codigoCliente.setEnabled(false);
+            nomeCliente.setEnabled(false);
+            listaPesquisaCliente.setVisible(false);
+            pessoaFisica.setEnabled(false);
+            pessoaJuridica.setEnabled(false);
         }
-    }//GEN-LAST:event_porCodigoProdutoItemStateChanged
+    }//GEN-LAST:event_porCodigoClienteItemStateChanged
 
-    private void porCodigoProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_porCodigoProdutoMouseClicked
-
-    }//GEN-LAST:event_porCodigoProdutoMouseClicked
-
-    private void porDescricaoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDescricaoProdutoItemStateChanged
-        if (porDescricaoProduto.isSelected()) {
-            codigoProduto.setEnabled(false);
-            descricaoProduto.setEnabled(true);
-            listaPesquisaProdutos.setVisible(false);
-            tipoProduto.setEnabled(false);
-        }
-    }//GEN-LAST:event_porDescricaoProdutoItemStateChanged
-
-    private void porTipoProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTipoProdutoItemStateChanged
-        if (porTipoProduto.isSelected()) {
-            codigoProduto.setEnabled(false);
-            descricaoProduto.setEnabled(false);
-            listaPesquisaProdutos.setVisible(false);
-            tipoProduto.setEnabled(true);
-        }
-    }//GEN-LAST:event_porTipoProdutoItemStateChanged
-
-    private void codigoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigoProdutoActionPerformed
-
-    private void descricaoProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descricaoProdutoKeyReleased
+    private void listaPesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaClienteMouseClicked
+        nomeCliente.setText(listaPesquisaCliente.getSelectedValue());
         new Thread() {
             @Override
             public void run() {
                 try {
-                    listaPesquisaProdutos.setModel(model);
-                    model.removeAllElements();
-
-                    for (String descricao : ProdutoDAO.retornaPesquisaProdutosAproximada(descricaoProduto.getText())) {
-                        model.addElement(descricao);
-                    }
-
-                    if (model.isEmpty()) {
-                        listaPesquisaProdutos.setVisible(false);
-                    } else {
-                        listaPesquisaProdutos.setVisible(true);
-                    }
+                    cliente = ClienteDAO.retornaTipoCodClienteRelatorio(listaPesquisaCliente.getSelectedValue());
+                    listaPesquisaCliente.setVisible(false);
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
             }
         }.start();
-    }//GEN-LAST:event_descricaoProdutoKeyReleased
-
-    private void porTodosProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosProdutosItemStateChanged
-        if (porTodosProdutos.isSelected()) {
-            codigoProduto.setEnabled(false);
-            descricaoProduto.setEnabled(false);
-            listaPesquisaProdutos.setVisible(false);
-            tipoProduto.setEnabled(false);
-        }
-    }//GEN-LAST:event_porTodosProdutosItemStateChanged
-
-    private void listaPesquisaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaProdutosMouseClicked
-        descricaoProduto.setText(listaPesquisaProdutos.getSelectedValue().toString());
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    produto = ProdutoDAO.retornaProdutoRelatorio(listaPesquisaProdutos.getSelectedValue().toString());
-                    listaPesquisaProdutos.setVisible(false);
-                } catch (SQLException ex) {
-                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-                    EnvioExcecao.envio(loading);
-                }
-            }
-        }.start();
-    }//GEN-LAST:event_listaPesquisaProdutosMouseClicked
-
-    private void porTodosEmissoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosEmissoresItemStateChanged
-        if (porEmissor.isSelected() == true) {
-            comboEmissores.setEnabled(true);
-        } else {
-            comboEmissores.setEnabled(false);
-        }
-    }//GEN-LAST:event_porTodosEmissoresItemStateChanged
-
-    private void porEmissorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porEmissorItemStateChanged
-        if (porEmissor.isSelected() == true) {
-            comboEmissores.setEnabled(true);
-        } else {
-            comboEmissores.setEnabled(false);
-        }
-    }//GEN-LAST:event_porEmissorItemStateChanged
-
-    private void porDiaEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDiaEntregaItemStateChanged
-        if (porDiaEntrega.isSelected() == true) {
-            diaEmissao.setEnabled(false);
-            diaEntrega.setEnabled(true);
-            periodoInicioEmissao.setEnabled(false);
-            periodoFimEmissao.setEnabled(false);
-            periodoInicioEntrega.setEnabled(false);
-            periodoFimEntrega.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_porDiaEntregaItemStateChanged
-
-    private void porPeriodoEntregaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porPeriodoEntregaItemStateChanged
-        if (porPeriodoEntrega.isSelected() == true) {
-            diaEmissao.setEnabled(false);
-            diaEntrega.setEnabled(false);
-            periodoInicioEmissao.setEnabled(false);
-            periodoFimEmissao.setEnabled(false);
-            periodoInicioEntrega.setEnabled(true);
-            periodoFimEntrega.setEnabled(true);
-
-        }
-    }//GEN-LAST:event_porPeriodoEntregaItemStateChanged
-
-    private void porPeriodoEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porPeriodoEntregaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_porPeriodoEntregaActionPerformed
-
-    private void porTodosPeriodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosPeriodosItemStateChanged
-        if (porTodosPeriodos.isSelected() == true) {
-            diaEmissao.setEnabled(false);
-            diaEntrega.setEnabled(false);
-            periodoInicioEmissao.setEnabled(false);
-            periodoFimEmissao.setEnabled(false);
-            periodoInicioEntrega.setEnabled(false);
-            periodoFimEntrega.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_porTodosPeriodosItemStateChanged
-
-    private void porTodosPeriodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTodosPeriodosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_porTodosPeriodosActionPerformed
-
-    private void porDiaEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porDiaEmissaoItemStateChanged
-        if (porDiaEmissao.isSelected() == true) {
-            diaEmissao.setEnabled(true);
-            diaEntrega.setEnabled(false);
-            periodoInicioEmissao.setEnabled(false);
-            periodoFimEmissao.setEnabled(false);
-            periodoInicioEntrega.setEnabled(false);
-            periodoFimEntrega.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_porDiaEmissaoItemStateChanged
-
-    private void porPeriodoEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porPeriodoEmissaoItemStateChanged
-        if (porPeriodoEmissao.isSelected() == true) {
-            diaEmissao.setEnabled(false);
-            diaEntrega.setEnabled(false);
-            periodoInicioEmissao.setEnabled(true);
-            periodoFimEmissao.setEnabled(true);
-            periodoInicioEntrega.setEnabled(false);
-            periodoFimEntrega.setEnabled(false);
-
-        }
-    }//GEN-LAST:event_porPeriodoEmissaoItemStateChanged
-
-    private void campoNomeClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoNomeClienteItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNomeClienteItemStateChanged
-
-    private void campoTipoPessoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoTipoPessoaItemStateChanged
-        if (campoTipoPessoa.isSelected() == true) {
-            porTipoPessoaOrd.setEnabled(true);
-        } else {
-            porTipoPessoaOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoTipoPessoaItemStateChanged
-
-    private void campoQuantidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoQuantidadeItemStateChanged
-        if (campoQuantidade.isSelected() == true) {
-            porQtdCrescenteOrd.setEnabled(true);
-            porQtdDescrescenteOrd.setEnabled(true);
-        } else {
-            porQtdCrescenteOrd.setEnabled(false);
-            porQtdDescrescenteOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoQuantidadeItemStateChanged
-
-    private void campoValorUnitarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoValorUnitarioItemStateChanged
-        if (campoValorUnitario.isSelected() == true) {
-            porVlrTotalOrd.setEnabled(true);
-            porPercentagemCifOrd.setEnabled(true);
-        } else {
-            porVlrTotalOrd.setEnabled(false);
-            porPercentagemCifOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoValorUnitarioItemStateChanged
-
-    private void campoDataEmissaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDataEmissaoItemStateChanged
-        if (campoDataEmissao.isSelected() == true) {
-            porDtEmissaoOrd.setEnabled(true);
-            porVlrFreteOrd.setEnabled(true);
-        } else {
-            porDtEmissaoOrd.setEnabled(false);
-            porVlrFreteOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoDataEmissaoItemStateChanged
-
-    private void campoDataValidadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDataValidadeItemStateChanged
-        if (campoDataValidade.isSelected() == true) {
-            porDtValidadeOrd.setEnabled(true);
-        } else {
-            porDtValidadeOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoDataValidadeItemStateChanged
-
-    private void campoCodigoOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoCodigoOrcamentoItemStateChanged
-        if (campoCodigoOrcamento.isSelected()) {
-            porCodOrcOrd.setEnabled(true);
-        } else {
-            porCodOrcOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoCodigoOrcamentoItemStateChanged
-
-    private void campoEmissorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoEmissorItemStateChanged
-        if (campoEmissor.isSelected() == true) {
-            porEmissorOrd.setEnabled(true);
-        } else {
-            porEmissorOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoEmissorItemStateChanged
-
-    private void campoDataValidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataValidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDataValidadeActionPerformed
-
-    private void porQtdCrescenteOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porQtdCrescenteOrdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_porQtdCrescenteOrdActionPerformed
-
-    private void botaoGeraRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGeraRelatorioActionPerformed
-        new Thread() {
-            @Override
-            public void run() {
-                if (verificaCondicoes()) {
-                    geraRelatorio();
-                }
-            }
-        }.start();
-    }//GEN-LAST:event_botaoGeraRelatorioActionPerformed
-
-    private void porQtdDescrescenteOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porQtdDescrescenteOrdActionPerformed
-
-    }//GEN-LAST:event_porQtdDescrescenteOrdActionPerformed
-
-    private void porDtEmissaoOrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porDtEmissaoOrdActionPerformed
-
-    }//GEN-LAST:event_porDtEmissaoOrdActionPerformed
-
-    private void campoCodigoOpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoCodigoOpItemStateChanged
-
-    }//GEN-LAST:event_campoCodigoOpItemStateChanged
-
-    private void porCodigoOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porCodigoOrcamentoItemStateChanged
-        if (porCodigoOrcamento.isSelected()) {
-            codigoOrcamento.setEnabled(true);
-            statusOrcamento.setEnabled(false);
-            valorTotalInicial.setEnabled(false);
-            valorTotalFinal.setEnabled(false);
-        }
-    }//GEN-LAST:event_porCodigoOrcamentoItemStateChanged
-
-    private void porStatusOrcamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porStatusOrcamentoItemStateChanged
-        if (porStatusOrcamento.isSelected()) {
-            codigoOrcamento.setEnabled(false);
-            statusOrcamento.setEnabled(true);
-            valorTotalInicial.setEnabled(false);
-            valorTotalFinal.setEnabled(false);
-        }
-    }//GEN-LAST:event_porStatusOrcamentoItemStateChanged
-
-    private void porValorTotalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porValorTotalItemStateChanged
-        if (porValorTotal.isSelected()) {
-            codigoOrcamento.setEnabled(false);
-            statusOrcamento.setEnabled(false);
-            valorTotalInicial.setEnabled(true);
-            valorTotalFinal.setEnabled(true);
-        }
-    }//GEN-LAST:event_porValorTotalItemStateChanged
-
-    private void porTodosOrcamentosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_porTodosOrcamentosItemStateChanged
-        if (porTodosOrcamentos.isSelected()) {
-            codigoOrcamento.setEnabled(false);
-            statusOrcamento.setEnabled(false);
-            valorTotalInicial.setEnabled(false);
-            valorTotalFinal.setEnabled(false);
-        }
-    }//GEN-LAST:event_porTodosOrcamentosItemStateChanged
-
-    private void campoDescontoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoDescontoItemStateChanged
-        if (campoDesconto.isSelected()) {
-            porPercentagemDescontoOrd.setEnabled(true);
-        } else {
-            porPercentagemDescontoOrd.setEnabled(false);
-        }
-    }//GEN-LAST:event_campoDescontoItemStateChanged
+    }//GEN-LAST:event_listaPesquisaClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3228,7 +3228,7 @@ public class RelatorioOrcamentos extends javax.swing.JInternalFrame {
                 textoInicialOrcamento = codigoOrcamento.getText();
             } else if (porStatusOrcamento.isSelected()) {
                 tipoCondicaoOrcamento = 2;
-                textoInicialOrcamento = statusOrcamento.getSelectedItem().toString().substring(0, 1);
+                textoInicialOrcamento = statusOrcamento.getSelectedItem().toString().split(" ")[0];
             } else if (porValorTotal.isSelected()) {
                 tipoCondicaoOrcamento = 3;
                 textoInicialOrcamento = valorTotalInicial.getText().replace(",", ".");

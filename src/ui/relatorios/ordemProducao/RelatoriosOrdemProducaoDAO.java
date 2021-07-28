@@ -57,6 +57,12 @@ public class RelatoriosOrdemProducaoDAO {
             boolean valorParcial,
             boolean dataEmissao,
             boolean dataEntrega,
+            boolean dataEntrega1aProva,
+            boolean dataEntrega2aProva,
+            boolean dataEntrega3aProva,
+            boolean dataEntrega4aProva,
+            boolean dataEntrega5aProva,
+            boolean operador,
             boolean emissor,
             boolean nomeCliente,
             boolean status,
@@ -84,12 +90,13 @@ public class RelatoriosOrdemProducaoDAO {
 
         try {
             comando = retornaComandoOrdemProducao(codigoOp, codigoOrcamento, codigoCliente, codigoProduto, descricaoProduto, tipoPessoa, quantidade, valorParcial,
-                    dataEmissao, dataEntrega, emissor, nomeCliente, status, condicaoCliente, condicaoOpOrcamento, condicaoProduto, condicaoEmissor, condicaoPeriodo, condicaoOrdenar,
+                    dataEmissao, dataEntrega, dataEntrega1aProva, dataEntrega2aProva, dataEntrega3aProva, dataEntrega4aProva, dataEntrega5aProva, operador, emissor,
+                    nomeCliente, status, condicaoCliente, condicaoOpOrcamento, condicaoProduto, condicaoEmissor, condicaoPeriodo, condicaoOrdenar,
                     condicaoStatus, textoOpOrcamento, textoEmissor, textoStatus, textoPeriodoInicio, textoPeriodoFim, cliente, produto);
             stmt = con.prepareStatement(comando);
             rs = stmt.executeQuery();
             retorno = retornaResultadoQueryOrdemProducao(rs, codigoOp, codigoOrcamento, codigoCliente, codigoProduto, descricaoProduto, tipoPessoa, quantidade, valorParcial, dataEmissao, dataEntrega,
-                    emissor, nomeCliente, status);
+                    dataEntrega1aProva, dataEntrega2aProva, dataEntrega3aProva, dataEntrega4aProva, dataEntrega5aProva, operador, emissor, nomeCliente, status);
         } catch (SQLException ex) {
             throw new SQLException(ex);
         } finally {
@@ -108,6 +115,12 @@ public class RelatoriosOrdemProducaoDAO {
             boolean valorParcial,
             boolean dataEmissao,
             boolean dataEntrega,
+            boolean dataEntrega1aProva,
+            boolean dataEntrega2aProva,
+            boolean dataEntrega3aProva,
+            boolean dataEntrega4aProva,
+            boolean dataEntrega5aProva,
+            boolean operador,
             boolean emissor,
             boolean nomeCliente,
             boolean status,
@@ -205,12 +218,60 @@ public class RelatoriosOrdemProducaoDAO {
                 comando = comando + " , tabela_ordens_producao.data_entrega";
             }
         }
+        if (dataEntrega1aProva) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.data_1a_prova";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.data_1a_prova";
+            }
+        }
+        if (dataEntrega2aProva) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.data_2a_prova";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.data_2a_prova";
+            }
+        }
+        if (dataEntrega3aProva) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.data_3a_prova";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.data_3a_prova";
+            }
+        }
+        if (dataEntrega4aProva) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.data_4a_prova";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.data_4a_prova";
+            }
+        }
+        if (dataEntrega5aProva) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.data_5a_prova";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.data_5a_prova";
+            }
+        }
         if (emissor) {
             if (primeiro == 0) {
                 comando = comando + " tabela_ordens_producao.cod_emissor";
                 primeiro += 1;
             } else {
                 comando = comando + " , tabela_ordens_producao.cod_emissor";
+            }
+        }
+        if (operador) {
+            if (primeiro == 0) {
+                comando = comando + " tabela_ordens_producao.op_secao";
+                primeiro += 1;
+            } else {
+                comando = comando + " , tabela_ordens_producao.op_secao";
             }
         }
         if (status) {
@@ -417,6 +478,12 @@ public class RelatoriosOrdemProducaoDAO {
             boolean valorParcial,
             boolean dataEmissao,
             boolean dataEntrega,
+            boolean dataEntrega1aProva,
+            boolean dataEntrega2aProva,
+            boolean dataEntrega3aProva,
+            boolean dataEntrega4aProva,
+            boolean dataEntrega5aProva,
+            boolean operador,
             boolean emissor,
             boolean nomeCliente,
             boolean status) throws SQLException {
@@ -455,6 +522,24 @@ public class RelatoriosOrdemProducaoDAO {
                 }
                 if (dataEntrega) {
                     ordensProducao.setDataEntrega(rs.getDate("tabela_ordens_producao.data_entrega"));
+                }
+                if(dataEntrega1aProva){
+                    ordensProducao.setData1aProva(rs.getDate("tabela_ordens_producao.data_1a_prova"));
+                }
+                if(dataEntrega2aProva){
+                    ordensProducao.setData2aProva(rs.getDate("tabela_ordens_producao.data_2a_prova"));
+                }
+                if(dataEntrega3aProva){
+                    ordensProducao.setData3aProva(rs.getDate("tabela_ordens_producao.data_3a_prova"));
+                }
+                if(dataEntrega4aProva){
+                    ordensProducao.setData4aProva(rs.getDate("tabela_ordens_producao.data_4a_prova"));
+                }
+                if(dataEntrega5aProva){
+                    ordensProducao.setData5aProva(rs.getDate("tabela_ordens_producao.data_5a_prova"));
+                }
+                if(operador){
+                    ordensProducao.setOpSecao(rs.getString("tabela_ordens_producao.op_secao"));
                 }
                 if (emissor) {
                     ordensProducao.setCodEmissor(rs.getString("tabela_ordens_producao.cod_emissor"));

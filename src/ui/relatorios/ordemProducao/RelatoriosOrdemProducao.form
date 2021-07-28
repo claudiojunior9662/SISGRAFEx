@@ -911,28 +911,40 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="campoCodigoOp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoCodigoCliente" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoCodigoProduto" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoCodigoOrcamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoDescricaoProduto" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoTipoPessoa" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="campoQuantidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="campoValorParcial" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoDataEntrega" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoDataEmissao" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData1aProva" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData2aProva" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData3aProva" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData4aProva" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="campoData5aProva" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="campoCodigoOp" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoCodigoCliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoCodigoProduto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoDescricaoProduto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoCodigoOrcamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoTipoPessoa" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="campoStatus" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoDataEmissao" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoValorParcial" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoNomeCliente" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campoDataEntrega" min="-2" max="-2" attributes="0"/>
                                   <Component id="campoEmissor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoOperador" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoNomeCliente" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoStatus" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="0" pref="422" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="425" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -940,7 +952,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="campoCodigoOp" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -950,28 +962,44 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="campoCodigoProduto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="campoDescricaoProduto" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campoDescricaoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoData2aProva" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="campoValorParcial" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campoValorParcial" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoData5aProva" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="campoDataEmissao" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="campoDataEntrega" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoData1aProva" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="campoOperador" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="campoEmissor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="campoNomeCliente" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="campoStatus" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campoTipoPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData3aProva" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="campoQuantidade" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="89" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="campoQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoData4aProva" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1058,7 +1086,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="campoDataEntrega">
               <Properties>
-                <Property name="text" type="java.lang.String" value="DATA ENTREGA"/>
+                <Property name="text" type="java.lang.String" value="DATA DE ENTREGA"/>
               </Properties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoDataEntregaItemStateChanged"/>
@@ -1068,6 +1096,59 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="STATUS"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoData1aProva">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DATA 1&#xaa; PROVA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoData1aProvaItemStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoData1aProvaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoOperador">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="OPERADOR"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoOperadorItemStateChanged"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoData2aProva">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DATA 2&#xaa; PROVA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoData2aProvaItemStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoData2aProvaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoData3aProva">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DATA 3&#xaa; PROVA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoData3aProvaItemStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoData3aProvaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoData4aProva">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DATA 4&#xaa; PROVA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoData4aProvaItemStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoData4aProvaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="campoData5aProva">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DATA 5&#xaa; PROVA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoData5aProvaItemStateChanged"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoData5aProvaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
