@@ -11,6 +11,8 @@ import ui.login.TelaAutenticacao;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfPCell;
+import entities.sisgrafex.CalculosOp;
+import entities.sisgrafex.ContSobraPapel;
 import entities.sisgrafex.Faturamento;
 import entities.sisgrafex.OrdemProducao;
 import java.io.IOException;
@@ -25,6 +27,8 @@ import exception.EnvioExcecao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.dao.OrcamentoDAO;
 import model.dao.OrdemProducaoDAO;
 import model.dao.ClienteDAO;
@@ -2090,7 +2094,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
                     == (int) qtdSolicitada.getValue() - (int) qtdEntregue.getValue()) {
                 OrdemProducaoDAO.alteraStatus((byte) 11, FAT.getCodOp());
                 statusOp = (byte) 11;
-                
+
             }
 
             /**
@@ -2103,6 +2107,13 @@ public class FatFrame extends javax.swing.JInternalFrame {
              * Carrega as informações da OP
              */
             OrdemProducao op = OrdemProducaoDAO.retornaDadosOp(FAT.getCodOp());
+            
+            /**
+             * Atualiza o contador de sobra de papéis
+             */
+            if(statusOp == 11 && op.getTipoProduto() == 1){
+                atualizaContadorSobraPapeis(op.getCodigo(), op.getOrcBase());
+            }
 
             /**
              * Verifica status faturamento
@@ -2125,11 +2136,11 @@ public class FatFrame extends javax.swing.JInternalFrame {
                             (byte) 2);
                 }
             }
-            
+
             /**
              * Atualiza o status do orçamento
              */
-            if(!OrdemProducaoDAO.verificaOpOrcEntregues(FAT.getCodOrc(), FAT.getCodOp())){
+            if (!OrdemProducaoDAO.verificaOpOrcEntregues(FAT.getCodOrc(), FAT.getCodOp())) {
                 OrcamentoDAO.alteraStatus(FAT.getCodOrc(), 9);
             }
 
@@ -2194,5 +2205,38 @@ public class FatFrame extends javax.swing.JInternalFrame {
             EnvioExcecao.envio(loading);
         }
         loading.setVisible(false);
+    }
+
+    private void atualizaContadorSobraPapeis(int codOp, int codProposta) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    /**
+                     * Resgata os dados atuais do contador
+                     */
+                    ContSobraPapel atual = OrdemProducaoDAO.retornaDadosContador();
+
+                    /**
+                     * Regata a quantidade de papel gasta
+                     */
+                    CalculosOp papelGasto = OrdemProducaoDAO.retornaQtdFolhasOp(codOp, codProposta);
+
+                    /**
+                     * Faz a soma de sobra de papel
+                     */
+                    double sobraPapel = papelGasto.getQtdFolhasTotal() * 0.05;
+                    atual.setSobraPapelAtual(atual.getSobraPapelAtual() + Math.round(sobraPapel));
+
+                    /**
+                     * Envia a atualização do contador para o banco de dados
+                     */
+                    OrdemProducaoDAO.atualizaDadosContador(atual);
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
+            }
+        }.start();
     }
 }

@@ -20,7 +20,7 @@ import ui.cadastros.produtos.AcabamentoProdBEAN;
 import ui.cadastros.papeis.PapelBEAN;
 import entities.sisgrafex.ProdutoBEAN;
 import entities.sisgrafex.Orcamento;
-import entities.sisgrafex.CalculosOpBEAN;
+import entities.sisgrafex.CalculosOp;
 import model.dao.ProdutoDAO;
 import model.dao.OrcamentoDAO;
 import entities.sisgrafex.Servicos;
@@ -1982,7 +1982,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                     prodOrc.getObservacaoProduto()});
 
                                 for (PapelBEAN papel : PapelDAO.carregaPapeisProd(CODIGO_PRODUTO)) {
-                                    CalculosOpBEAN calculosBEAN = OrcamentoDAO.retornaCalculosProposta((int) codigoOrcamento.getValue(), CODIGO_PRODUTO,
+                                    CalculosOp calculosBEAN = OrcamentoDAO.retornaCalculosProposta((int) codigoOrcamento.getValue(), CODIGO_PRODUTO,
                                             prodOrc.getTipoProduto(),
                                             papel.getCodigo(),
                                             papel.getTipoPapel());
@@ -2374,7 +2374,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         //INSERE NA TABELA PAPÉIS-------------------------------
                         if (TIPO_ORCAMENTO == 2) {
                             for (PapelBEAN papeisCadastroBEAN : ProdutoDAO.retornaInformacoesPapel(Integer.valueOf(CODIGO_PRODUTO))) {
-                                CalculosOpBEAN calculosBEAN = OrcamentoDAO.retornaCalculosProposta(CODIGO_ORCAMENTO,
+                                CalculosOp calculosBEAN = OrcamentoDAO.retornaCalculosProposta(CODIGO_ORCAMENTO,
                                         Integer.valueOf(CODIGO_PRODUTO),
                                         produtos.getTipoProduto(),
                                         papeisCadastroBEAN.getCodigo(),
@@ -4320,7 +4320,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     for (int i = 0; i < tabelaPapeis.getRowCount(); i++) {
                         if (Integer.valueOf(tabelaPapeis.getValueAt(i, 0).toString())
                                 == CODIGO_PRODUTO) {
-                            CalculosOpBEAN calculosBEAN = new CalculosOpBEAN();
+                            CalculosOp calculosBEAN = new CalculosOp();
                             calculosBEAN.setCodOp(0);
                             calculosBEAN.setCodProduto(CODIGO_PRODUTO);
                             calculosBEAN.setTipoProduto(TIPO_ORCAMENTO == 1 ? (byte) 2 : (byte) 1);

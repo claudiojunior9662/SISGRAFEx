@@ -14,11 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import entities.sisgrafex.OrdemProducao;
-import entities.sisgrafex.CalculosOpBEAN;
+import entities.sisgrafex.CalculosOp;
 import entities.sisgrafex.Cliente;
+import entities.sisgrafex.ContSobraPapel;
 import entities.sisgrafex.Servicos;
 import entities.sisgrafex.StsOp;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static model.dao.OrdemProducaoDAO.alteraDtCancelamento;
 import static model.dao.OrdemProducaoDAO.alteraStatusOp;
 import static model.dao.OrdemProducaoDAO.consultaOp;
@@ -294,7 +297,7 @@ public class OrdemProducaoDAO {
      * @return
      * @throws SQLException
      */
-    public static List<CalculosOpBEAN> retornaCalculosOp(int codOp,
+    public static List<CalculosOp> retornaCalculosOp(int codOp,
             byte tipoProduto,
             int codProduto,
             String tipoPapel) throws SQLException {
@@ -302,7 +305,7 @@ public class OrdemProducaoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<CalculosOpBEAN> retorno = new ArrayList();
+        List<CalculosOp> retorno = new ArrayList();
 
         try {
             stmt = con.prepareStatement("SELECT * "
@@ -320,7 +323,7 @@ public class OrdemProducaoDAO {
             stmt.setString(4, tipoPapel);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                CalculosOpBEAN calculo = new CalculosOpBEAN();
+                CalculosOp calculo = new CalculosOp();
                 calculo.setQtdFolhas(rs.getInt("qtd_folhas"));
                 calculo.setQtdFolhasTotal(rs.getInt("qtd_folhas_total"));
                 calculo.setMontagem(rs.getInt("montagem"));
@@ -407,19 +410,19 @@ public class OrdemProducaoDAO {
         }
     }
 
-    public static List<CalculosOpBEAN> retornaQtdChapas(int codOp) throws SQLException {
+    public static List<CalculosOp> retornaQtdChapas(int codOp) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<CalculosOpBEAN> retorno = new ArrayList();
+        List<CalculosOp> retorno = new ArrayList();
 
         try {
             stmt = con.prepareStatement("SELECT qtd_chapas, cod_papel FROM tabela_calculos_op WHERE cod_op = ?");
             stmt.setInt(1, codOp);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                CalculosOpBEAN calculosBEAN = new CalculosOpBEAN();
+                CalculosOp calculosBEAN = new CalculosOp();
                 calculosBEAN.setQtdChapas(rs.getInt("qtd_chapas"));
                 calculosBEAN.setCodigoPapel(rs.getInt("cod_papel"));
                 retorno.add(calculosBEAN);
@@ -1486,6 +1489,86 @@ public class OrdemProducaoDAO {
             stmt.setDate(1, new java.sql.Date(dataEntregaNova.getTime()));
             stmt.setInt(2, codigoOp);
             stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    /**
+     * Retorna os dados atuais do contador de sobra de papéis
+     * @return 
+     */
+    public static ContSobraPapel retornaDadosContador() throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = con.prepareStatement("SELECT tabela_controle.SOBRA_PAPEL_ATUAL "
+                    + "FROM tabela_controle ");
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return new ContSobraPapel(
+                        rs.getInt("tabela_controle.SOBRA_PAPEL_ATUAL")
+                );
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    /**
+     * Atualiza os dados do contador de sobra de papéis
+     * @param contador atualização
+     * @throws SQLException 
+     */
+    public static void atualizaDadosContador(ContSobraPapel contador) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = con.prepareStatement("UPDATE tabela_controle "
+                    + "SET tabela_controle.SOBRA_PAPEL_ATUAL = ?");
+            stmt.setInt(1,(int) contador.getSobraPapelAtual());
+            stmt.executeUpdate();
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    /**
+     * Retorna a quantidade de folhas para a OP
+     * @param codOp código da OP
+     * @param codProposta código da proposta
+     * @return 
+     */
+    public static CalculosOp retornaQtdFolhasOp(int codOp, int codProposta) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        CalculosOp calculos = new CalculosOp(0,0);
+        
+        try{
+            stmt = con.prepareStatement("SELECT tabela_calculos_op.qtd_folhas_total, tabela_calculos_op.perca "
+                    + "FROM tabela_calculos_op "
+                    + "WHERE tabela_calculos_op.cod_op = ? AND tabela_calculos_op.cod_proposta = ?");
+            stmt.setInt(1, codOp);
+            stmt.setInt(2, codProposta);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                calculos.setQtdFolhasTotal(calculos.getQtdFolhasTotal() + rs.getInt("tabela_calculos_op.qtd_folhas_total"));
+                calculos.setPerca(rs.getInt("tabela_calculos_op.perca"));
+            }
+            return calculos;
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }finally{

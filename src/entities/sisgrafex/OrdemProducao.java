@@ -1113,7 +1113,7 @@ public class OrdemProducao {
                                 cell1.setPaddingTop(5);
                                 cell1.setPaddingBottom(5);
                                 tblPapel.addCell(cell1);
-                                for (CalculosOpBEAN calculo : OrdemProducaoDAO.retornaCalculosOp(
+                                for (CalculosOp calculo : OrdemProducaoDAO.retornaCalculosOp(
                                         codOp, prodOrc.getTipoProduto(),
                                         op.getCodProduto(), papel.getTipoPapel())) {
                                     cell2 = new PdfPCell(new Phrase("GASTO DE FOLHAS: " + calculo.getQtdFolhasTotal(), FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
@@ -1171,7 +1171,7 @@ public class OrdemProducao {
                             cell1.setBorder(Rectangle.BOTTOM);
                             cell1.setColspan(3);
                             tblChapas.addCell(cell1);
-                            for (CalculosOpBEAN calculosBEAN : OrdemProducaoDAO.retornaQtdChapas(codOp)) {
+                            for (CalculosOp calculosBEAN : OrdemProducaoDAO.retornaQtdChapas(codOp)) {
                                 if (calculosBEAN.getQtdChapas() != 0) {
                                     cell1 = new PdfPCell(new Phrase("CÓDIGO PAPEL:  " + calculosBEAN.getCodigoPapel(), FontFactory.getFont("arial.ttf", 9)));
                                     cell1.setBorder(Rectangle.LEFT | Rectangle.BOTTOM);

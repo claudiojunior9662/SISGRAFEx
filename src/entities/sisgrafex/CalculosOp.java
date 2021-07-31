@@ -9,7 +9,7 @@ package entities.sisgrafex;
  *
  * @author claud
  */
-public class CalculosOpBEAN {
+public class CalculosOp {
 
     private int codOp;
     private byte tipoProduto;
@@ -23,6 +23,14 @@ public class CalculosOpBEAN {
     private float perca;
     private int codigoProposta;
     private int codigoPapel;
+
+    public CalculosOp() {
+    }
+
+    public CalculosOp(int qtdFolhasTotal, float perca) {
+        this.qtdFolhasTotal = qtdFolhasTotal;
+        this.perca = perca;
+    }
 
     public int getCodigoPapel() {
         return codigoPapel;

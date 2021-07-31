@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import entities.sisgrafex.OrdemProducao;
-import entities.sisgrafex.CalculosOpBEAN;
+import entities.sisgrafex.CalculosOp;
 import exception.EnvioExcecao;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -555,7 +555,7 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
     private void confirmarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarEnvioActionPerformed
         try {
             OrdemProducao op = new OrdemProducao();
-            CalculosOpBEAN calculosBEAN = new CalculosOpBEAN();
+            CalculosOp calculosBEAN = new CalculosOp();
 
             //VERIFICA SE EXISTEM PRODUTOS SEM A DATA DE ENTREGA SELECIONADA--------
             for (int i = 0; i < tabelaProdutos.getRowCount(); i++) {

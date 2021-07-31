@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import entities.sisgrafex.Orcamento;
-import entities.sisgrafex.CalculosOpBEAN;
+import entities.sisgrafex.CalculosOp;
 import entities.sisgrafex.Servicos;
 import entities.sisgrafex.StsOrcamento;
 import exception.OrcamentoInexistenteException;
@@ -1158,7 +1158,7 @@ public class OrcamentoDAO {
      * @param calculosBEAN cálculos da proposta
      * @throws SQLException
      */
-    public static void createCalculosProposta(CalculosOpBEAN calculosBEAN) throws SQLException {
+    public static void createCalculosProposta(CalculosOp calculosBEAN) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -1196,7 +1196,7 @@ public class OrcamentoDAO {
      * @return
      * @throws SQLException
      */
-    public static CalculosOpBEAN retornaCalculosProposta(int codProposta,
+    public static CalculosOp retornaCalculosProposta(int codProposta,
             int codProd,
             byte tipoProd,
             int codPapel,
@@ -1205,7 +1205,7 @@ public class OrcamentoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        CalculosOpBEAN retorno = new CalculosOpBEAN();
+        CalculosOp retorno = new CalculosOp();
 
         try {
             stmt = con.prepareStatement("SELECT formato, perca, qtd_folhas_total, qtd_chapas, cod_papel "
