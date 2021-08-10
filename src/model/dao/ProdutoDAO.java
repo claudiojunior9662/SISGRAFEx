@@ -1520,34 +1520,44 @@ public class ProdutoDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-        try{
-            switch(tipoProd){
+
+        try {
+            switch (tipoProd) {
                 case 1:
                     stmt = con.prepareStatement("SELECT produtos.USO_ECOMMERCE "
-                            + "FROM PRODUTOS "
+                            + "FROM produtos "
                             + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProd);
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        switch (rs.getByte("produtos.USO_ECOMMERCE")) {
+                            case 1:
+                                return true;
+                            case 0:
+                                return false;
+                        }
+                    }
                     break;
                 case 2:
-                    stmt = con.prepareStatement("SELECT produtos.USO_ECOMMERCE "
-                            + "FROM PRODUTOS_PR_ENT "
+                    stmt = con.prepareStatement("SELECT produtos_pr_ent.USO_ECOMMERCE "
+                            + "FROM produtos_pr_ent "
                             + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProd);
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        switch (rs.getByte("produtos_pr_ent.USO_ECOMMERCE")) {
+                            case 1:
+                                return true;
+                            case 0:
+                                return false;
+                        }
+                    }
                     break;
             }
-            rs = stmt.executeQuery();
-            if(rs.next()){
-                switch(rs.getByte("produtos.USO_ECOMMERCE")){
-                    case 1:
-                        return true;
-                    case 0:
-                        return false;
-                }
-            }
-        }catch(SQLException ex){
+
+        } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return false;

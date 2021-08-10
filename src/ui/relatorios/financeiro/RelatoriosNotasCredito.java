@@ -1512,16 +1512,15 @@ public class RelatoriosNotasCredito extends javax.swing.JInternalFrame {
             Double valorTotal = 0.0;
             DecimalFormat df = new DecimalFormat("###,##0.00");
 
+            cliente = new Cliente();
             if (porCodigo.isSelected() == true) {
                 tipoCondicaoCliente = "POR CÓDIGO";
-                cliente = new Cliente();
                 cliente.setTipoPessoa((byte) Byte.valueOf(comboTipoPessoa.getSelectedItem().toString().substring(0, 1)));
                 cliente.setCodigo(Integer.valueOf(codigoCliente.getText()));
             } else if (porNome.isSelected() == true) {
                 tipoCondicaoCliente = "POR NOME";
             } else if (porTipoPessoa.isSelected() == true) {
                 tipoCondicaoCliente = "POR TIPO PESSOA";
-                cliente = new Cliente();
                 cliente.setTipoPessoa(pessoaFisica.isSelected() ? (byte) 1 : (byte) 2);
             } else {
                 tipoCondicaoCliente = "";
