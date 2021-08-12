@@ -283,10 +283,10 @@ public class Controle {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT DIR_ARQUIVO FROM tabela_controle");
+            stmt = con.prepareStatement("SELECT DIR_ARQUIVOS FROM tabela_controle");
             rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getString("DIR_ARQUIVO");
+                return rs.getString("DIR_ARQUIVOS");
             }
         } catch (SQLException ex) {
             throw new SQLException(ex);

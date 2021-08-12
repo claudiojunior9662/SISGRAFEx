@@ -37,7 +37,6 @@ import ui.cadastros.produtos.ProdutoPrEntBEAN;
 import model.dao.ServicoDAO;
 import ui.controle.Controle;
 import ui.login.TelaAutenticacao;
-import ui.ordemProducao.enviar.EnviarArquivo;
 
 /**
  *

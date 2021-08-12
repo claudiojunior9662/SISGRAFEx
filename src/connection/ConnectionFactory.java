@@ -485,10 +485,12 @@ public class ConnectionFactory {
      * Realiza o envio do arquivo para o diretório
      * @param codOp código da OP
      * @param tipoVersao tipo de versão do arquivo 1 - V1, 2 - VF
+     * @param origem
+     * @return 
      */
     public static boolean uploadArquivo(String codOp, byte tipoVersao, String origem){
         try {
-            if (connectSSH((byte) 2, (byte) 1)) {
+            if (connectSSH((byte) 2, (byte) 2)) {
                 ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
                 sftp.connect();
                 

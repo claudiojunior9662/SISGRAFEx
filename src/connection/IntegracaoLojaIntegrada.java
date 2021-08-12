@@ -13,6 +13,7 @@ import entities.lojaIntegrada.Product;
 import entities.sisgrafex.Cliente;
 import entities.sisgrafex.Contato;
 import entities.sisgrafex.Endereco;
+import entities.sisgrafex.Orcamento;
 import entities.sisgrafex.ProdOrcamento;
 import exception.EnvioExcecao;
 import java.io.IOException;
