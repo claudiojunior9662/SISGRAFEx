@@ -3,33 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.estoque;
+package ui.ordemProducao.enviar;
 
 import connection.ConnectionFactory;
-import exception.EnvioExcecao;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import ui.controle.Controle;
-import ui.principal.Estoque;
 
 /**
  *
  * @author 1113778771
  */
-public class EnviarEstoque extends javax.swing.JInternalFrame {
+public class EnviarArquivo extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form EnviarEstoque
+     * Creates new form EnviarArquivo
      */
-    private static EnviarEstoque enviarEstoqueInstance;
+    private int codOp = 0;
+    private byte tipoVersao = (byte) 0;
 
-    public static EnviarEstoque getInstancia() {
-        return new EnviarEstoque();
+    public static EnviarArquivo getInstancia(int codOp, byte tipoVersao){
+        return new EnviarArquivo(codOp, tipoVersao);
     }
 
-    public EnviarEstoque() {
+    public EnviarArquivo(int codOp, byte tipoVersao) {
         initComponents();
-
+        this.codOp = codOp;
+        this.tipoVersao = tipoVersao;
     }
 
     /**
@@ -46,7 +44,7 @@ public class EnviarEstoque extends javax.swing.JInternalFrame {
         cancelar = new javax.swing.JButton();
         enderecoArquivo = new javax.swing.JLabel();
 
-        setTitle("ENVIAR ESTOQUE");
+        setTitle("ENVIAR ARQUIVO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
 
         seletorDeArquivos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -61,7 +59,7 @@ public class EnviarEstoque extends javax.swing.JInternalFrame {
         });
 
         enviarEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
-        enviarEstoque.setText("ENVIAR ESTOQUE");
+        enviarEstoque.setText("UPLOAD");
         enviarEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enviarEstoqueActionPerformed(evt);
@@ -118,18 +116,9 @@ public class EnviarEstoque extends javax.swing.JInternalFrame {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Estoque.loadingVisible("CONECTANDO AO SERVIDOR...");
-                    String destino = Controle.ESTOQUE_NAME + seletorDeArquivos.getSelectedFile().getPath().substring(
-                            seletorDeArquivos.getSelectedFile().getPath().indexOf("."));
-                    if (ConnectionFactory.uploadEstoqueSSH(seletorDeArquivos.getSelectedFile().getPath(), destino, Controle.retornaDirEstoque())) {
-                        JOptionPane.showMessageDialog(null, "ESTOQUE ENVIADO COM SUCESSO!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                        Estoque.loadingHide();
-                        return;
-                    }
-                } catch (SQLException ex) {
-                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-                    EnvioExcecao.envio(null);
+                if (ConnectionFactory.uploadArquivo(String.valueOf(codOp), tipoVersao, seletorDeArquivos.getSelectedFile().getPath())) {
+                    JOptionPane.showMessageDialog(null, "ARQUIVO ENVIADO COM SUCESSO!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
             }
         }.start();

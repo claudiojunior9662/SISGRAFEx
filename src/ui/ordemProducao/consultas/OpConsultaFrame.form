@@ -30,7 +30,6 @@
               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="529" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="paginaAtual" min="-2" pref="72" max="-2" attributes="0"/>
@@ -38,7 +37,9 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="paginaTotal" min="-2" pref="75" max="-2" attributes="0"/>
-                      <EmptySpace pref="47" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnUploadArquivo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="botaoGerarPdf" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="faturar" min="-2" max="-2" attributes="0"/>
@@ -48,7 +49,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="p1" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="p2" pref="0" max="32767" attributes="0"/>
+                      <Component id="p2" pref="292" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="p3Data" min="-2" pref="162" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -97,7 +98,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="botaoCancelarOp" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="faturar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="botaoGerarPdf" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="botaoGerarPdf" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUploadArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -341,6 +345,17 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnUploadArquivo">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icones/upload.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="UPLOAD ARQUIVO"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUploadArquivoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

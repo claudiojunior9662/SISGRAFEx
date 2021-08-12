@@ -479,5 +479,70 @@ public class ConnectionFactory {
             EnvioExcecao.envio(null);
         }
     }
+    
+    //CONTROLE DE ARQUIVOS OP
+    /**
+     * Realiza o envio do arquivo para o diretório
+     * @param codOp código da OP
+     * @param tipoVersao tipo de versão do arquivo 1 - V1, 2 - VF
+     */
+    public static boolean uploadArquivo(String codOp, byte tipoVersao, String origem){
+        try {
+            if (connectSSH((byte) 2, (byte) 1)) {
+                ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
+                sftp.connect();
+                
+                //Entra no diretório de arquivo
+                sftp.cd(Controle.retornaDirArquivo());
+                
+                //Verifica se a pasta para a OP existe, caso negativo, a cria
+                switch(write("[ -d " + codOp + " ] && echo 1 || echo 0")){
+                    case "0":
+                        sftp.mkdir(codOp);
+                        sftp.cd(codOp);
+                        switch(write("[ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0")){
+                            case "1":
+                                sftp.cd("V" + codOp);
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao));
+                                break;
+                            case "0":
+                                sftp.mkdir("V" + codOp);
+                                sftp.cd("V" + codOp);
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao));
+                                break;
+                        }
+                        break;
+                    case "1":
+                        sftp.cd(codOp);
+                        switch(write("[ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0")){
+                            case "1":
+                                sftp.cd("V" + codOp);
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao));
+                                break;
+                            case "0":
+                                sftp.mkdir("V" + codOp);
+                                sftp.cd("V" + codOp);
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao));
+                                break;
+                        }
+                        break;
+                }
+                sftp.disconnect();
+                closeSSH();
+                return true;
+            }
+        } catch (JSchException ex) {
+            ready = false;
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        } catch (SftpException ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        } catch (Exception ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        }
+        return false;
+    }
 
 }

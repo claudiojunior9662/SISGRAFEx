@@ -37,6 +37,7 @@ import ui.cadastros.produtos.ProdutoPrEntBEAN;
 import model.dao.ServicoDAO;
 import ui.controle.Controle;
 import ui.login.TelaAutenticacao;
+import ui.ordemProducao.enviar.EnviarArquivo;
 
 /**
  *
@@ -129,6 +130,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
         paginaAtual = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         paginaTotal = new javax.swing.JLabel();
+        btnUploadArquivo = new javax.swing.JButton();
 
         setTitle("CONSULTA DE ORDEM DE PRODUÇÃO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/producao.png"))); // NOI18N
@@ -251,6 +253,14 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
 
         jLabel2.setText("DE");
 
+        btnUploadArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
+        btnUploadArquivo.setText("UPLOAD ARQUIVO");
+        btnUploadArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadArquivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,7 +270,6 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(529, 529, 529)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(paginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +277,9 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUploadArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoGerarPdf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(faturar)
@@ -277,7 +288,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(p2, 0, 0, Short.MAX_VALUE)
+                        .addComponent(p2, 0, 292, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(p3Data, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -300,7 +311,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mostraTodos))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(p1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                        .addComponent(p1, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(p2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(p3Data, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(p3Formatado, javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +328,9 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(botaoCancelarOp)
                         .addComponent(faturar)
-                        .addComponent(botaoGerarPdf)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoGerarPdf)
+                            .addComponent(btnUploadArquivo))))
                 .addGap(15, 15, 15))
         );
 
@@ -565,11 +578,16 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaConsultaKeyReleased
 
+    private void btnUploadArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadArquivoActionPerformed
+        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1).toString()),(byte) 1), "UPLOAD DE ARQUIVO");
+    }//GEN-LAST:event_btnUploadArquivoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarOp;
     private javax.swing.JButton botaoGerarPdf;
     private static javax.swing.JButton botaoPesquisar;
+    private javax.swing.JButton btnUploadArquivo;
     private javax.swing.JButton faturar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

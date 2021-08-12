@@ -276,6 +276,25 @@ public class Controle {
         }
         return "";
     }
+    
+    public static String retornaDirArquivo() throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = con.prepareStatement("SELECT DIR_ARQUIVO FROM tabela_controle");
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("DIR_ARQUIVO");
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return "";
+    }
 
     /**
      * Retorna os avisos definidos pelos administradores para edição
