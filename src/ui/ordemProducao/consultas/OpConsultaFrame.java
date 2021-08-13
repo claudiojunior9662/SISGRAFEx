@@ -578,7 +578,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaConsultaKeyReleased
 
     private void btnUploadArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadArquivoActionPerformed
-        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1).toString()),(byte) 1), "UPLOAD DE ARQUIVO");
+        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),(byte) 1), "UPLOAD DE ARQUIVO");
     }//GEN-LAST:event_btnUploadArquivoActionPerformed
 
 

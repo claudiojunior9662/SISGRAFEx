@@ -1,0 +1,133 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model.dao;
+
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+import connection.ConnectionFactory;
+import entities.sisgrafex.Arquivos;
+import exception.EnvioExcecao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ui.controle.Controle;
+
+/**
+ *
+ * @author Claudio Júnior
+ */
+public class ArquivosDAO {
+
+    public static boolean verificaRegistro(int codOp, byte tipoVersao) throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = con.prepareStatement("SELECT OP "
+                    + "FROM DIR_ARQUIVOS "
+                    + "WHERE OP = ? AND TIPO = ?");
+            stmt.setInt(1, codOp);
+            stmt.setByte(2, tipoVersao);
+            rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+
+    public static void criaRegistro(Arquivos regArquivo) throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try{
+            stmt = con.prepareStatement("INSERT INTO DIR_ARQUIVOS(OP, TIPO, DIRETORIO, DT_MOD, USR_MOD) "
+                    + "VALUES(?,?,?,?,?)");
+            stmt.setInt(1, regArquivo.getOp());;
+            stmt.setByte(2, regArquivo.getTipo());
+            stmt.setString(3, regArquivo.getDiretorio());
+            stmt.setTimestamp(4, regArquivo.getDtMod());
+            stmt.setString(5, regArquivo.getUsrMod());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+
+    //CONTROLE DE ARQUIVOS OP
+    /**
+     * Realiza o envio do arquivo para o diretório
+     * @param codOp código da OP
+     * @param tipoVersao tipo de versão do arquivo 1 - V1, 2 - VF
+     * @param origem
+     * @return
+     */
+    public static boolean uploadArquivo(String codOp, byte tipoVersao, String origem, String tipoDestino) {
+        try {
+            if (ConnectionFactory.connectSSH((byte) 2, (byte) 2)) {
+                ChannelSftp sftp = (ChannelSftp) ConnectionFactory.session.openChannel("sftp");
+                sftp.connect();
+                //Entra no diretório de arquivo
+                sftp.cd(Controle.retornaDirArquivo());
+                //Verifica se a pasta para a OP existe, caso negativo, a cria
+                switch (ConnectionFactory.write("cd " + Controle.retornaDirArquivo() + " && [ -d " + codOp + " ] && echo 1 || echo 0").replace("\n", "")) {
+                    case "0":
+                        sftp.mkdir(codOp);
+                        sftp.cd(codOp);
+                        switch (ConnectionFactory.write("cd " + codOp + " [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
+                            case "1":
+                                sftp.cd("V" + String.valueOf(tipoVersao));
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
+                                break;
+                            case "0":
+                                sftp.mkdir("V" + String.valueOf(tipoVersao));
+                                sftp.cd("V" + String.valueOf(tipoVersao));
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
+                                break;
+                        }
+                        break;
+                    case "1":
+                        sftp.cd(codOp);
+                        switch (ConnectionFactory.write("cd " + codOp + " [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
+                            case "1":
+                                sftp.cd("V" + String.valueOf(tipoVersao));
+                                sftp.rm("V" + String.valueOf(tipoVersao) + tipoDestino);
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
+                                break;
+                            case "0":
+                                sftp.mkdir("V" + String.valueOf(tipoVersao));
+                                sftp.cd("V" + String.valueOf(tipoVersao));
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
+                                break;
+                        }
+                        break;
+                }
+                sftp.disconnect();
+                ConnectionFactory.closeSSH();
+                return true;
+            }
+        } catch (JSchException ex) {
+            ConnectionFactory.ready = false;
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        } catch (SftpException ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        } catch (Exception ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        }
+        return false;
+    }
+}

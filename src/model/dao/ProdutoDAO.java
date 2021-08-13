@@ -625,7 +625,12 @@ public class ProdutoDAO {
             }
             rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getString("DESCRICAO");
+                switch(tipoProduto){
+                    case 1:
+                        return rs.getString("produtos.DESCRICAO");
+                    case 2:
+                        return rs.getString("produtos_pr_ent.DESCRICAO");
+                }
             }
             return null;
         } catch (SQLException ex) {

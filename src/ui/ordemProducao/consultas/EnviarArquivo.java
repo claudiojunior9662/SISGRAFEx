@@ -7,6 +7,7 @@ package ui.ordemProducao.consultas;
 
 import connection.ConnectionFactory;
 import javax.swing.JOptionPane;
+import model.dao.ArquivosDAO;
 
 /**
  *
@@ -116,7 +117,8 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
         new Thread() {
             @Override
             public void run() {
-                if (ConnectionFactory.uploadArquivo(String.valueOf(codOp), tipoVersao, seletorDeArquivos.getSelectedFile().getPath())) {
+                if (ArquivosDAO.uploadArquivo(String.valueOf(codOp), tipoVersao, seletorDeArquivos.getSelectedFile().getPath(), seletorDeArquivos.getSelectedFile().getPath().substring(
+                            seletorDeArquivos.getSelectedFile().getPath().indexOf(".")))) {
                     JOptionPane.showMessageDialog(null, "ARQUIVO ENVIADO COM SUCESSO!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
