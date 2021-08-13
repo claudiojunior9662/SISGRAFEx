@@ -40,7 +40,7 @@ public class ArquivosDAO {
             return rs.next();
         } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
@@ -48,8 +48,8 @@ public class ArquivosDAO {
     public static void criaRegistro(Arquivos regArquivo) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        
-        try{
+
+        try {
             stmt = con.prepareStatement("INSERT INTO DIR_ARQUIVOS(OP, TIPO, DIRETORIO, DT_MOD, USR_MOD) "
                     + "VALUES(?,?,?,?,?)");
             stmt.setInt(1, regArquivo.getOp());;
@@ -60,7 +60,7 @@ public class ArquivosDAO {
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
@@ -68,6 +68,7 @@ public class ArquivosDAO {
     //CONTROLE DE ARQUIVOS OP
     /**
      * Realiza o envio do arquivo para o diretório
+     *
      * @param codOp código da OP
      * @param tipoVersao tipo de versão do arquivo 1 - V1, 2 - VF
      * @param origem
@@ -77,15 +78,18 @@ public class ArquivosDAO {
         try {
             if (ConnectionFactory.connectSSH((byte) 2, (byte) 2)) {
                 ChannelSftp sftp = (ChannelSftp) ConnectionFactory.session.openChannel("sftp");
+                String dirArquivo = Controle.retornaDirArquivo();
                 sftp.connect();
                 //Entra no diretório de arquivo
-                sftp.cd(Controle.retornaDirArquivo());
+                sftp.cd(dirArquivo);
                 //Verifica se a pasta para a OP existe, caso negativo, a cria
-                switch (ConnectionFactory.write("cd " + Controle.retornaDirArquivo() + " && [ -d " + codOp + " ] && echo 1 || echo 0").replace("\n", "")) {
+                switch (ConnectionFactory.write("cd " + dirArquivo + " && [ -d " + codOp + " ] && echo 1 || echo 0").replace("\n", "")) {
                     case "0":
                         sftp.mkdir(codOp);
                         sftp.cd(codOp);
-                        switch (ConnectionFactory.write("cd " + codOp + " [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
+                        sftp.chmod(777, sftp.pwd());
+                        //Verifica se a pasta da versão existe, caso negativo a cria
+                        switch (ConnectionFactory.write("cd " + dirArquivo + "/" + codOp + " && [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
                             case "1":
                                 sftp.cd("V" + String.valueOf(tipoVersao));
                                 sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
@@ -99,15 +103,17 @@ public class ArquivosDAO {
                         break;
                     case "1":
                         sftp.cd(codOp);
-                        switch (ConnectionFactory.write("cd " + codOp + " [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
-                            case "1":
-                                sftp.cd("V" + String.valueOf(tipoVersao));
-                                sftp.rm("V" + String.valueOf(tipoVersao) + tipoDestino);
-                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
-                                break;
+                        //Verifica se a pasta da versão existe, caso negativo a cria
+                        switch (ConnectionFactory.write("cd " + dirArquivo + "/" + codOp + " && [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
                             case "0":
                                 sftp.mkdir("V" + String.valueOf(tipoVersao));
                                 sftp.cd("V" + String.valueOf(tipoVersao));
+                                sftp.chmod(777, sftp.pwd());
+                                sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
+                                break;
+                            case "1":
+                                sftp.cd("V" + String.valueOf(tipoVersao));
+                                ConnectionFactory.write("cd " + dirArquivo + "/" + codOp + "/" + "V" + String.valueOf(tipoVersao) + " && rm -rf V" + String.valueOf(tipoVersao) + ".*");
                                 sftp.put(origem, "V" + String.valueOf(tipoVersao) + tipoDestino);
                                 break;
                         }
