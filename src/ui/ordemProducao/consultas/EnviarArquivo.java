@@ -5,9 +5,11 @@
  */
 package ui.ordemProducao.consultas;
 
-import connection.ConnectionFactory;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.dao.ArquivosDAO;
+import ui.controle.Controle;
 
 /**
  *
@@ -20,15 +22,18 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
      */
     private int codOp = 0;
     private byte tipoVersao = (byte) 0;
+    private JLabel loading;
+    FileFilter filter = new FileNameExtensionFilter("Arquivos compactados - .zip", "zip");
 
-    public static EnviarArquivo getInstancia(int codOp, byte tipoVersao){
-        return new EnviarArquivo(codOp, tipoVersao);
+    public static EnviarArquivo getInstancia(int codOp, byte tipoVersao, JLabel loading) {
+        return new EnviarArquivo(codOp, tipoVersao, loading);
     }
 
-    public EnviarArquivo(int codOp, byte tipoVersao) {
+    public EnviarArquivo(int codOp, byte tipoVersao, JLabel loading) {
         initComponents();
         this.codOp = codOp;
         this.tipoVersao = tipoVersao;
+        this.loading = loading;
     }
 
     /**
@@ -41,13 +46,15 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         seletorDeArquivos = new javax.swing.JFileChooser();
-        enviarEstoque = new javax.swing.JButton();
+        enviarArquivo = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         enderecoArquivo = new javax.swing.JLabel();
 
         setTitle("ENVIAR ARQUIVO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
 
+        seletorDeArquivos.setAcceptAllFileFilterUsed(false);
+        seletorDeArquivos.setFileFilter(filter);
         seletorDeArquivos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 seletorDeArquivosMouseClicked(evt);
@@ -59,11 +66,11 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
             }
         });
 
-        enviarEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
-        enviarEstoque.setText("UPLOAD");
-        enviarEstoque.addActionListener(new java.awt.event.ActionListener() {
+        enviarArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
+        enviarArquivo.setText("UPLOAD");
+        enviarArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarEstoqueActionPerformed(evt);
+                enviarArquivoActionPerformed(evt);
             }
         });
 
@@ -83,7 +90,7 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enviarEstoque)
+                .addComponent(enviarArquivo)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -92,7 +99,7 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
                 .addComponent(seletorDeArquivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enviarEstoque)
+                    .addComponent(enviarArquivo)
                     .addComponent(cancelar)
                     .addComponent(enderecoArquivo))
                 .addGap(0, 10, Short.MAX_VALUE))
@@ -113,24 +120,29 @@ public class EnviarArquivo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_seletorDeArquivosActionPerformed
 
-    private void enviarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarEstoqueActionPerformed
-        new Thread() {
+    private void enviarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarArquivoActionPerformed
+        new Thread("Upload Arquivo") {
             @Override
             public void run() {
-                if (ArquivosDAO.uploadArquivo(String.valueOf(codOp), tipoVersao, seletorDeArquivos.getSelectedFile().getPath(), seletorDeArquivos.getSelectedFile().getPath().substring(
-                            seletorDeArquivos.getSelectedFile().getPath().indexOf(".")))) {
-                    JOptionPane.showMessageDialog(null, "ARQUIVO ENVIADO COM SUCESSO!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                    return;
+                if (ArquivosDAO.uploadArquivo(String.valueOf(codOp),
+                        tipoVersao,
+                        seletorDeArquivos.getSelectedFile().getPath(),
+                        seletorDeArquivos.getSelectedFile().getPath().substring(seletorDeArquivos.getSelectedFile().getPath().indexOf(".")),
+                        loading)) {
+                    Controle.avisosUsuario((byte) 2, "UPLOAD FEITO COM SUCESSO.");
+                    loading.setVisible(false);
+                }else{
+                    loading.setVisible(false);
                 }
             }
         }.start();
-    }//GEN-LAST:event_enviarEstoqueActionPerformed
+    }//GEN-LAST:event_enviarArquivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JLabel enderecoArquivo;
-    private javax.swing.JButton enviarEstoque;
+    private javax.swing.JButton enviarArquivo;
     private javax.swing.JFileChooser seletorDeArquivos;
     // End of variables declaration//GEN-END:variables
 }

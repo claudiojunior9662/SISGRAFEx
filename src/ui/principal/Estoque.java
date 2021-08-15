@@ -203,11 +203,11 @@ public class Estoque extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uploadEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadEstoqueMouseClicked
-        Controle.getDefaultGj().abrirJanelas(EnviarEstoque.getInstancia(), "UPLOAD DE ESTOQUE");
+        Controle.getDefaultGj().abrirJanelas(EnviarEstoque.getInstancia(loading), "UPLOAD DE ESTOQUE");
     }//GEN-LAST:event_uploadEstoqueMouseClicked
 
     private void uploadEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadEstoqueActionPerformed
-        Controle.getDefaultGj().abrirJanelas(EnviarEstoque.getInstancia(), "UPLOAD DE ESTOQUE");
+        Controle.getDefaultGj().abrirJanelas(EnviarEstoque.getInstancia(loading), "UPLOAD DE ESTOQUE");
     }//GEN-LAST:event_uploadEstoqueActionPerformed
 
     private void downloadEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadEstoqueActionPerformed
@@ -313,7 +313,7 @@ public static void loadingVisible(String texto) {
                         OrcamentoFrame.loadingVisible("CONECTANDO AO SERVIDOR...");
                     }
 
-                    if (ConnectionFactory.downloadEstoqueSSH(Controle.TEMP_DIR, className)) {
+                    if (ConnectionFactory.downloadEstoqueSSH(Controle.TEMP_DIR, loading)) {
                         if (className == 1) {
                             Estoque.loadingVisible("ABRINDO O ARQUIVO...");
                         } else {

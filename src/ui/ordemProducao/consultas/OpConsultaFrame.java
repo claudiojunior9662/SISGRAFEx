@@ -23,8 +23,12 @@ import entities.sisgrafex.ProdOrcamento;
 import entities.sisgrafex.StsOp;
 import exception.EnvioExcecao;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import model.dao.ArquivosDAO;
 import model.dao.OrcamentoDAO;
 import model.dao.OrdemProducaoDAO;
 import model.tabelas.OpExtTableModel;
@@ -113,6 +117,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoVersaoArquivo = new javax.swing.ButtonGroup();
         p1 = new javax.swing.JComboBox<>();
         botaoPesquisar = new javax.swing.JButton();
         mostraTodos = new javax.swing.JButton();
@@ -130,6 +135,9 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         paginaTotal = new javax.swing.JLabel();
         btnUploadArquivo = new javax.swing.JButton();
+        btnDownloadArquivo = new javax.swing.JButton();
+        rbtnV1 = new javax.swing.JRadioButton();
+        rbtnV2 = new javax.swing.JRadioButton();
 
         setTitle("CONSULTA DE ORDEM DE PRODUÇÃO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/producao.png"))); // NOI18N
@@ -254,11 +262,30 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
 
         btnUploadArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
         btnUploadArquivo.setText("UPLOAD ARQUIVO");
+        btnUploadArquivo.setEnabled(false);
         btnUploadArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadArquivoActionPerformed(evt);
             }
         });
+
+        btnDownloadArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/download.png"))); // NOI18N
+        btnDownloadArquivo.setText("DOWNLOAD ARQUIVO");
+        btnDownloadArquivo.setEnabled(false);
+        btnDownloadArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadArquivoActionPerformed(evt);
+            }
+        });
+
+        grupoVersaoArquivo.add(rbtnV1);
+        rbtnV1.setSelected(true);
+        rbtnV1.setText("V1");
+        rbtnV1.setEnabled(false);
+
+        grupoVersaoArquivo.add(rbtnV2);
+        rbtnV2.setText("V2");
+        rbtnV2.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,7 +305,13 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                         .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUploadArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rbtnV2)
+                            .addComponent(rbtnV1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDownloadArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoGerarPdf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(faturar)
@@ -317,20 +350,29 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                         .addComponent(p3Texto, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(paginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(botaoCancelarOp)
-                        .addComponent(faturar)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoGerarPdf)
-                            .addComponent(btnUploadArquivo))))
-                .addGap(15, 15, 15))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(paginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botaoCancelarOp)
+                                .addComponent(faturar)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(botaoGerarPdf)
+                                    .addComponent(btnDownloadArquivo)))
+                            .addComponent(btnUploadArquivo))
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtnV1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtnV2)
+                        .addContainerGap())))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, paginaAtual, paginaTotal});
@@ -436,20 +478,41 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botaoGerarPdfActionPerformed
 
     private void tabelaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaConsultaMouseClicked
-        switch (tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()) {
-            case "ENTREGUE":
-            case "CANCELADA":
-                faturar.setEnabled(false);
-                botaoCancelarOp.setEnabled(false);
-                break;
-            default:
-                faturar.setEnabled(SEL_NOTA);
-                if (TelaAutenticacao.getUsrLogado().getAcessoOrcAdm() == 1) {
-                    botaoCancelarOp.setEnabled(true);
-                }
-                break;
+        try {
+            switch (tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()) {
+                case "ENTREGUE":
+                case "CANCELADA":
+                    faturar.setEnabled(false);
+                    botaoCancelarOp.setEnabled(false);
+                    break;
+                default:
+                    faturar.setEnabled(SEL_NOTA);
+                    if (TelaAutenticacao.getUsrLogado().getAcessoOrcAdm() == 1) {
+                        botaoCancelarOp.setEnabled(true);
+                    }
+                    break;
+            }
+
+            if (ArquivosDAO.verificaRegistro(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()), (byte) 1)) {
+                rbtnV1.setEnabled(true);
+                btnDownloadArquivo.setEnabled(true);
+                btnUploadArquivo.setEnabled(true);
+            } else if (ArquivosDAO.verificaRegistro(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()), (byte) 2)) {
+                rbtnV2.setEnabled(true);
+                btnDownloadArquivo.setEnabled(true);
+                btnUploadArquivo.setEnabled(false);
+            } else {
+                rbtnV1.setEnabled(false);
+                rbtnV2.setEnabled(false);
+                btnDownloadArquivo.setEnabled(false);
+                btnUploadArquivo.setEnabled(true);
+            }
+
+            botaoGerarPdf.setEnabled(true);
+        } catch (SQLException ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(loading);
         }
-        botaoGerarPdf.setEnabled(true);
     }//GEN-LAST:event_tabelaConsultaMouseClicked
 
     private void faturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faturarActionPerformed
@@ -578,16 +641,47 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabelaConsultaKeyReleased
 
     private void btnUploadArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadArquivoActionPerformed
-        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),(byte) 1), "UPLOAD DE ARQUIVO");
+        loading.setVisible(true);
+        loading.setText("AGUARDE...");
+        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
+                (byte) 1,
+                loading),
+                "UPLOAD DE ARQUIVO");
     }//GEN-LAST:event_btnUploadArquivoActionPerformed
+
+    private void btnDownloadArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadArquivoActionPerformed
+        new Thread("Download Arquivo") {
+            @Override
+            public void run() {
+                loading.setVisible(true);
+                loading.setText("AGUARDE...");
+                if (ArquivosDAO.downloadArquivo(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
+                        rbtnV1.isSelected() ? (byte) 1 : (byte) 2,
+                        loading)) {
+                    try {
+                        Controle.avisosUsuario((byte) 2, "DOWNLOAD FEITO COM SUCESSO.");
+                        Controle.abreDiretorio(Controle.TEMP_DIR);
+                        loading.setVisible(false);
+                    } catch (IOException ex) {
+                        EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                        EnvioExcecao.envio(loading);
+                    }
+                } else {
+                    loading.setVisible(false);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_btnDownloadArquivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelarOp;
     private javax.swing.JButton botaoGerarPdf;
     private static javax.swing.JButton botaoPesquisar;
+    private javax.swing.JButton btnDownloadArquivo;
     private javax.swing.JButton btnUploadArquivo;
     private javax.swing.JButton faturar;
+    private javax.swing.ButtonGroup grupoVersaoArquivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -599,6 +693,8 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     private static javax.swing.JTextField p3Texto;
     private static javax.swing.JComboBox<String> paginaAtual;
     private static javax.swing.JLabel paginaTotal;
+    private javax.swing.JRadioButton rbtnV1;
+    private javax.swing.JRadioButton rbtnV2;
     public static javax.swing.JTable tabelaConsulta;
     // End of variables declaration//GEN-END:variables
 

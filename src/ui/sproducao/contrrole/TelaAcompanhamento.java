@@ -15,6 +15,7 @@ import model.bean.TelaAcompanhamentoBEAN;
 import model.dao.OrdemProducaoDAO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import model.dao.ArquivosDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import ui.administrador.UsuarioBEAN;
@@ -32,6 +34,7 @@ import model.dao.ProdutoDAO;
 import model.lists.OperadoresModel;
 import ui.controle.Controle;
 import ui.login.TelaAutenticacao;
+import ui.ordemProducao.consultas.EnviarArquivo;
 import ui.principal.GerenteJanelas;
 import ui.principal.Producao;
 import ui.sproducao.controle.observacoes.ObservacaoOp;
@@ -57,7 +60,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     public static TelaAcompanhamento getInstancia(JLabel loading, GerenteJanelas gj) {
         return new TelaAcompanhamento(loading, gj);
     }
-    
+
     private static final OperadoresModel modeloOperadores = new OperadoresModel();
 
     /**
@@ -161,9 +164,9 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         statusProgresso = new javax.swing.JLabel();
         statusAlteracoes = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnDownloadV2 = new javax.swing.JButton();
+        btnDownloadV1 = new javax.swing.JButton();
+        btnUploadV2 = new javax.swing.JButton();
         visualizarOrdemProducao = new javax.swing.JButton();
         btnGravar = new javax.swing.JButton();
         qtdDiasOp = new javax.swing.JFormattedTextField();
@@ -756,19 +759,32 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("CONTROLE DE ARQUIVOS"));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/download.png"))); // NOI18N
-        jButton1.setText("DOWNLOAD V.F");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/download.png"))); // NOI18N
-        jButton2.setText("DOWNLOAD V.1");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDownloadV2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/download.png"))); // NOI18N
+        btnDownloadV2.setText("DOWNLOAD V.2");
+        btnDownloadV2.setEnabled(false);
+        btnDownloadV2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDownloadV2ActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
-        jButton3.setText("UPLOAD V.F");
+        btnDownloadV1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/download.png"))); // NOI18N
+        btnDownloadV1.setText("DOWNLOAD V.1");
+        btnDownloadV1.setEnabled(false);
+        btnDownloadV1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadV1ActionPerformed(evt);
+            }
+        });
+
+        btnUploadV2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/upload.png"))); // NOI18N
+        btnUploadV2.setText("UPLOAD V.2");
+        btnUploadV2.setEnabled(false);
+        btnUploadV2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadV2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -776,11 +792,11 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDownloadV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUploadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDownloadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(88, 88, 88))
         );
         jPanel4Layout.setVerticalGroup(
@@ -788,13 +804,13 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUploadV2)
+                    .addComponent(btnDownloadV2)
+                    .addComponent(btnDownloadV1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDownloadV1, btnDownloadV2, btnUploadV2});
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1290,9 +1306,62 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codOrcamentoMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnDownloadV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadV1ActionPerformed
+        new Thread("Download Arquivo") {
+            @Override
+            public void run() {
+                loading.setVisible(true);
+                loading.setText("AGUARDE...");
+                if (ArquivosDAO.downloadArquivo(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
+                        (byte) 1,
+                        loading)) {
+                    try {
+                        Controle.avisosUsuario((byte) 2, "DOWNLOAD FEITO COM SUCESSO.");
+                        Controle.abreDiretorio(Controle.TEMP_DIR);
+                        loading.setVisible(false);
+                    } catch (IOException ex) {
+                        EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                        EnvioExcecao.envio(loading);
+                    }
+                } else {
+                    loading.setVisible(false);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_btnDownloadV1ActionPerformed
+
+    private void btnDownloadV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadV2ActionPerformed
+        new Thread("Download Arquivo") {
+            @Override
+            public void run() {
+                loading.setVisible(true);
+                loading.setText("AGUARDE...");
+                if (ArquivosDAO.downloadArquivo(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
+                        (byte) 2,
+                        loading)) {
+                    try {
+                        Controle.avisosUsuario((byte) 2, "DOWNLOAD FEITO COM SUCESSO.");
+                        Controle.abreDiretorio(Controle.TEMP_DIR);
+                        loading.setVisible(false);
+                    } catch (IOException ex) {
+                        EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                        EnvioExcecao.envio(loading);
+                    }
+                } else {
+                    loading.setVisible(false);
+                }
+            }
+        }.start();
+    }//GEN-LAST:event_btnDownloadV2ActionPerformed
+
+    private void btnUploadV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadV2ActionPerformed
+        loading.setVisible(true);
+        loading.setText("AGUARDE...");
+        Controle.getDefaultGj().abrirJanelas(EnviarArquivo.getInstancia(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
+                (byte) 2,
+                loading),
+                "UPLOAD DE ARQUIVO");
+    }//GEN-LAST:event_btnUploadV2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1301,8 +1370,11 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton aplicarTexto;
     public static javax.swing.JLabel aprovacaoCliente;
     public static javax.swing.JButton aprovacao_cliente;
+    public static javax.swing.JButton btnDownloadV1;
+    public static javax.swing.JButton btnDownloadV2;
     private static javax.swing.JButton btnGravar;
     private static javax.swing.JButton btnObservacoes;
+    public static javax.swing.JButton btnUploadV2;
     private javax.swing.ButtonGroup buttonGroup1;
     public static javax.swing.JTextField cliente;
     private javax.swing.JRadioButton codOpFiltro;
@@ -1327,9 +1399,6 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     public static javax.swing.JButton envioDivisaoComercial;
     public static javax.swing.JLabel impostaDirecao;
     public static javax.swing.JButton imposta_dir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
@@ -1510,21 +1579,20 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
              * Retorna atendentes
              */
             modeloOperadores.removeAllItems();
-            modeloOperadores.addItem(new UsuarioBEAN("SEL","SELECIONE..."));
-            
+            modeloOperadores.addItem(new UsuarioBEAN("SEL", "SELECIONE..."));
+
             for (UsuarioBEAN usuario : UsuarioDAO.retornaAtendentes((byte) 1)) {
                 if (TelaAutenticacao.getUsrLogado().getAcessoProdAdm() == 1) {
                     modeloOperadores.addItem(usuario);
                 } else {
                     if (usuario.getAcessoProdAdm() == 1) {
                         modeloOperadores.addItem(usuario);
-                    }else if(TelaAutenticacao.getUsrLogado().getCodigo().equals(usuario.getCodigo())){
+                    } else if (TelaAutenticacao.getUsrLogado().getCodigo().equals(usuario.getCodigo())) {
                         modeloOperadores.addItem(usuario);
                     }
                 }
             }
 
-            
             if (op.getCodAtendente() != null) {
                 UsuarioBEAN usuarioSelecionado = new UsuarioBEAN(op.getCodAtendente(), op.getOpSecao());
                 modeloOperadores.setSelectedItem(usuarioSelecionado);
@@ -1558,6 +1626,25 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 tipoTrabalho.setSelectedIndex(0);
             } else {
                 tipoTrabalho.setSelectedItem(op.getTipoTrabalho());
+            }
+            
+            /**
+             * Verifica se o upload do arquivo V1 foi realizado
+             */
+            if(ArquivosDAO.verificaRegistro(numOp, (byte) 1)){
+                btnDownloadV1.setEnabled(true);
+                btnUploadV2.setEnabled(true);
+            }else{
+                btnDownloadV1.setEnabled(false);
+                btnUploadV2.setEnabled(false);
+            }
+            /**
+             * Verifica se o upload do arquivo V2 foi realizado
+             */
+            if(ArquivosDAO.verificaRegistro(numOp, (byte) 2)){
+                btnDownloadV2.setEnabled(true);
+            }else{
+                btnDownloadV2.setEnabled(false);
             }
 
             /**

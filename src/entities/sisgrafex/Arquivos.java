@@ -5,7 +5,9 @@
  */
 package entities.sisgrafex;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,5 +68,6 @@ public class Arquivos {
     public void setUsrMod(String usrMod) {
         this.usrMod = usrMod;
     }
+    
 
 }

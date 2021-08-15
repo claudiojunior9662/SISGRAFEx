@@ -37,7 +37,6 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -280,7 +279,7 @@ public class ConnectionFactory {
      * @return 
      *
      */
-    public static boolean connectSSH(byte operacao, byte className) {
+    public static boolean connectSSH(byte operacao, JLabel loading) {
         try {
             String resposta = null;
             int retorno = 0;
@@ -294,19 +293,10 @@ public class ConnectionFactory {
                 retorno = 0;
             }
             Controle controle = Controle.retornaDadosConexao(resposta);
-            if (className == 1) {
-                Estoque.loadingVisible("VERIFICANDO SENHA...");
-            } else {
-                OrcamentoFrame.loadingVisible("VERIFICANDO SENHA...");
-            }
-
+            loading.setText("VERIFICANDO SENHA...");
             if (retorno != 0 || controle == null) {
                 JOptionPane.showMessageDialog(null, "SENHA INCORRETA!");
-                if (className == 1) {
-                    Estoque.loadingHide();
-                } else {
-                    OrcamentoFrame.loadingHide();
-                }
+                loading.setVisible(false);
                 return false;
             } else {
                 JSch ssh = new JSch();
@@ -318,11 +308,7 @@ public class ConnectionFactory {
                 return true;
             }
         } catch (SQLException | JSchException ex) {
-            if (className == 1) {
-                Estoque.loadingHide();
-            } else {
-                OrcamentoFrame.loadingHide();
-            }
+            loading.setVisible(false);
             ready = false;
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
@@ -340,9 +326,9 @@ public class ConnectionFactory {
         ready = false;
     }
 
-    public static boolean uploadEstoqueSSH(String origem, String destino, String dirDestino) {
+    public static boolean uploadEstoqueSSH(String origem, String destino, String dirDestino, JLabel loading) {
         try {
-            if (connectSSH((byte) 1, (byte) 1)) {
+            if (connectSSH((byte) 1, loading)) {
                 Estoque.loadingVisible("CARREGANDO ARQUIVO...");
                 if (existFile()) {
                     deleteFile();
@@ -375,20 +361,12 @@ public class ConnectionFactory {
      * @return 
      *
      */
-    public static boolean downloadEstoqueSSH(String dirLocal, byte className) {
+    public static boolean downloadEstoqueSSH(String dirLocal, JLabel loading) {
         try {
-            connectSSH((byte) 2, className);
-            if (className == 1) {
-                Estoque.loadingVisible("EXCLUINDO ARQUIVOS EXISTENTES...");
-            } else {
-                OrcamentoFrame.loadingVisible("EXCLUINDO ARQUIVOS EXISTENTES...");
-            }
+            connectSSH((byte) 2, loading);
+            loading.setText("EXCLUINDO ARQUIVOS EXISTENTES...");
             deleteLocalFile(dirLocal);
-            if (className == 1) {
-                Estoque.loadingVisible("FAZENDO O DOWNLOAD...");
-            } else {
-                OrcamentoFrame.loadingVisible("FAZENDO O DOWNLOAD...");
-            }
+            loading.setText("FAZENDO O DOWNLOAD...");
             ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
             sftp.connect();
             sftp.get(Controle.retornaDirEstoque() + "/" + Controle.ESTOQUE_NAME + ".*", dirLocal);
@@ -396,11 +374,7 @@ public class ConnectionFactory {
             closeSSH();
             return true;
         } catch (JSchException | SftpException | SQLException ex) {
-            if (className == 1) {
-                Estoque.loadingHide();
-            } else {
-                OrcamentoFrame.loadingHide();
-            }
+            loading.setVisible(false);
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
         } catch (Exception ex) {

@@ -32,7 +32,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="enviarEstoque" min="-2" max="-2" attributes="0"/>
+              <Component id="enviarArquivo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -43,7 +43,7 @@
               <Component id="seletorDeArquivos" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="enviarEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="enviarArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelar" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="enderecoArquivo" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -54,12 +54,21 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JFileChooser" name="seletorDeArquivos">
+      <Properties>
+        <Property name="acceptAllFileFilterUsed" type="boolean" value="false"/>
+        <Property name="fileFilter" type="javax.swing.filechooser.FileFilter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="filter" type="code"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="seletorDeArquivosMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seletorDeArquivosActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFileChooser()"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="enviarEstoque">
+    <Component class="javax.swing.JButton" name="enviarArquivo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/upload.png"/>
@@ -67,7 +76,7 @@
         <Property name="text" type="java.lang.String" value="UPLOAD"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarEstoqueActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarArquivoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cancelar">

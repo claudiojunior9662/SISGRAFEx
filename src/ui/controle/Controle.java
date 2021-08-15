@@ -11,6 +11,8 @@ import entities.sisgrafex.StsOp;
 import entities.sisgrafex.StsOrcamento;
 import exception.EnvioExcecao;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,7 +57,7 @@ public class Controle {
 
     //CONTROLE DE ARQUIVOS------------------------------------------------------
     public static String ESTOQUE_NAME = "estoque";
-    public static String TEMP_DIR = System.getProperty("java.io.tmpdir");
+    public static String TEMP_DIR = System.getProperty("java.io.tmpdir") + "SISGRAFEx";
     public static String SENHA_ESTOQUE = "JMW#3645";
 
     //VARIÁVEIS PARA CONEXÃO COM FIREBIRD (SIMATEX)-----------------------------
@@ -767,6 +769,51 @@ public class Controle {
                 return "PESSOA JURÍDICA";
         }
         return null;
+    }
+    
+    /**
+     * Abre diretório de arquivos
+     * @param caminho
+     * @throws IOException 
+     */
+    public static void abreDiretorio(String caminho) throws IOException {
+        String os = System.getProperty("os.name");
+        os = os.toLowerCase();
+        if (os.contains("win") && !caminho.equals("")) {
+            try {
+                Runtime.getRuntime().exec("explorer.exe " + Controle.TEMP_DIR);
+            } catch (IOException ex) {
+                Controle.avisosUsuario((byte) 1, "FALHA AO ABRIR O DIRETÓRIO: " + ex);
+            }
+        } else if (!caminho.equals("")) {
+            try {
+                Runtime.getRuntime().exec("nautilus " + caminho);
+            } catch (IOException ex) {
+                Controle.avisosUsuario((byte) 1, "FALHA AO ABRIR O DIRETÓRIO: " + ex);
+            }
+        }
+    }
+    
+    public static void criaDiretorio(String caminho) {
+        try {
+            if (!verificaDiretorio(caminho)) {
+                File dir = new File(caminho);
+                dir.mkdir();
+            }
+        } catch (Exception ex) {
+            Controle.avisosUsuario((byte) 1, "ERRO AO CRIAR O DIRETORIO");
+        }
+    }
+    
+    public static boolean verificaDiretorio(String caminho) {
+        boolean retorno = false;
+        File dir = new File(caminho);
+        if (!dir.exists()) {
+            retorno = false;
+        } else {
+            retorno = true;
+        }
+        return retorno;
     }
 
 }

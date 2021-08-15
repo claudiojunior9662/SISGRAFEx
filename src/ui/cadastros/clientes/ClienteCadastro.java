@@ -39,7 +39,6 @@ import ui.principal.GerenteJanelas;
  * @author 1113778771
  */
 public class ClienteCadastro extends javax.swing.JInternalFrame {
-    //VARIAVEIS DA CLASSE_PAI-------------------------------------------------------
 
     public static Integer CODIGO_CLIENTE = 0;
     /**

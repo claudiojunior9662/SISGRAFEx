@@ -8,6 +8,7 @@ package ui.estoque;
 import connection.ConnectionFactory;
 import exception.EnvioExcecao;
 import java.sql.SQLException;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import ui.controle.Controle;
 import ui.principal.Estoque;
@@ -22,13 +23,15 @@ public class EnviarEstoque extends javax.swing.JInternalFrame {
      * Creates new form EnviarEstoque
      */
     private static EnviarEstoque enviarEstoqueInstance;
+    private static JLabel loading;
 
-    public static EnviarEstoque getInstancia() {
-        return new EnviarEstoque();
+    public static EnviarEstoque getInstancia(JLabel loading) {
+        return new EnviarEstoque(loading);
     }
 
-    public EnviarEstoque() {
+    public EnviarEstoque(JLabel loading) {
         initComponents();
+        this.loading = loading;
 
     }
 
@@ -122,7 +125,7 @@ public class EnviarEstoque extends javax.swing.JInternalFrame {
                     Estoque.loadingVisible("CONECTANDO AO SERVIDOR...");
                     String destino = Controle.ESTOQUE_NAME + seletorDeArquivos.getSelectedFile().getPath().substring(
                             seletorDeArquivos.getSelectedFile().getPath().indexOf("."));
-                    if (ConnectionFactory.uploadEstoqueSSH(seletorDeArquivos.getSelectedFile().getPath(), destino, Controle.retornaDirEstoque())) {
+                    if (ConnectionFactory.uploadEstoqueSSH(seletorDeArquivos.getSelectedFile().getPath(), destino, Controle.retornaDirEstoque(), loading)) {
                         JOptionPane.showMessageDialog(null, "ESTOQUE ENVIADO COM SUCESSO!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                         Estoque.loadingHide();
                         return;
