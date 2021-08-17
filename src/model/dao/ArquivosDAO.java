@@ -94,7 +94,7 @@ public class ArquivosDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE dir_arquivos(OP, TIPO, DIRETORIO, DT_MOD, USR_MOD) "
+            stmt = con.prepareStatement("UPDATE dir_arquivos "
                     + "SET TIPO = ?, DIRETORIO = ?, DT_MOD = ?, USR_MOD = ? "
                     + "WHERE OP = ?");
             stmt.setByte(1, regArquivo.getTipo());
@@ -183,7 +183,7 @@ public class ArquivosDAO {
                         atualizaRegistro(new Arquivos(
                                 Integer.valueOf(codOp),
                                 tipoVersao,
-                                dirArquivo + "/" + codOp + "/" + "/V" + tipoVersao + "OP" + codOp + "V" + String.valueOf(tipoVersao) + tipoDestino,
+                                dirArquivo + "/" + codOp + "/" + "OP" + codOp + "V" + String.valueOf(tipoVersao) + tipoDestino,
                                 java.sql.Timestamp.from(new Date().toInstant()),
                                 TelaAutenticacao.getUsrLogado().getCodigo()
                         ));
@@ -191,7 +191,7 @@ public class ArquivosDAO {
                         criaRegistro(new Arquivos(
                                 Integer.valueOf(codOp),
                                 tipoVersao,
-                                dirArquivo + "/" + codOp + "/" + "/V" + tipoVersao + "OP" + codOp + "V" + String.valueOf(tipoVersao) + tipoDestino,
+                                dirArquivo + "/" + codOp + "/" + "OP" + codOp + "V" + String.valueOf(tipoVersao) + tipoDestino,
                                 java.sql.Timestamp.from(new Date().toInstant()),
                                 TelaAutenticacao.getUsrLogado().getCodigo()
                         ));

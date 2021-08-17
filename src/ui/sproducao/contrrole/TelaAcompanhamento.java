@@ -167,6 +167,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         btnDownloadV2 = new javax.swing.JButton();
         btnDownloadV1 = new javax.swing.JButton();
         btnUploadV2 = new javax.swing.JButton();
+        lblAvisoArquivos = new javax.swing.JLabel();
         visualizarOrdemProducao = new javax.swing.JButton();
         btnGravar = new javax.swing.JButton();
         qtdDiasOp = new javax.swing.JFormattedTextField();
@@ -254,7 +255,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
         });
 
-        statusTexto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "EM AVALIAÇÃO PELA SEÇ TÉCNICA", "ENCAMINHADO PARA PRÉ IMP", "DIAGRAMAÇÃO", "PRODUZINDO PROVA", "AGUARDANDO APR CLIENTE", "ENCAMINHADO PARA OFFSET", "ENCAMINHADO PARA TIPOGRAFIA", "ENCAMINHADO PARA ACABAMENTO", "EM FINALIZAÇÃO", "ENCAMINHADO PARA EXPEDIÇÃO", "ENTREGUE" }));
+        statusTexto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "1 - EM AVALIAÇÃO PELA SEÇ TÉCNICA", "2 - ENCAMINHADO PARA PRÉ-IMPRESSÃO", "3 - EM DIAGRAMAÇÃO", "4 - PRODUZINDO PROVA", "5 - AGUARDANDO APROVAÇÃO DO CLIENTE", "6 - ENCAMINHADO PARA A OFFSET", "7 - ENCAMINHADO PARA A DIGITAL", "8 - ENCAMINHADO PARA A TIPOGRAFIA", "9 - ENCAMINHADO PARA O ACABAMENTO", "10 - ENCAMINHADO PARA EXPEDIÇÃO", "11 - ENTREGUE", "12 - ENTREGUE PARCIALMENTE", "13 - CANCELADA" }));
 
         aplicarTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/confirma.png"))); // NOI18N
         aplicarTexto.setText("APLICAR");
@@ -327,7 +328,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel10)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -786,31 +787,40 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
         });
 
+        lblAvisoArquivos.setBackground(new java.awt.Color(255, 0, 0));
+        lblAvisoArquivos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAvisoArquivos.setForeground(new java.awt.Color(255, 0, 0));
+        lblAvisoArquivos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addComponent(btnDownloadV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnUploadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDownloadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblAvisoArquivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnDownloadV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUploadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDownloadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7)))
                 .addGap(88, 88, 88))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUploadV2)
-                    .addComponent(btnDownloadV2)
-                    .addComponent(btnDownloadV1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblAvisoArquivos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDownloadV2, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnUploadV2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDownloadV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDownloadV1, btnDownloadV2, btnUploadV2});
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -958,7 +968,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                             .addComponent(btnObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 645, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 688, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1116,10 +1126,10 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                         //POR STATUS -- 6
                     } else if (status.isSelected()) {
                         if (statusTexto.getSelectedIndex() == 0) {
-                            JOptionPane.showMessageDialog(null, "SELECIONE UM STATUS PARA A PESQUISA.");
+                            Controle.avisosUsuario((byte) 1, "SELECIONE UM STATUS PARA A PESQUISA.");
                             return;
                         }
-                        for (OrdemProducao op : TelaAcompanhamentoDAO.retornaFiltro(statusTexto.getSelectedItem().toString(), (byte) 6)) {
+                        for (OrdemProducao op : TelaAcompanhamentoDAO.retornaFiltro(statusTexto.getSelectedItem().toString().split(" ")[0], (byte) 6)) {
                             modeloTabela.addRow(new Object[]{
                                 op.getCodigo(),
                                 Controle.dataPadrao.format(op.getDataEmissao()),
@@ -1412,6 +1422,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JButton jbtnDtEntDigital;
     public static javax.swing.JLabel jlblDtEntDigital;
+    private static javax.swing.JLabel lblAvisoArquivos;
     private javax.swing.JRadioButton mesEmissao;
     private com.toedter.calendar.JMonthChooser mesEmissaoSelecionar;
     private javax.swing.JRadioButton mesEntrega;
@@ -1620,7 +1631,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
 
             /**
-             * Define o tipo de trabalho
+             * Define o tipo de trabalho.
              */
             if (op.getTipoTrabalho() == null) {
                 tipoTrabalho.setSelectedIndex(0);
@@ -1629,22 +1640,36 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
             
             /**
-             * Verifica se o upload do arquivo V1 foi realizado
+             * Verifica se o upload do arquivo V1 foi realizado.
              */
+            boolean v1 = false;
+            boolean v2;
             if(ArquivosDAO.verificaRegistro(numOp, (byte) 1)){
                 btnDownloadV1.setEnabled(true);
                 btnUploadV2.setEnabled(true);
+                v1 = true;
             }else{
                 btnDownloadV1.setEnabled(false);
                 btnUploadV2.setEnabled(false);
             }
             /**
-             * Verifica se o upload do arquivo V2 foi realizado
+             * Verifica se o upload do arquivo V2 foi realizado.
              */
             if(ArquivosDAO.verificaRegistro(numOp, (byte) 2)){
                 btnDownloadV2.setEnabled(true);
+                v2 = true;
             }else{
                 btnDownloadV2.setEnabled(false);
+            }
+            
+            /**
+             * Exibe mensagem de aviso de arquivo.
+             */
+            if(!v1){
+                lblAvisoArquivos.setVisible(true);
+                lblAvisoArquivos.setText("SOLICITE PARA A DIVISÃO COMERCIAL REALIZAR O UPLOAD DO ARQUIVO!");
+            }else{
+                lblAvisoArquivos.setVisible(false);
             }
 
             /**

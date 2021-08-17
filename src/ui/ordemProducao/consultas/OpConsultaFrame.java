@@ -493,15 +493,20 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                     break;
             }
 
+            boolean v1 = false;
+            boolean v2 = false;
             if (ArquivosDAO.verificaRegistro(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()), (byte) 1)) {
                 rbtnV1.setEnabled(true);
+                rbtnV1.setSelected(true);
                 btnDownloadArquivo.setEnabled(true);
                 btnUploadArquivo.setEnabled(true);
-            } else if (ArquivosDAO.verificaRegistro(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()), (byte) 2)) {
+                v1 = true;
+            } if (ArquivosDAO.verificaRegistro(Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()), (byte) 2)) {
                 rbtnV2.setEnabled(true);
                 btnDownloadArquivo.setEnabled(true);
                 btnUploadArquivo.setEnabled(false);
-            } else {
+                v2 = true;
+            } if(!v1 && !v2){
                 rbtnV1.setEnabled(false);
                 rbtnV2.setEnabled(false);
                 btnDownloadArquivo.setEnabled(false);

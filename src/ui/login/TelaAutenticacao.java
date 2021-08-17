@@ -29,7 +29,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "1";
+    private static final String update = "2";
     private static UsuarioBEAN atendenteLogado;
 
     public static UsuarioBEAN getUsrLogado() {
@@ -361,9 +361,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 3 (08-04-2021)\n"
-                            + "- Correção no bug ao preencher a tela de pesquisa de Ordem de produção;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 5 (02-05-2021)\n"
+                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 5 (02-05-2021)\n"
                             + "- Implementação do cadastro único de produtos;\n"
                             + "- Implementação do ambiente de testes para integração e-commerce;\n"
                             + "- Ajuste de erros internos do sistema;\n"
@@ -387,9 +385,11 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 3 (22-07-2021)\n"
                             + "- Correções na edição dos produtos pronta entrega;\n"
                             + "- Correções de atualização do módulo integrador;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)\n"
                             + "- Implementação do controle de arquivos dentro do sistema para as OP;\n"
                             + "- Correção no cabeçalho da proposta de orçamento;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
+                            + "- Correção da pesquisa de status por OP no módulo Produção;\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à SPD;\n"

@@ -113,10 +113,10 @@ public class Controle {
     public static void avisosUsuario(byte tipo, String mensagem) {
         switch (tipo) {
             case 1:
-                JOptionPane.showMessageDialog(null, mensagem, "ERRO", 1);
+                JOptionPane.showMessageDialog(null, mensagem, "ERRO", JOptionPane.ERROR_MESSAGE);
                 break;
             case 2:
-                JOptionPane.showMessageDialog(null, mensagem, "INFORMAÇÃO", 2);
+                JOptionPane.showMessageDialog(null, mensagem, "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
     }

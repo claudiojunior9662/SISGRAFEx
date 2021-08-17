@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import model.dao.ClienteDAO;
 import ui.cadastros.notas.LancGru;
 import ui.cadastros.notas.LancSigaSiafi;
 import ui.cadastros.notas.TransporteBEAN;

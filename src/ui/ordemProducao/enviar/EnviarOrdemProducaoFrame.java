@@ -560,7 +560,7 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
             //VERIFICA SE EXISTEM PRODUTOS SEM A DATA DE ENTREGA SELECIONADA--------
             for (int i = 0; i < tabelaProdutos.getRowCount(); i++) {
                 if (tabelaProdutos.getValueAt(i, 5).equals("")) {
-                    JOptionPane.showMessageDialog(null, "EXISTEM PRODUTOS SEM A DATA DE ENTREGA!\nSELECIONE A DATA DE TODOS OS PRODUTOS E TENTE NOVAMENTE.");
+                    Controle.avisosUsuario((byte) 1, "EXISTEM PRODUTOS SEM A DATA DE ENTREGA!\nSELECIONE A DATA DE TODOS OS PRODUTOS E TENTE NOVAMENTE.");
                     return;
                 }
             }
@@ -583,11 +583,12 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
                         : (byte) 1);
                 op.setDataEntrega(Controle.dataPadrao.parse(tabelaProdutos.getValueAt(i, 5).toString()));
 
-                if (TIPO_PROD == 1) {
+                if (TIPO_PROD == 2) {
                     op.setDataEntgProva(null);
                 } else {
                     if (tabelaProdutos.getValueAt(i, 6).toString().equals("")) {
                         Controle.avisosUsuario((byte) 1, "INSIRA A DATA DE ENTREGA DA PROVA.");
+                        return;
                     } else {
                         op.setDataEntgProva(Controle.dataPadrao.parse(tabelaProdutos.getValueAt(i, 6).toString()));
                     }

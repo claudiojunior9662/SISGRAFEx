@@ -265,7 +265,7 @@ public class TelaAcompanhamentoDAO {
                     stmt = con.prepareStatement("SELECT cod, data_emissao, data_entrega, status, cod_produto, tipo_produto "
                             + "FROM tabela_ordens_producao "
                             + "WHERE status = ?");
-                    stmt.setString(1, param.toString());
+                    stmt.setByte(1, Byte.valueOf(param.toString()));
                     rs = stmt.executeQuery();
                     while (rs.next()) {
                         OrdemProducao op = new OrdemProducao();
