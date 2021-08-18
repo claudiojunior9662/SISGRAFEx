@@ -21,6 +21,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -45,7 +47,17 @@ import ui.sproducao.controle.observacoes.ObservacaoOp;
  */
 public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
 
-    public static String botao = null;
+    /**
+     * 1 - Data de envio da primeira prova 2 - Data de envio da segunda prova 3
+     * - Data de envio da terceira prova 4 - Data de envio da quarta prova 5 -
+     * Data de envio da quinta prova 6 - Data de aprovação do cliente 7 - Data
+     * de entrega final 8 - Data imposta pela direção 9 - Data de envio da
+     * divisão comercial 10 - Data de entrada na offset 11 - Data de entrada na
+     * tipografia 12 - Data de entrada no acabamento 13 - Data de entrada na
+     * digital
+     */
+    public static byte botao = 0;
+    private static boolean cliqueTabela = false;
     public static int numOp = 0;
     public static boolean realTime = true;
     public static boolean dataAlterada = false;
@@ -980,6 +992,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     private void tabelaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaConsultaMouseClicked
         limpa();
         numOp = (int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0);
+        cliqueTabela = true;
         atualiza();
         statusAlteracoes.setText("");
     }//GEN-LAST:event_tabelaConsultaMouseClicked
@@ -1196,67 +1209,79 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_dataPrevEntregaPropertyChange
 
     private void tipoTrabalhoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoTrabalhoItemStateChanged
-
+        new Thread("Atualização de Log") {
+            @Override
+            public void run() {
+                try {
+                    if (!cliqueTabela) {
+                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 2);
+                    }
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
+            }
+        }.start();
     }//GEN-LAST:event_tipoTrabalhoItemStateChanged
 
     private void primeira_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primeira_provaActionPerformed
-        botao = "primeira_prova";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO 1ª PROVA");
+        botao = (byte) 1;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 1ª PROVA");
     }//GEN-LAST:event_primeira_provaActionPerformed
 
     private void segunda_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_segunda_provaActionPerformed
-        botao = "segunda_prova";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO 2ª PROVA");
+        botao = (byte) 2;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 2ª PROVA");
     }//GEN-LAST:event_segunda_provaActionPerformed
 
     private void terceira_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terceira_provaActionPerformed
-        botao = "terceira_prova";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO 3ª PROVA");
+        botao = (byte) 3;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 3ª PROVA");
     }//GEN-LAST:event_terceira_provaActionPerformed
 
     private void quarta_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quarta_provaActionPerformed
-        botao = "quarta_prova";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO 4ª PROVA");
+        botao = (byte) 4;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 4ª PROVA");
     }//GEN-LAST:event_quarta_provaActionPerformed
 
     private void quinta_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quinta_provaActionPerformed
-        botao = "quinta_prova";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO 5ª PROVA");
+        botao = (byte) 5;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 5ª PROVA");
     }//GEN-LAST:event_quinta_provaActionPerformed
 
     private void aprovacao_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aprovacao_clienteActionPerformed
-        botao = "aprovacao_cliente";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE APROVAÇÃO DO CLIENTE");
+        botao = (byte) 6;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE APROVAÇÃO DO CLIENTE");
     }//GEN-LAST:event_aprovacao_clienteActionPerformed
 
     private void entrega_finalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrega_finalActionPerformed
-        botao = "entrega_final";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENTREGA FINAL");
+        botao = (byte) 7;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTREGA FINAL");
     }//GEN-LAST:event_entrega_finalActionPerformed
 
     private void imposta_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imposta_dirActionPerformed
-        botao = "imposta_direcao";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA IMPOSTA PELA DIREÇÃO");
+        botao = (byte) 8;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA IMPOSTA PELA DIREÇÃO");
     }//GEN-LAST:event_imposta_dirActionPerformed
 
     private void envioDivisaoComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioDivisaoComercialActionPerformed
-        botao = "envio_div_cmcl";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENVIO PARA DIV COMERCIAL");
+        botao = (byte) 9;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO PARA DIV COMERCIAL");
     }//GEN-LAST:event_envioDivisaoComercialActionPerformed
 
     private void entrada_offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_offsetActionPerformed
-        botao = "entrada_offset";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENTRADA NA OFFSET");
+        botao = (byte) 10;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA OFFSET");
     }//GEN-LAST:event_entrada_offsetActionPerformed
 
     private void entrada_tipografiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_tipografiaActionPerformed
-        botao = "entrada_tipografia";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENTRADA NA TIPOGRAFIA");
+        botao = (byte) 11;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA TIPOGRAFIA");
     }//GEN-LAST:event_entrada_tipografiaActionPerformed
 
     private void entrada_acabamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_acabamentoActionPerformed
-        botao = "entrada_acabamento";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENTRADA NO ACABAMENTO");
+        botao = (byte) 12;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NO ACABAMENTO");
     }//GEN-LAST:event_entrada_acabamentoActionPerformed
 
     private void visualizarOrdemProducaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarOrdemProducaoActionPerformed
@@ -1278,11 +1303,35 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_visualizarOrdemProducaoActionPerformed
 
     private void operadorSecaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_operadorSecaoItemStateChanged
-
+        new Thread("Atualização de Log") {
+            @Override
+            public void run() {
+                try {
+                    if (!cliqueTabela) {
+                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, operadorSecao.getSelectedItem().toString(), (byte) 1);
+                    }
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
+            }
+        }.start();
     }//GEN-LAST:event_operadorSecaoItemStateChanged
 
     private void statusOrdemProducaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusOrdemProducaoItemStateChanged
-
+        new Thread("Atualização de Log") {
+            @Override
+            public void run() {
+                try {
+                    if (!cliqueTabela) {
+                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, statusOrdemProducao.getSelectedItem().toString(), (byte) 3);
+                    }
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
+            }
+        }.start();
     }//GEN-LAST:event_statusOrdemProducaoItemStateChanged
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
@@ -1300,8 +1349,8 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void jbtnDtEntDigitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDtEntDigitalActionPerformed
-        botao = "entrada_digital";
-        gj.abrirJanelas(EscolhaDatas.getInstancia(), "DEFINIR DATA DE ENTRADA NA DIGITAL");
+        botao = (byte) 13;
+        gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA DIGITAL");
     }//GEN-LAST:event_jbtnDtEntDigitalActionPerformed
 
     private void btnObservacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObservacoesActionPerformed
@@ -1638,37 +1687,37 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             } else {
                 tipoTrabalho.setSelectedItem(op.getTipoTrabalho());
             }
-            
+
             /**
              * Verifica se o upload do arquivo V1 foi realizado.
              */
             boolean v1 = false;
             boolean v2;
-            if(ArquivosDAO.verificaRegistro(numOp, (byte) 1)){
+            if (ArquivosDAO.verificaRegistro(numOp, (byte) 1)) {
                 btnDownloadV1.setEnabled(true);
                 btnUploadV2.setEnabled(true);
                 v1 = true;
-            }else{
+            } else {
                 btnDownloadV1.setEnabled(false);
                 btnUploadV2.setEnabled(false);
             }
             /**
              * Verifica se o upload do arquivo V2 foi realizado.
              */
-            if(ArquivosDAO.verificaRegistro(numOp, (byte) 2)){
+            if (ArquivosDAO.verificaRegistro(numOp, (byte) 2)) {
                 btnDownloadV2.setEnabled(true);
                 v2 = true;
-            }else{
+            } else {
                 btnDownloadV2.setEnabled(false);
             }
-            
+
             /**
              * Exibe mensagem de aviso de arquivo.
              */
-            if(!v1){
+            if (!v1) {
                 lblAvisoArquivos.setVisible(true);
                 lblAvisoArquivos.setText("SOLICITE PARA A DIVISÃO COMERCIAL REALIZAR O UPLOAD DO ARQUIVO!");
-            }else{
+            } else {
                 lblAvisoArquivos.setVisible(false);
             }
 
@@ -1676,10 +1725,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
              * Define o estado da GUI
              */
             estado2();
-
-            /**
-             * Esconde a imagem de carregando
-             */
+            cliqueTabela = false;
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(loading);
@@ -1937,105 +1983,107 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
 
             TelaAcompanhamentoDAO.atualizaDadosOp(op);
 
-            if (botao != null) {
+            if (botao == 0) {
                 Connection con = ConnectionFactory.getConnection();
                 PreparedStatement stmt = null;
                 Date date = new Date();
                 date = EscolhaDatas.calendario.getDate();
                 try {
-                    if (TelaAcompanhamento.botao.equals("primeira_prova")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_1a_prova = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("segunda_prova")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_2a_prova = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("terceira_prova")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_3a_prova = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("quarta_prova")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_4a_prova = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("quinta_prova")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_5a_prova = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("aprovacao_cliente")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_apr_cliente = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                    switch (botao) {
+                        case 1:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_1a_prova = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 2:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_2a_prova = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 3:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_3a_prova = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 4:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_4a_prova = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 5:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_5a_prova = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 6:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_apr_cliente = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
 
-                        op = OrdemProducaoDAO.retornaDatasAprCliente((int) numeroOp.getValue());
-                        Date recalculo = recalculo(EscolhaDatas.calendario.getDate(), op.getDataEmissao(), op.getDataEntrega());
-                        int dialogButton = JOptionPane.YES_NO_OPTION;
-                        int dialogResult = JOptionPane.showConfirmDialog(null,
-                                "O NOVO RECÁLCULO DA DATA DE ENTREGA É PARA O DIA: " + Controle.dataPadrao.format(recalculo) + "."
-                                + "\nDESEJA ALTERAR A DATA DE ENTREGA PREVISTA REGISTRADA?",
-                                "CONFIRMAÇÃO DE ALTERAÇÃO", dialogButton);
-                        if (dialogResult == 0) {
-                            AlteraData alteraData = new AlteraData(
-                                    (int) numeroOp.getValue(),
-                                    new Timestamp(recalculo.getTime()),
-                                    op.getDataEntrega(),
-                                    TelaAutenticacao.getUsrLogado().getCodigo(),
-                                    "RECÁLCULO"
-                            );
-                            OrdemProducaoDAO.salvaAlteracaoData(alteraData);
-                            OrdemProducaoDAO.alteraDataEntrega((int) numeroOp.getValue(), recalculo);
-                            dataPrevEntrega.setDate(recalculo);
-                        }
-                    }
-                    if (TelaAcompanhamento.botao.equals("entrega_final")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_final = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("imposta_direcao")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_imp_dir = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("entrada_digital")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
-                                + "SET DT_ENT_DIGITAL = ? "
-                                + "WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("entrada_offset")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
-                                + "SET data_ent_offset = ? "
-                                + "WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("entrada_tipografia")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_tipografia = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("entrada_acabamento")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_acabamento = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                    }
-                    if (TelaAcompanhamento.botao.equals("envio_div_cmcl")) {
-                        stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_envio_div_cmcl = ? WHERE cod = ?");
-                        stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                        stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            op = OrdemProducaoDAO.retornaDatasAprCliente((int) numeroOp.getValue());
+                            Date recalculo = recalculo(EscolhaDatas.calendario.getDate(), op.getDataEmissao(), op.getDataEntrega());
+                            int dialogButton = JOptionPane.YES_NO_OPTION;
+                            int dialogResult = JOptionPane.showConfirmDialog(null,
+                                    "O NOVO RECÁLCULO DA DATA DE ENTREGA É PARA O DIA: " + Controle.dataPadrao.format(recalculo) + "."
+                                    + "\nDESEJA ALTERAR A DATA DE ENTREGA PREVISTA REGISTRADA?",
+                                    "CONFIRMAÇÃO DE ALTERAÇÃO", dialogButton);
+                            if (dialogResult == 0) {
+                                AlteraData alteraData = new AlteraData(
+                                        (int) numeroOp.getValue(),
+                                        new Timestamp(recalculo.getTime()),
+                                        op.getDataEntrega(),
+                                        TelaAutenticacao.getUsrLogado().getCodigo(),
+                                        "RECÁLCULO"
+                                );
+                                OrdemProducaoDAO.salvaAlteracaoData(alteraData);
+                                OrdemProducaoDAO.alteraDataEntrega((int) numeroOp.getValue(), recalculo);
+                                dataPrevEntrega.setDate(recalculo);
+                            }
+                            break;
+                        case 7:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_final = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 8:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_imp_dir = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 9:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_envio_div_cmcl = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 10:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
+                                    + "SET data_ent_offset = ? "
+                                    + "WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 11:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_tipografia = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 12:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_acabamento = ? WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
+                        case 13:
+                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
+                                    + "SET DT_ENT_DIGITAL = ? "
+                                    + "WHERE cod = ?");
+                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                            break;
                     }
                     stmt.executeUpdate();
                 } finally {
                     ConnectionFactory.closeConnection(con, stmt);
-                    botao = null;
+                    botao = 0;
                 }
                 atualiza();
                 atualizaTabela();

@@ -29,7 +29,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "2";
+    private static final String update = "3";
     private static UsuarioBEAN atendenteLogado;
 
     public static UsuarioBEAN getUsrLogado() {
@@ -361,11 +361,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.0 5 (02-05-2021)\n"
-                            + "- Implementação do cadastro único de produtos;\n"
-                            + "- Implementação do ambiente de testes para integração e-commerce;\n"
-                            + "- Ajuste de erros internos do sistema;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 2 (23-05-2021)\n"
+                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 2 (23-05-2021)\n"
                             + "- Correção no saldo em aberto no relatório financeiro;\n"
                             + "- Ajuste no código da ordem de produção;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 3 (27-05-2021)\n"
@@ -390,6 +386,8 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Correção no cabeçalho da proposta de orçamento;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
                             + "- Correção da pesquisa de status por OP no módulo Produção;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 3 (18-08-2021)\n"
+                            + "- Correção ao gerar o relatório de nota de crédito;\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à SPD;\n"

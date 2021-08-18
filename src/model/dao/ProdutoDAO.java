@@ -615,23 +615,22 @@ public class ProdutoDAO {
                             + "FROM produtos "
                             + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProduto);
-                    break;
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        return rs.getString("produtos.DESCRICAO");
+                    }
+
                 case 2:
                     stmt = con.prepareStatement("SELECT DESCRICAO "
                             + "FROM produtos_pr_ent "
                             + "WHERE CODIGO = ?");
                     stmt.setInt(1, codProduto);
-                    break;
-            }
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                switch(tipoProduto){
-                    case 1:
-                        return rs.getString("produtos.DESCRICAO");
-                    case 2:
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
                         return rs.getString("produtos_pr_ent.DESCRICAO");
-                }
+                    }
             }
+
             return null;
         } catch (SQLException ex) {
             throw new SQLException(ex);
