@@ -19,12 +19,16 @@ import entities.sisgrafex.Cliente;
 import entities.sisgrafex.ContSobraPapel;
 import entities.sisgrafex.Servicos;
 import entities.sisgrafex.StsOp;
+import exception.EnvioExcecao;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static model.dao.OrdemProducaoDAO.alteraDtCancelamento;
 import static model.dao.OrdemProducaoDAO.alteraStatusOp;
 import static model.dao.OrdemProducaoDAO.consultaOp;
 import static model.dao.OrdemProducaoDAO.retornaCodOpOrcProd;
 import static model.dao.ClienteDAO.selInfoNota;
+import ui.controle.Controle;
 import ui.login.TelaAutenticacao;
 
 /**
@@ -1580,60 +1584,30 @@ public class OrdemProducaoDAO {
     /**
      * Atualiza os dados para Log de Op.1 - Alteração do operador/seção 2 -
      * Alteração do tipo de trabalho 3 - Alteração do status 4 - Alteração da
-     * data 5 - Abertura de OP
+     * data 5 - Acesso de OP
      *
      * @param codAtualizacao código da OP para ser atualizado
      * @param descAtualizacao descrição da atualização
      * @param tipo tipo da atualização
      * @throws java.sql.SQLException
      */
-    public static void atualizaDadosLogOp(Object codAtualizacao,
+    public synchronized static void atualizaDadosLogOp(Object codAtualizacao,
             Object descAtualizacao,
             byte tipo) throws SQLException {
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        new Thread("Atualiza Log OP") {
+            @Override
+            public void run() {
+                Connection con = ConnectionFactory.getConnection();
+                PreparedStatement stmt = null;
 
-        try {
-            switch (tipo) {
-                case 1:
-                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                            + "VALUES(?,?,?,?,?)");
-                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                    stmt.setInt(2, tipo);
-                    stmt.setString(3, "ALTERAÇÃO DO OPERADOR PARA " + descAtualizacao.toString());
-                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                    stmt.executeUpdate();
-                    break;
-                case 2:
-                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                            + "VALUES(?,?,?,?,?)");
-                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                    stmt.setInt(2, tipo);
-                    stmt.setString(3, "ALTERAÇÃO DO TIPO DE TRABALHO PARA " + descAtualizacao.toString());
-                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                    stmt.executeUpdate();
-                    break;
-                case 3:
-                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                            + "VALUES(?,?,?,?,?)");
-                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                    stmt.setInt(2, tipo);
-                    stmt.setString(3, "ALTERAÇÃO DO STATUS PARA " + descAtualizacao.toString());
-                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                    stmt.executeUpdate();
-                    break;
-                case 4:
-                    switch (Byte.valueOf(descAtualizacao.toString())) {
+                try {
+                    switch (tipo) {
                         case 1:
                             stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
                                     + "VALUES(?,?,?,?,?)");
                             stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
                             stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DA 1ª PROVA");
+                            stmt.setString(3, "ALTERAÇÃO DO OPERADOR PARA " + descAtualizacao.toString());
                             stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
                             stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
                             stmt.executeUpdate();
@@ -1643,7 +1617,7 @@ public class OrdemProducaoDAO {
                                     + "VALUES(?,?,?,?,?)");
                             stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
                             stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DA 2ª PROVA");
+                            stmt.setString(3, "ALTERAÇÃO DO TIPO DE TRABALHO PARA " + descAtualizacao.toString());
                             stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
                             stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
                             stmt.executeUpdate();
@@ -1653,128 +1627,164 @@ public class OrdemProducaoDAO {
                                     + "VALUES(?,?,?,?,?)");
                             stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
                             stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DA 3ª PROVA");
+                            stmt.setString(3, "ALTERAÇÃO DO STATUS PARA " + descAtualizacao.toString());
                             stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
                             stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
                             stmt.executeUpdate();
                             break;
                         case 4:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DA 4ª PROVA");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
+                            List descAtualizacaoList = (List) descAtualizacao;
+                            switch (Byte.valueOf(descAtualizacaoList.get(0).toString())) {
+                                case 1:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DA 1ª PROVA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 2:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DA 2ª PROVA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 3:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DA 3ª PROVA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 4:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DA 4ª PROVA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 5:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DA 5ª PROVA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 6:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE APROVAÇÃO DO CLIENTE PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 7:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTREGA FINAL PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 8:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA IMPOSTA PELA DIREÇÃO PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 9:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENVIO DA DIVISÃO COMERCIAL PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 10:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA DA OFFSET PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 11:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NA TIPOGRAFIA PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 12:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NO ACABAMENTO PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                                case 13:
+                                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
+                                            + "VALUES(?,?,?,?,?)");
+                                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
+                                    stmt.setInt(2, tipo);
+                                    stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NA DIGITAL PARA " + descAtualizacaoList.get(1));
+                                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
+                                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
+                                    stmt.executeUpdate();
+                                    break;
+                            }
                             break;
                         case 5:
                             stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
                                     + "VALUES(?,?,?,?,?)");
                             stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
                             stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DA 5ª PROVA");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 6:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE APROVAÇÃO DO CLIENTE");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 7:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTREGA FINAL");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 8:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA IMPOSTA PELA DIREÇÃO");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 9:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENVIO DA DIVISÃO COMERCIAL");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 10:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA DA OFFSET");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 11:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NA TIPOGRAFIA");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 12:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NO ACABAMENTO");
-                            stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                            stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                            stmt.executeUpdate();
-                            break;
-                        case 13:
-                            stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                                    + "VALUES(?,?,?,?,?)");
-                            stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                            stmt.setInt(2, tipo);
-                            stmt.setString(3, "ALTERAÇÃO DA DATA DE ENTRADA NA DIGITAL");
+                            stmt.setString(3, "VISUALIZAÇÃO DA OP PELO MÓDULO PRODUÇÃO");
                             stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
                             stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
                             stmt.executeUpdate();
                             break;
                     }
-                    break;
-                case 5:
-                    stmt = con.prepareStatement("INSERT INTO log_op(OP, ALTERACAO, ALTERACAO_DESC, DATA_HORA, USUARIO) "
-                            + "VALUES(?,?,?,?,?)");
-                    stmt.setInt(1, Integer.valueOf(codAtualizacao.toString()));
-                    stmt.setInt(2, tipo);
-                    stmt.setString(3, "VISUALIZAÇÃO DA OP PELO MÓDULO PRODUÇÃO");
-                    stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-                    stmt.setString(5, TelaAutenticacao.getUsrLogado().getCodigo());
-                    stmt.executeUpdate();
-                    break;
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(null);
+                } finally {
+                    ConnectionFactory.closeConnection(con, stmt);
+                }
             }
-        } catch (SQLException ex) {
-            throw new SQLException(ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
+        }.start();
     }
 }

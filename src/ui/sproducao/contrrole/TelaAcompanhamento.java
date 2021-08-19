@@ -15,6 +15,7 @@ import model.bean.TelaAcompanhamentoBEAN;
 import model.dao.OrdemProducaoDAO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -340,7 +341,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel10)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +361,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codOrcTexto)
-                            .addComponent(statusTexto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statusTexto, 0, 0, Short.MAX_VALUE)
                             .addComponent(dataEntregaTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(codOpTexto)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -409,7 +410,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                     .addComponent(aplicarTexto)
                     .addComponent(tempoReal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {anoEmissaoSelecionar, anoEntregaSelecionar, mesEmissao, mesEmissaoSelecionar, mesEntrega, mesEntregaSelecionar});
@@ -838,41 +839,42 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(numeroOp, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(orcamentoBase, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataPrevEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(codigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(descricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(operadorSecao, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tipoTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusOrdemProducao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(statusProgresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusAlteracoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusProgresso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(numeroOp, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(orcamentoBase, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dataPrevEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(codigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(descricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(operadorSecao, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tipoTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusOrdemProducao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statusAlteracoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(65, 65, 65))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -900,13 +902,11 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(statusAlteracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100)
-                        .addComponent(statusProgresso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusAlteracoes, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(statusProgresso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {operadorSecao, statusOrdemProducao, tipoTrabalho});
@@ -957,15 +957,18 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11)
                         .addGap(13, 13, 13)
                         .addComponent(qtdDiasOp, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(113, 113, 113)
                         .addComponent(btnObservacoes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(visualizarOrdemProducao)
+                        .addComponent(visualizarOrdemProducao, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGravar))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnGravar, visualizarOrdemProducao});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -974,13 +977,15 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(visualizarOrdemProducao, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(btnGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(qtdDiasOp, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(qtdDiasOp, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                                .addComponent(btnObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(btnObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(visualizarOrdemProducao, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                                .addComponent(btnGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 688, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -990,10 +995,18 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaConsultaMouseClicked
+        cliqueTabela = true;
         limpa();
         numOp = (int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0);
-        cliqueTabela = true;
         atualiza();
+        if (!cliqueTabela) {
+            try {
+                OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 5);
+            } catch (SQLException ex) {
+                EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                EnvioExcecao.envio(loading);
+            }
+        }
         statusAlteracoes.setText("");
     }//GEN-LAST:event_tabelaConsultaMouseClicked
 
@@ -1209,77 +1222,158 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_dataPrevEntregaPropertyChange
 
     private void tipoTrabalhoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoTrabalhoItemStateChanged
-        new Thread("Atualização de Log") {
-            @Override
-            public void run() {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (!cliqueTabela) {
                 try {
-                    if (!cliqueTabela) {
-                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 2);
-                    }
+                    OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 2);
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
             }
-        }.start();
+        }
     }//GEN-LAST:event_tipoTrabalhoItemStateChanged
 
     private void primeira_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primeira_provaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 1;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 1ª PROVA");
     }//GEN-LAST:event_primeira_provaActionPerformed
 
     private void segunda_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_segunda_provaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 2;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 2ª PROVA");
     }//GEN-LAST:event_segunda_provaActionPerformed
 
     private void terceira_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terceira_provaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 3;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 3ª PROVA");
     }//GEN-LAST:event_terceira_provaActionPerformed
 
     private void quarta_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quarta_provaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 4;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 4ª PROVA");
     }//GEN-LAST:event_quarta_provaActionPerformed
 
     private void quinta_provaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quinta_provaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 5;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO 5ª PROVA");
     }//GEN-LAST:event_quinta_provaActionPerformed
 
     private void aprovacao_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aprovacao_clienteActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 6;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE APROVAÇÃO DO CLIENTE");
     }//GEN-LAST:event_aprovacao_clienteActionPerformed
 
     private void entrega_finalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrega_finalActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 7;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTREGA FINAL");
     }//GEN-LAST:event_entrega_finalActionPerformed
 
     private void imposta_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imposta_dirActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 8;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA IMPOSTA PELA DIREÇÃO");
     }//GEN-LAST:event_imposta_dirActionPerformed
 
     private void envioDivisaoComercialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioDivisaoComercialActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 9;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENVIO PARA DIV COMERCIAL");
     }//GEN-LAST:event_envioDivisaoComercialActionPerformed
 
     private void entrada_offsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_offsetActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 10;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA OFFSET");
     }//GEN-LAST:event_entrada_offsetActionPerformed
 
     private void entrada_tipografiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_tipografiaActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 11;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA TIPOGRAFIA");
     }//GEN-LAST:event_entrada_tipografiaActionPerformed
 
     private void entrada_acabamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrada_acabamentoActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 12;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NO ACABAMENTO");
     }//GEN-LAST:event_entrada_acabamentoActionPerformed
@@ -1303,35 +1397,30 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_visualizarOrdemProducaoActionPerformed
 
     private void operadorSecaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_operadorSecaoItemStateChanged
-        new Thread("Atualização de Log") {
-            @Override
-            public void run() {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (!cliqueTabela) {
                 try {
-                    if (!cliqueTabela) {
-                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, operadorSecao.getSelectedItem().toString(), (byte) 1);
-                    }
+                    OrdemProducaoDAO.atualizaDadosLogOp(numOp, operadorSecao.getSelectedItem().toString(), (byte) 1);
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
             }
-        }.start();
+        }
+
     }//GEN-LAST:event_operadorSecaoItemStateChanged
 
     private void statusOrdemProducaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusOrdemProducaoItemStateChanged
-        new Thread("Atualização de Log") {
-            @Override
-            public void run() {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (!cliqueTabela) {
                 try {
-                    if (!cliqueTabela) {
-                        OrdemProducaoDAO.atualizaDadosLogOp(numOp, statusOrdemProducao.getSelectedItem().toString(), (byte) 3);
-                    }
+                    OrdemProducaoDAO.atualizaDadosLogOp(numOp, statusOrdemProducao.getSelectedItem().toString(), (byte) 3);
                 } catch (SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
             }
-        }.start();
+        }
     }//GEN-LAST:event_statusOrdemProducaoItemStateChanged
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
@@ -1349,6 +1438,13 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void jbtnDtEntDigitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDtEntDigitalActionPerformed
+        /**
+         * Verifica casos de erro
+         */
+        if (tipoTrabalho.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+            return;
+        }
         botao = (byte) 13;
         gj.abrirJanelas(EscolhaDatas.getInstancia(loading), "DEFINIR DATA DE ENTRADA NA DIGITAL");
     }//GEN-LAST:event_jbtnDtEntDigitalActionPerformed
@@ -1654,7 +1750,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
 
             if (op.getCodAtendente() != null) {
-                UsuarioBEAN usuarioSelecionado = new UsuarioBEAN(op.getCodAtendente(), op.getOpSecao());
+                UsuarioBEAN usuarioSelecionado = new UsuarioBEAN(op.getCodAtendente(), UsuarioDAO.retornaNomeAtendente(op.getCodAtendente()));
                 modeloOperadores.setSelectedItem(usuarioSelecionado);
             } else {
                 operadorSecao.setSelectedIndex(0);
@@ -1907,195 +2003,207 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     /**
      * Salva as alterações de edição dos atributos da OP
      */
-    public static void salvaAlteracoes() {
-        try {
-            /**
-             * Cria a ordem de produção
-             */
-            OrdemProducao op = new OrdemProducao();
-            /**
-             * Verifica casos de erro
-             */
-            if (tipoTrabalho.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
-                return;
-            } else {
-                op.setTipoTrabalho(tipoTrabalho.getSelectedItem().toString());
-            }
-
-            if (operadorSecao.getSelectedItem().equals("SELECIONE...")) {
-                JOptionPane.showMessageDialog(null, "SELECIONE O OPERADOR/SEÇÃO!");
-                return;
-            } else {
-                op.setOpSecao(operadorSecao.getSelectedItem().toString());
-                op.setCodAtendente(operadorSecao.getSelectedItem().toString().split(" ")[0]);
-            }
-            dataAlterada = dataPrevEntrega.getDate().compareTo(dataPrevEntregaBkp) != 0;
-            /**
-             * Salva as informações
-             */
-            op.setCodigo((int) numeroOp.getValue());
-
-            if (dataAlterada) {
-                /**
-                 * Solicita o motivo de alteração
-                 */
-                JLabel lbl2 = new JLabel("DIGITE O MOTIVO DO ALTERAÇÃO DE DATA DE ENTREGA");
-                JTextArea motivo = new JTextArea();
-                motivo.setPreferredSize(new Dimension(400, 200));
-                motivo.setLineWrap(true);
-                int retorno2 = JOptionPane.showConfirmDialog(null,
-                        new Object[]{lbl2, motivo},
-                        "MOTIVO DE ALTERAÇÃO",
-                        JOptionPane.OK_CANCEL_OPTION);
-                if (retorno2 != JOptionPane.CANCEL_OPTION) {
-                    String txtMotivo = "Motivo de alteração: " + motivo.getText();
-                    if (txtMotivo.isEmpty()) {
-                        JOptionPane.showMessageDialog(null,
-                                "INSIRA UM MOTIVO PARA A ALTERAÇÃO DA DATA DE ENTREGA!",
-                                "ERRO",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-                /**
-                 * Cria a classe altera data com os dados de alteração
-                 */
-                AlteraData alteraData = new AlteraData(
-                        (int) numeroOp.getValue(),
-                        new Timestamp(new Date().getTime()),
-                        dataPrevEntregaBkp,
-                        TelaAutenticacao.getUsrLogado().getCodigo(),
-                        motivo.getText()
-                );
-                OrdemProducaoDAO.salvaAlteracaoData(alteraData);
-                op.setDataEntrega(dataPrevEntrega.getDate());
-            } else {
-                op.setDataEntrega(dataPrevEntrega.getDate());
-            }
-
-            op.setIndEntPrazo(0);
-            op.setIndEntErro(0);
-
-            String[] statusSplit = statusOrdemProducao.getSelectedItem().toString().split(" ");
-            STATUS = Byte.valueOf(statusSplit[0]);
-            op.setStatus(STATUS);
-
-            TelaAcompanhamentoDAO.atualizaDadosOp(op);
-
-            if (botao == 0) {
-                Connection con = ConnectionFactory.getConnection();
-                PreparedStatement stmt = null;
-                Date date = new Date();
-                date = EscolhaDatas.calendario.getDate();
+    public synchronized static void salvaAlteracoes() {
+        new Thread("Salva Alterações OP") {
+            @Override
+            public void run() {
                 try {
-                    switch (botao) {
-                        case 1:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_1a_prova = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 2:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_2a_prova = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 3:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_3a_prova = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 4:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_4a_prova = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 5:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_5a_prova = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 6:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_apr_cliente = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-
-                            op = OrdemProducaoDAO.retornaDatasAprCliente((int) numeroOp.getValue());
-                            Date recalculo = recalculo(EscolhaDatas.calendario.getDate(), op.getDataEmissao(), op.getDataEntrega());
-                            int dialogButton = JOptionPane.YES_NO_OPTION;
-                            int dialogResult = JOptionPane.showConfirmDialog(null,
-                                    "O NOVO RECÁLCULO DA DATA DE ENTREGA É PARA O DIA: " + Controle.dataPadrao.format(recalculo) + "."
-                                    + "\nDESEJA ALTERAR A DATA DE ENTREGA PREVISTA REGISTRADA?",
-                                    "CONFIRMAÇÃO DE ALTERAÇÃO", dialogButton);
-                            if (dialogResult == 0) {
-                                AlteraData alteraData = new AlteraData(
-                                        (int) numeroOp.getValue(),
-                                        new Timestamp(recalculo.getTime()),
-                                        op.getDataEntrega(),
-                                        TelaAutenticacao.getUsrLogado().getCodigo(),
-                                        "RECÁLCULO"
-                                );
-                                OrdemProducaoDAO.salvaAlteracaoData(alteraData);
-                                OrdemProducaoDAO.alteraDataEntrega((int) numeroOp.getValue(), recalculo);
-                                dataPrevEntrega.setDate(recalculo);
-                            }
-                            break;
-                        case 7:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_final = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 8:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_imp_dir = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 9:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_envio_div_cmcl = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 10:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
-                                    + "SET data_ent_offset = ? "
-                                    + "WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 11:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_tipografia = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 12:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_acabamento = ? WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
-                        case 13:
-                            stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
-                                    + "SET DT_ENT_DIGITAL = ? "
-                                    + "WHERE cod = ?");
-                            stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
-                            stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
-                            break;
+                    loading.setVisible(true);
+                    loading.setText("AGUARDE, SALVANDO ALTERAÇÕES...");
+                    /**
+                     * Cria a ordem de produção
+                     */
+                    OrdemProducao op = new OrdemProducao();
+                    /**
+                     * Verifica casos de erro
+                     */
+                    if (tipoTrabalho.getSelectedIndex() == 0) {
+                        JOptionPane.showMessageDialog(null, "SELECIONE O TIPO DE TRABALHO!");
+                        loading.setVisible(false);
+                        return;
+                    } else {
+                        op.setTipoTrabalho(tipoTrabalho.getSelectedItem().toString());
                     }
-                    stmt.executeUpdate();
-                } finally {
-                    ConnectionFactory.closeConnection(con, stmt);
-                    botao = 0;
+
+                    if (operadorSecao.getSelectedItem().equals("SELECIONE...")) {
+                        JOptionPane.showMessageDialog(null, "SELECIONE O OPERADOR/SEÇÃO!");
+                        loading.setVisible(false);
+                        return;
+                    } else {
+                        op.setOpSecao(operadorSecao.getSelectedItem().toString());
+                        op.setCodAtendente(operadorSecao.getSelectedItem().toString().split(" ")[0]);
+                    }
+                    dataAlterada = dataPrevEntrega.getDate().compareTo(dataPrevEntregaBkp) != 0;
+                    /**
+                     * Salva as informações
+                     */
+                    op.setCodigo((int) numeroOp.getValue());
+
+                    if (dataAlterada) {
+                        /**
+                         * Solicita o motivo de alteração
+                         */
+                        JLabel lbl2 = new JLabel("DIGITE O MOTIVO DO ALTERAÇÃO DE DATA DE ENTREGA");
+                        JTextArea motivo = new JTextArea();
+                        motivo.setPreferredSize(new Dimension(400, 200));
+                        motivo.setLineWrap(true);
+                        int retorno2 = JOptionPane.showConfirmDialog(null,
+                                new Object[]{lbl2, motivo},
+                                "MOTIVO DE ALTERAÇÃO",
+                                JOptionPane.OK_CANCEL_OPTION);
+                        if (retorno2 != JOptionPane.CANCEL_OPTION) {
+                            String txtMotivo = "Motivo de alteração: " + motivo.getText();
+                            if (txtMotivo.isEmpty()) {
+                                JOptionPane.showMessageDialog(null,
+                                        "INSIRA UM MOTIVO PARA A ALTERAÇÃO DA DATA DE ENTREGA!",
+                                        "ERRO",
+                                        JOptionPane.ERROR_MESSAGE);
+                                loading.setVisible(false);
+                                return;
+                            }
+                        }
+                        /**
+                         * Cria a classe altera data com os dados de alteração
+                         */
+                        AlteraData alteraData = new AlteraData(
+                                (int) numeroOp.getValue(),
+                                new Timestamp(new Date().getTime()),
+                                dataPrevEntregaBkp,
+                                TelaAutenticacao.getUsrLogado().getCodigo(),
+                                motivo.getText()
+                        );
+                        OrdemProducaoDAO.salvaAlteracaoData(alteraData);
+                        op.setDataEntrega(dataPrevEntrega.getDate());
+                    } else {
+                        op.setDataEntrega(dataPrevEntrega.getDate());
+                    }
+
+                    op.setIndEntPrazo(0);
+                    op.setIndEntErro(0);
+
+                    String[] statusSplit = statusOrdemProducao.getSelectedItem().toString().split(" ");
+                    STATUS = Byte.valueOf(statusSplit[0]);
+                    op.setStatus(STATUS);
+
+                    TelaAcompanhamentoDAO.atualizaDadosOp(op);
+
+                    loading.setText("ATUALIZANDO DATAS...");
+                    if (botao != 0) {
+                        Connection con = ConnectionFactory.getConnection();
+                        PreparedStatement stmt = null;
+                        Date date = new Date();
+                        date = EscolhaDatas.calendario.getDate();
+                        try {
+                            switch (botao) {
+                                case 1:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_1a_prova = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 2:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_2a_prova = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 3:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_3a_prova = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 4:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_4a_prova = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 5:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_5a_prova = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 6:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_apr_cliente = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+
+                                    op = OrdemProducaoDAO.retornaDatasAprCliente((int) numeroOp.getValue());
+                                    Date recalculo = recalculo(EscolhaDatas.calendario.getDate(), op.getDataEmissao(), op.getDataEntrega());
+                                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                                    int dialogResult = JOptionPane.showConfirmDialog(null,
+                                            "O NOVO RECÁLCULO DA DATA DE ENTREGA É PARA O DIA: " + Controle.dataPadrao.format(recalculo) + "."
+                                            + "\nDESEJA ALTERAR A DATA DE ENTREGA PREVISTA REGISTRADA?",
+                                            "CONFIRMAÇÃO DE ALTERAÇÃO", dialogButton);
+                                    if (dialogResult == 0) {
+                                        AlteraData alteraData = new AlteraData(
+                                                (int) numeroOp.getValue(),
+                                                new Timestamp(recalculo.getTime()),
+                                                op.getDataEntrega(),
+                                                TelaAutenticacao.getUsrLogado().getCodigo(),
+                                                "RECÁLCULO"
+                                        );
+                                        OrdemProducaoDAO.salvaAlteracaoData(alteraData);
+                                        OrdemProducaoDAO.alteraDataEntrega((int) numeroOp.getValue(), recalculo);
+                                        dataPrevEntrega.setDate(recalculo);
+                                    }
+                                    break;
+                                case 7:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_final = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 8:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_imp_dir = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 9:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_envio_div_cmcl = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 10:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
+                                            + "SET data_ent_offset = ? "
+                                            + "WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 11:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_tipografia = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 12:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao SET data_ent_acabamento = ? WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                                case 13:
+                                    stmt = con.prepareStatement("UPDATE tabela_ordens_producao "
+                                            + "SET DT_ENT_DIGITAL = ? "
+                                            + "WHERE cod = ?");
+                                    stmt.setDate(1, new java.sql.Date(EscolhaDatas.calendario.getDate().getTime()));
+                                    stmt.setInt(2, (int) TelaAcompanhamento.numeroOp.getValue());
+                                    break;
+                            }
+                            stmt.executeUpdate();
+                        } finally {
+                            ConnectionFactory.closeConnection(con, stmt);
+                            botao = 0;
+                        }
+                        atualiza();
+                        atualizaTabela();
+                    }
+
+                    dataAlterada = false;
+                    loading.setVisible(false);
+                    statusAlteracoes.setText("SALVO PELA ÚLTIMA VEZ ÀS "
+                            + Controle.horaPadrao.format(new Date()));
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
                 }
-                atualiza();
-                atualizaTabela();
             }
+        }.start();
 
-            dataAlterada = false;
-
-            statusAlteracoes.setText("SALVO PELA ÚLTIMA VEZ ÀS "
-                    + Controle.horaPadrao.format(new Date()));
-        } catch (SQLException ex) {
-            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-            EnvioExcecao.envio(loading);
-        }
     }
 }

@@ -27,7 +27,7 @@ public class EscolhaDatas extends javax.swing.JInternalFrame {
 
     private static EscolhaDatas escolhaDatasNovo;
     private JLabel loading;
-    
+
     public static EscolhaDatas getInstancia(JLabel loading) {
         return new EscolhaDatas(loading);
     }
@@ -44,67 +44,119 @@ public class EscolhaDatas extends javax.swing.JInternalFrame {
             switch (TelaAcompanhamento.botao) {
                 case 1:
                     data = opBEAN.getData1aProva();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 2:
                     data = opBEAN.getData2aProva();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 3:
                     data = opBEAN.getData3aProva();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 4:
                     data = opBEAN.getData4aProva();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 5:
                     data = opBEAN.getData5aProva();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 6:
                     data = opBEAN.getDataAprCliente();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 7:
                     data = opBEAN.getDataEntFinal();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 8:
                     data = opBEAN.getDataImpDir();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 9:
                     data = opBEAN.getDataEnvioDivCmcl();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 10:
                     data = opBEAN.getDataEntOffset();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 11:
                     data = opBEAN.getDataEntTipografia();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 12:
                     data = opBEAN.getDataEntAcabamento();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
                 case 13:
                     data = opBEAN.getDataEntDigital();
-                    calendario.setDate(data);
+                    if (data == null) {
+                        calendario.setDate(new Date());
+                    } else {
+                        calendario.setDate(data);
+                    }
                     texto_info.setText("A DATA PODE SER REDEFINIDA.");
                     break;
             }
@@ -163,21 +215,16 @@ public class EscolhaDatas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void definir_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_definir_dataActionPerformed
+        try {
+            List descAtualizacao = new ArrayList();
+            descAtualizacao.add(TelaAcompanhamento.botao);
+            descAtualizacao.add(Controle.dataPadrao.format(calendario.getDate()));
+            OrdemProducaoDAO.atualizaDadosLogOp(TelaAcompanhamento.numOp, descAtualizacao, (byte) 4);
+        } catch (SQLException ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(loading);
+        }
         TelaAcompanhamento.salvaAlteracoes();
-        new Thread("Atualização de Log") {
-            @Override
-            public void run() {
-                try {
-                    List descAtualizacao = new ArrayList();
-                    descAtualizacao.add(TelaAcompanhamento.botao);
-                    descAtualizacao.add(Controle.dataPadrao.format(calendario.getDate()));
-                    OrdemProducaoDAO.atualizaDadosLogOp(TelaAcompanhamento.numOp, descAtualizacao, (byte) 4);
-                } catch (SQLException ex) {
-                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-                    EnvioExcecao.envio(loading);
-                }
-            }
-        }.start();
         this.dispose();
     }//GEN-LAST:event_definir_dataActionPerformed
 
