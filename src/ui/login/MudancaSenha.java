@@ -5,6 +5,7 @@
  */
 package ui.login;
 
+import model.dao.LoginDAO;
 import ui.controle.Controle;
 import exception.AtualizaSenhaException;
 import exception.EnvioExcecao;

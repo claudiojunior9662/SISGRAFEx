@@ -5,6 +5,7 @@
  */
 package ui.login;
 
+import model.dao.LoginDAO;
 import exception.EnvioExcecao;
 import exception.UsuarioSenhaIncorretosException;
 import java.awt.Cursor;
