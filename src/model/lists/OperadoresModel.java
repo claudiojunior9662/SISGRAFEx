@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
-import ui.administrador.UsuarioBEAN;
+import entities.sisgrafex.Usuario;
 
 /**
  *
@@ -17,15 +17,15 @@ import ui.administrador.UsuarioBEAN;
  */
 public class OperadoresModel extends AbstractListModel implements ComboBoxModel {
 
-    private UsuarioBEAN usuarioSelecionado;
-    private List<UsuarioBEAN> usuarios = new ArrayList<>();
+    private Usuario usuarioSelecionado;
+    private List<Usuario> usuarios = new ArrayList<>();
     
-    public void addItem(UsuarioBEAN usuario){
+    public void addItem(Usuario usuario){
         this.usuarios.add(usuario);
     }
     
     @Override
-    public UsuarioBEAN getSelectedItem(){
+    public Usuario getSelectedItem(){
         return usuarioSelecionado;
     }
     
@@ -35,14 +35,14 @@ public class OperadoresModel extends AbstractListModel implements ComboBoxModel 
     }
     
     @Override
-    public UsuarioBEAN getElementAt(int i){
+    public Usuario getElementAt(int i){
         return usuarios.get(i);
     }
     
     @Override
     public void setSelectedItem(Object anItem) {
-        UsuarioBEAN usuarioSelecionado = (UsuarioBEAN) anItem;
-        for(UsuarioBEAN usuario : usuarios){
+        Usuario usuarioSelecionado = (Usuario) anItem;
+        for(Usuario usuario : usuarios){
             if(usuarioSelecionado.getCodigo().equals(usuario.getCodigo())){
                 this.usuarioSelecionado = usuarioSelecionado;
             }

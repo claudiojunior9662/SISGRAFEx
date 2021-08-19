@@ -79,6 +79,10 @@ public class NotaDAO {
                             + "FROM tabela_notas "
                             + "WHERE cod_cliente = ?");
                     stmt.setInt(1, Integer.valueOf(p3));
+                    retornoCliente = new Cliente(
+                            Integer.valueOf(p3),
+                            ClienteDAO.retornaNomeCliente(Integer.valueOf(p3), p2.contains("FÍSICA") ? (byte) 1 : (byte) 2)
+                    );
                 } else {
                     retornoCliente = retornaCodNomeCliente(p2, p3);
                     stmt = con.prepareStatement("SELECT * "

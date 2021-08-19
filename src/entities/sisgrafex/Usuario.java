@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.administrador;
+package entities.sisgrafex;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  *
  * @author spd3
  */
-public class UsuarioBEAN {
+public class Usuario {
 
     private String codigoAtendente;
     private String loginAtendente;
@@ -30,8 +31,9 @@ public class UsuarioBEAN {
     private byte acessoEst;
     private byte acessoOrd;
     private byte ativo;
+    private java.sql.Timestamp ultLogin;
 
-    public UsuarioBEAN(String codigoAtendente,
+    public Usuario(String codigoAtendente,
             String loginAtendente,
             String nomeAtendente,
             String tipoAtendente) {
@@ -41,7 +43,7 @@ public class UsuarioBEAN {
         this.tipoAtendente = tipoAtendente;
     }
 
-    public UsuarioBEAN(String nomeAtendente,
+    public Usuario(String nomeAtendente,
             String codigoAtendente,
             String loginAtendente,
             String tipoAtendente,
@@ -55,7 +57,8 @@ public class UsuarioBEAN {
             byte acessoFinAdm,
             byte acessoEst,
             byte acessoOrd,
-            byte ativo) {
+            byte ativo,
+            java.sql.Timestamp ultLogin) {
         this.nomeAtendente = nomeAtendente;
         this.codigoAtendente = codigoAtendente;
         this.loginAtendente = loginAtendente;
@@ -71,20 +74,33 @@ public class UsuarioBEAN {
         this.acessoEst = acessoEst;
         this.acessoOrd = acessoOrd;
         this.ativo = ativo;
+        this.ultLogin = ultLogin;
     }
 
-    public UsuarioBEAN(String codigoAtendente, String nomeAtendente) {
+    public Usuario(String codigoAtendente, String nomeAtendente) {
         this.codigoAtendente = codigoAtendente;
         this.nomeAtendente = nomeAtendente;
     }
 
-    public UsuarioBEAN() {
+    public Usuario(String codigoAtendente) {
+        this.codigoAtendente = codigoAtendente;
+    }
+
+    public Usuario() {
 
     }
 
     @Override
     public String toString() {
         return codigoAtendente + " - " + nomeAtendente;
+    }
+
+    public Timestamp getUltLogin() {
+        return ultLogin;
+    }
+
+    public void setUltLogin(Timestamp ultLogin) {
+        this.ultLogin = ultLogin;
     }
 
     public Date getUltMudSenha() {

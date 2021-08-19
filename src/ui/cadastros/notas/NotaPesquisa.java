@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import exception.EnvioExcecao;
-import ui.administrador.UsuarioDAO;
+import model.dao.UsuarioDAO;
 import model.dao.ClienteDAO;
 import model.dao.EnderecoDAO;
 import ui.controle.Controle;

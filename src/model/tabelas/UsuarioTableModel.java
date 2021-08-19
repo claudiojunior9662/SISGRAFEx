@@ -8,7 +8,8 @@ package model.tabelas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import ui.administrador.UsuarioBEAN;
+import entities.sisgrafex.Usuario;
+import javax.swing.event.TableModelEvent;
 
 /**
  *
@@ -16,8 +17,8 @@ import ui.administrador.UsuarioBEAN;
  */
 public class UsuarioTableModel extends AbstractTableModel{
 
-    private List<UsuarioBEAN> dados = new ArrayList<>();
-    private String[] colunas = {"NOME", "COD", "LOGIN", "TIPO", "ORC", "PROD", "EXP", "FIN", "EST", "ATIVO"};
+    private List<Usuario> dados = new ArrayList<>();
+    private final String[] colunas = {"NOME", "COD", "LOGIN", "TIPO", "ORC", "PROD", "EXP", "FIN", "EST", "ATIVO", "ULT LOGIN"};
     
     @Override
     public String getColumnName(int col){
@@ -33,12 +34,29 @@ public class UsuarioTableModel extends AbstractTableModel{
     public int getColumnCount() {
         return colunas.length;
     }
+
+    @Override
+    public void fireTableChanged(TableModelEvent e) {
+        super.fireTableChanged(e); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void fireTableStructureChanged() {
+        super.fireTableStructureChanged(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        super.fireTableDataChanged(); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    public UsuarioBEAN getValueAt(int linha){
+    
+    
+    public Usuario getValueAt(int linha){
         return dados.get(linha);
     }
     
-    public void addRow(UsuarioBEAN usr){
+    public void addRow(Usuario usr){
         this.dados.add(usr);
         this.fireTableDataChanged();
     }
@@ -71,6 +89,8 @@ public class UsuarioTableModel extends AbstractTableModel{
                 return dados.get(linha).getAcessoEst();
             case 9:
                 return dados.get(linha).getAtivo();
+            case 10:
+                return dados.get(linha).getUltLogin();
         }
         return null;
     }

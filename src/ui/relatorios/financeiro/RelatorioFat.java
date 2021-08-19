@@ -28,8 +28,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import ui.administrador.UsuarioBEAN;
-import ui.administrador.UsuarioDAO;
+import entities.sisgrafex.Usuario;
+import model.dao.UsuarioDAO;
 import model.dao.ClienteDAO;
 import ui.controle.Controle;
 
@@ -58,7 +58,7 @@ public class RelatorioFat extends javax.swing.JInternalFrame {
             listaPesquisaCliente.setModel(model);
 
             comboEmissores.removeAllItems();
-            for (UsuarioBEAN cadastroFuncionariosBEAN
+            for (Usuario cadastroFuncionariosBEAN
                     : UsuarioDAO.retornaAtendentes((byte) 3)) {
                 comboEmissores.addItem(cadastroFuncionariosBEAN.getCodigo() + " - "
                         + cadastroFuncionariosBEAN.getNome());

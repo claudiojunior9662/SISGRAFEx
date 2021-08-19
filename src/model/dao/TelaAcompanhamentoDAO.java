@@ -17,7 +17,7 @@ import java.util.Date;
 import entities.sisgrafex.ProdOrcamento;
 import model.bean.TelaAcompanhamentoBEAN;
 import model.dao.ProdutoDAO;
-import ui.administrador.UsuarioBEAN;
+import entities.sisgrafex.Usuario;
 
 /**
  *
@@ -34,7 +34,7 @@ public class TelaAcompanhamentoDAO {
      * @return
      * @throws SQLException
      */
-    public static List<TelaAcompanhamentoBEAN> refreshTabela(int limite, UsuarioBEAN usuario) throws SQLException {
+    public static List<TelaAcompanhamentoBEAN> refreshTabela(int limite, Usuario usuario) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

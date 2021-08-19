@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,6 +33,7 @@ import javax.swing.JTextPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
+import model.dao.UsuarioDAO;
 import ui.login.TelaAutenticacao;
 import ui.principal.GerenteJanelas;
 
@@ -173,6 +176,8 @@ public class Controle {
                 preencheDadosConexaoLojaIntegrada();
 
                 preencheDadosConexaoInternet();
+
+                atualizaLogUsuario();
             }
 
         }.start();
@@ -280,7 +285,7 @@ public class Controle {
         }
         return "";
     }
-    
+
     public static String retornaDirArquivo() throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -536,7 +541,7 @@ public class Controle {
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
@@ -566,7 +571,7 @@ public class Controle {
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
@@ -596,29 +601,30 @@ public class Controle {
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     /**
      * Atualiza a última sincronização no banco de dados
-     * @param novoDateTime 
+     *
+     * @param novoDateTime
      */
-    public static void atualizaSyncPedidos(java.sql.Timestamp novoDateTime){
+    public static void atualizaSyncPedidos(java.sql.Timestamp novoDateTime) {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         System.out.println(novoDateTime);
-        try{
+        try {
             stmt = con.prepareStatement("UPDATE tabela_controle "
                     + "SET tabela_controle.SYNC_PEDIDOS = ? ");
             stmt.setTimestamp(1, novoDateTime);
             stmt.executeUpdate();
             SYNC_PEDIDOS = novoDateTime;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(null);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
@@ -770,11 +776,13 @@ public class Controle {
         }
         return null;
     }
-    
+
+    //Funções de manipulação de diretórios
     /**
      * Abre diretório de arquivos
+     *
      * @param caminho
-     * @throws IOException 
+     * @throws IOException
      */
     public static void abreDiretorio(String caminho) throws IOException {
         String os = System.getProperty("os.name");
@@ -793,7 +801,12 @@ public class Controle {
             }
         }
     }
-    
+
+    /**
+     * Cria o diretório de arquivo local na máquina do usuário
+     *
+     * @param caminho caminho a ser criado.
+     */
     public static void criaDiretorio(String caminho) {
         try {
             if (!verificaDiretorio(caminho)) {
@@ -804,7 +817,13 @@ public class Controle {
             Controle.avisosUsuario((byte) 1, "ERRO AO CRIAR O DIRETORIO");
         }
     }
-    
+
+    /**
+     * Verifica o diretório criado localmente na máquina do usuário.
+     *
+     * @param caminho caminho a ser verificado.
+     * @return
+     */
     public static boolean verificaDiretorio(String caminho) {
         boolean retorno = false;
         File dir = new File(caminho);
@@ -814,6 +833,18 @@ public class Controle {
             retorno = true;
         }
         return retorno;
+    }
+
+    /**
+     * Envia a solicitação para atualização do último login do usuário
+     */
+    public synchronized static void atualizaLogUsuario() {
+        try {
+            UsuarioDAO.atualizaUltimoLogin(TelaAutenticacao.getUsrLogado());
+        } catch (SQLException ex) {
+            EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+            EnvioExcecao.envio(null);
+        }
     }
 
 }

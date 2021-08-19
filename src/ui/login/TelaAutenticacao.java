@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ui.principal.ModulosInt;
 import model.dao.OrcamentoDAO;
-import ui.administrador.UsuarioBEAN;
-import ui.administrador.UsuarioDAO;
+import entities.sisgrafex.Usuario;
+import model.dao.UsuarioDAO;
 import model.dao.ClienteDAO;
 import ui.controle.Controle;
 import ui.principal.ModulosExt;
@@ -30,14 +30,14 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "4";
-    private static UsuarioBEAN atendenteLogado;
+    private static final String update = "5";
+    private static Usuario atendenteLogado;
 
-    public static UsuarioBEAN getUsrLogado() {
+    public static Usuario getUsrLogado() {
         return atendenteLogado;
     }
 
-    public static void setAtendenteLogado(UsuarioBEAN atendenteLogado) {
+    public static void setAtendenteLogado(Usuario atendenteLogado) {
         TelaAutenticacao.atendenteLogado = atendenteLogado;
     }
 
@@ -324,7 +324,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
 
             if (campoUsuario.getText().matches("[0-9]*")) {
                 if (ClienteDAO.autenticaCliente(Integer.valueOf(campoUsuario.getText()), campoSenha.getText())) {
-                    atendenteLogado = new UsuarioBEAN(
+                    atendenteLogado = new Usuario(
                             "ODC",
                             campoUsuario.getText(),
                             ClienteDAO.retornaNomeCliente(Integer.valueOf(campoUsuario.getText()), (byte) 2),
@@ -362,9 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    JOptionPane.showMessageDialog(null, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 3 (27-05-2021)\n"
-                            + "- Implementação do relatório detalhado do cliente;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 4 (28-05-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 4 (28-05-2021)\n"
                             + "- Criação da regra para cancelar por prazo uma PO que venceu;\n"
                             + "- Atualização do workflow de OP canceladas;\n"
                             + "- Correção da seleção de status de OP no módulo produção;\n"
@@ -387,12 +385,15 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 3 (18-08-2021)\n"
                             + "- Correção ao gerar o relatório de nota de crédito;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 4 (18-08-2021)\n"
-                            + "- Implementação dos registros de alterações das OP;\n"
+                            + "- Implementação dos registros de alterações das OP (*histórico);\n"
                             + "- Correções ao salvar as OP;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 5 (19-08-2021)\n"
+                            + "- Correção na pesquisa de notas de créditos por clientes no mód. financeiro;\n"
+                            + "- Implementação do registro de log do login do usuário por data e hora;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
-                            + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à SPD;\n"
-                            + "Seç Infor - Seção de Informática - Missão de Grandeza, Servir!");
+                            + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"
+                            + "Seç Infor - Gráfica do Exército - Missão de Grandeza, Servir!");
                     Controle.stsOrcamento = OrcamentoDAO.retornaStsOrcamento();
                     Controle.stsOp = OrdemProducaoDAO.retornaStsOp();
                     Controle.criaDiretorio(Controle.TEMP_DIR);

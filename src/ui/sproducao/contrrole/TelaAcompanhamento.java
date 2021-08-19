@@ -30,8 +30,8 @@ import javax.swing.JTextArea;
 import model.dao.ArquivosDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import ui.administrador.UsuarioBEAN;
-import ui.administrador.UsuarioDAO;
+import entities.sisgrafex.Usuario;
+import model.dao.UsuarioDAO;
 import model.dao.ClienteDAO;
 import model.dao.ProdutoDAO;
 import model.lists.OperadoresModel;
@@ -1735,9 +1735,9 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
              * Retorna atendentes
              */
             modeloOperadores.removeAllItems();
-            modeloOperadores.addItem(new UsuarioBEAN("SEL", "SELECIONE..."));
+            modeloOperadores.addItem(new Usuario("SEL", "SELECIONE..."));
 
-            for (UsuarioBEAN usuario : UsuarioDAO.retornaAtendentes((byte) 1)) {
+            for (Usuario usuario : UsuarioDAO.retornaAtendentes((byte) 1)) {
                 if (TelaAutenticacao.getUsrLogado().getAcessoProdAdm() == 1) {
                     modeloOperadores.addItem(usuario);
                 } else {
@@ -1750,7 +1750,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
 
             if (op.getCodAtendente() != null) {
-                UsuarioBEAN usuarioSelecionado = new UsuarioBEAN(op.getCodAtendente(), UsuarioDAO.retornaNomeAtendente(op.getCodAtendente()));
+                Usuario usuarioSelecionado = new Usuario(op.getCodAtendente(), UsuarioDAO.retornaNomeAtendente(op.getCodAtendente()));
                 modeloOperadores.setSelectedItem(usuarioSelecionado);
             } else {
                 operadorSecao.setSelectedIndex(0);

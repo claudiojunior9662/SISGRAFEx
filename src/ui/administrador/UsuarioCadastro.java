@@ -5,6 +5,8 @@
  */
 package ui.administrador;
 
+import entities.sisgrafex.Usuario;
+import model.dao.UsuarioDAO;
 import exception.EnvioExcecao;
 import java.sql.SQLException;
 import java.util.Date;
@@ -20,7 +22,7 @@ import ui.controle.Controle;
 public class UsuarioCadastro extends javax.swing.JInternalFrame {
 
     private static UsuarioCadastro usuarioCadastro;
-    UsuarioBEAN usuario;
+    Usuario usuario;
     byte editando = 0;
     UsuarioTableModel model = new UsuarioTableModel();
 
@@ -80,6 +82,11 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
                 jtfLoginUsrFocusLost(evt);
             }
         });
+        jtfLoginUsr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfLoginUsrActionPerformed(evt);
+            }
+        });
 
         jcbTipoUsr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "ADMINISTRADOR", "USUÁRIO" }));
         jcbTipoUsr.setBorder(javax.swing.BorderFactory.createTitledBorder("TIPO"));
@@ -115,16 +122,17 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
 
         jpfSenhaUsr.setBorder(javax.swing.BorderFactory.createTitledBorder("SENHA"));
 
+        tblUsr.setAutoCreateRowSorter(true);
         tblUsr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOME", "CÓDIGO", "LOGIN", "TIPO", "ORC", "PROD", "EXP", "FIN", "EST", "ATIVO"
+                "NOME", "CÓDIGO", "LOGIN", "TIPO", "ORC", "PROD", "EXP", "FIN", "EST", "ATIVO", "ULT LOGIN"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -191,18 +199,21 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jtfNomeUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jftfCodigoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jtfNomeUsr, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jftfCodigoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jtfLoginUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jpfSenhaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jcbTipoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnResetarSenha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtivar)
@@ -211,25 +222,24 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadastrar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(btnCadastrar)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcbTipoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpfSenhaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfLoginUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jftfCodigoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jpfSenhaUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbTipoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtfLoginUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jftfCodigoUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jtfNomeUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
@@ -237,7 +247,7 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
                     .addComponent(btnDesativar)
                     .addComponent(btnAtivar)
                     .addComponent(btnResetarSenha))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jcbTipoUsr, jftfCodigoUsr, jpfSenhaUsr, jtfLoginUsr, jtfNomeUsr});
@@ -255,8 +265,8 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -272,7 +282,7 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
-            usuario = new UsuarioBEAN();
+            usuario = new Usuario();
 
             /**
              * Verifica se todos os campos foram preenchidos corretamente
@@ -625,6 +635,10 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtfLoginUsrFocusLost
 
+    private void jtfLoginUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfLoginUsrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfLoginUsrActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtivar;
@@ -658,11 +672,11 @@ public class UsuarioCadastro extends javax.swing.JInternalFrame {
             model.setNumRows(0);
 
             if (tipo == null && tipoAux == null && texto == null) {
-                for (UsuarioBEAN usuario : UsuarioDAO.carregaLista()) {
+                for (Usuario usuario : UsuarioDAO.carregaLista()) {
                     model.addRow(usuario);
                 }
             } else {
-                for (UsuarioBEAN usuario
+                for (Usuario usuario
                         : UsuarioDAO.retornaPesquisa(tipo, tipoAux, texto)) {
                     model.addRow(usuario);
                 }

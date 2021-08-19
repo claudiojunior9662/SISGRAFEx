@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.administrador;
+package model.dao;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import entities.sisgrafex.Usuario;
+import java.util.Date;
 
 /**
  *
@@ -25,7 +27,7 @@ public class UsuarioDAO {
      * @param usuario novo usuário
      * @throws SQLException 
      */
-    public static void cria(UsuarioBEAN usuario) throws SQLException {
+    public static void cria(Usuario usuario) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -82,7 +84,7 @@ public class UsuarioDAO {
      * @param usuario usuário a ser atualizado
      * @throws SQLException 
      */
-    public static void atualiza(UsuarioBEAN usuario) throws SQLException{
+    public static void atualiza(Usuario usuario) throws SQLException{
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
 
@@ -219,12 +221,12 @@ public class UsuarioDAO {
         return retorno;
     }
 
-    public static List<UsuarioBEAN> retornaAcessos(String login_atendente) throws SQLException {
+    public static List<Usuario> retornaAcessos(String login_atendente) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<UsuarioBEAN> cadastrofc = new ArrayList();
+        List<Usuario> cadastrofc = new ArrayList();
 
         try {
             stmt = con.prepareStatement("SELECT acesso_orc, acesso_prod, acesso_exp, acesso_fin, acesso_estoque,"
@@ -232,7 +234,7 @@ public class UsuarioDAO {
             stmt.setString(1, login_atendente);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                UsuarioBEAN cadastroFuncionariosBEAN = new UsuarioBEAN();
+                Usuario cadastroFuncionariosBEAN = new Usuario();
                 cadastroFuncionariosBEAN.setAcessoOrc(rs.getByte("acesso_orc"));
                 cadastroFuncionariosBEAN.setAcessoProd(rs.getByte("acesso_prod"));
                 cadastroFuncionariosBEAN.setAcessoExp(rs.getByte("acesso_exp"));
@@ -249,22 +251,22 @@ public class UsuarioDAO {
         return cadastrofc;
     }
 
-    public static List<UsuarioBEAN> carregaLista() throws SQLException {
+    public static List<Usuario> carregaLista() throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<UsuarioBEAN> retorno = new ArrayList();
+        List<Usuario> retorno = new ArrayList();
 
         try {
             stmt = con.prepareStatement("SELECT * "
                     + "FROM tabela_atendentes "
                     + "INNER JOIN usuario_acessos "
                     + "ON usuario_acessos.CODIGO_USR = tabela_atendentes.codigo_atendente "
-                    + "ORDER BY codigo_atendente ASC");
+                    + "ORDER BY nome_atendente ASC");
             rs = stmt.executeQuery();
             while (rs.next()) {
-                retorno.add(new UsuarioBEAN(
+                retorno.add(new Usuario(
                         rs.getString("nome_atendente"),
                         rs.getString("codigo_atendente"),
                         rs.getString("login_atendente"),
@@ -279,7 +281,8 @@ public class UsuarioDAO {
                         rs.getByte("usuario_acessos.FIN_ADM"),
                         rs.getByte("usuario_acessos.EST"),
                         rs.getByte("usuario_acessos.ORD"),
-                        rs.getByte("ativo")
+                        rs.getByte("ativo"),
+                        rs.getTimestamp("DT_ULT_LOGIN")
                 ));
             }
         } catch (SQLException ex) {
@@ -315,14 +318,14 @@ public class UsuarioDAO {
      * @return
      * @throws SQLException
      */
-    public static List<UsuarioBEAN> retornaPesquisa(String tipo,
+    public static List<Usuario> retornaPesquisa(String tipo,
             String tipoAux,
             String texto) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<UsuarioBEAN> retorno = new ArrayList();
+        List<Usuario> retorno = new ArrayList();
 
         try {
             if (tipo.equals("NOME ATENDENTE")) {
@@ -402,7 +405,7 @@ public class UsuarioDAO {
             }
             rs = stmt.executeQuery();
             while (rs.next()) {
-                retorno.add(new UsuarioBEAN(
+                retorno.add(new Usuario(
                         rs.getString("nome_atendente"),
                         rs.getString("codigo_atendente"),
                         rs.getString("login_atendente"),
@@ -417,7 +420,8 @@ public class UsuarioDAO {
                         rs.getByte("usuario_acessos.FIN_ADM"),
                         rs.getByte("usuario_acessos.EST"),
                         rs.getByte("usuario_acessos.ORD"),
-                        rs.getByte("ativo")
+                        rs.getByte("ativo"),
+                        rs.getTimestamp("DT_ULT_LOGIN")
                 ));
             }
             return retorno;
@@ -475,12 +479,12 @@ public class UsuarioDAO {
      * @param acesso 0 - TODOS 1 - PRODUCAO 2 - ORCAMENTO 3 - EXPEDIÇÃO 4 -
      * FINANCEIRO 5 - ESTOQUE
      */
-    public static List<UsuarioBEAN> retornaAtendentes(byte acesso) throws SQLException {
+    public static List<Usuario> retornaAtendentes(byte acesso) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<UsuarioBEAN> retorno = new ArrayList();
+        List<Usuario> retorno = new ArrayList();
 
         try {
             switch (acesso) {
@@ -527,7 +531,7 @@ public class UsuarioDAO {
             }
             rs = stmt.executeQuery();
             while (rs.next()) {
-                retorno.add(new UsuarioBEAN(rs.getString("codigo_atendente"),
+                retorno.add(new Usuario(rs.getString("codigo_atendente"),
                         rs.getString("nome_atendente")));
             }
         } catch (SQLException ex) {
@@ -575,7 +579,7 @@ public class UsuarioDAO {
      * @return
      * @throws SQLException
      */
-    public static UsuarioBEAN retornaInfoUsr(String login, String senha) throws SQLException {
+    public static Usuario retornaInfoUsr(String login, String senha) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -590,7 +594,7 @@ public class UsuarioDAO {
             stmt.setString(2, senha);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                return new UsuarioBEAN(
+                return new Usuario(
                         rs.getString("nome_atendente"),
                         rs.getString("codigo_atendente"),
                         rs.getString("login_atendente"),
@@ -605,7 +609,8 @@ public class UsuarioDAO {
                         rs.getByte("usuario_acessos.FIN_ADM"),
                         rs.getByte("usuario_acessos.EST"),
                         rs.getByte("usuario_acessos.ORD"),
-                        rs.getByte("ativo")
+                        rs.getByte("ativo"),
+                        rs.getTimestamp("DT_ULT_LOGIN")
                 );
             }
             return null;
@@ -659,6 +664,29 @@ public class UsuarioDAO {
             return rs.next();
         } catch (SQLException ex) {
             throw new SQLException(ex);
+        }
+    }
+    
+    /**
+     * Atualiza a data e hora do último login do usuário.
+     * @param usuario usuário a ser atualizado.
+     * @throws SQLException 
+     */
+    public synchronized static void atualizaUltimoLogin(Usuario usuario) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try{
+            stmt = con.prepareStatement("UPDATE tabela_atendentes "
+                    + "SET DT_ULT_LOGIN = ? "
+                    + "WHERE codigo_atendente = ?");
+            stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+            stmt.setString(2, usuario.getCodigo());
+            stmt.executeUpdate();
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
         }
     }
     
