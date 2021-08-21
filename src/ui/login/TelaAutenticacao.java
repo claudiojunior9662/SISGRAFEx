@@ -321,7 +321,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
             ModulosExt mExt;
             LoginDAO loginDAO = new LoginDAO();
             String senha = campoSenha.getText();
-
+            
             if (campoUsuario.getText().matches("[0-9]*")) {
                 if (ClienteDAO.autenticaCliente(Integer.valueOf(campoUsuario.getText()), campoSenha.getText())) {
                     atendenteLogado = new Usuario(

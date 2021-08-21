@@ -49,7 +49,7 @@ import ui.controle.Controle;
 public class IntegracaoLojaIntegrada {
 
     public static void main(String[] args) {
-
+        
     }
 
     /**
