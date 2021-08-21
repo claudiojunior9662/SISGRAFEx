@@ -103,8 +103,6 @@ public class IntegracaoLojaIntegrada {
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     headers = response.headers();
                     headers.map().forEach((k, v) -> System.out.println(k + ":" + v));
-                    System.out.println(response.statusCode());
-                    System.out.println(response.body());
                     break;
                 case 2:
                     List<Order> ordersGeral = new ArrayList();
@@ -934,7 +932,7 @@ public class IntegracaoLojaIntegrada {
                         }
                         labelSincronizacao.setText("ÚLTIMA SINCRONIZAÇÃO: " + new java.sql.Timestamp(new Date().getTime()).toString());
                         Controle.atualizaSyncPedidos(new java.sql.Timestamp(new Date().getTime()));
-                        Thread.sleep(30000);
+                        Thread.sleep(60000);
                     }
                 } catch (InterruptedException | IOException | SQLException ex) {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
