@@ -190,7 +190,6 @@ public class IntegracaoLojaIntegrada {
                                     + Controle.CHAVE_APLICACAO))
                             .GET()
                             .build();
-                    System.out.println(request);
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                     JSONObject orderEsp = new JSONObject(response.body());
