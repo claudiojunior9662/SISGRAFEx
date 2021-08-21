@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import ui.controle.Controle;
 
 /**
  *
@@ -32,15 +33,36 @@ public class ContatoDAO {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT tabela_contatos.cod "
-                    + "FROM tabela_contatos "
-                    + "WHERE tabela_contatos.telefone = ? "
-                    + "OR tabela_contatos.telefone2 = ?");
-            stmt.setString(1, contato.getTelefone().replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-            stmt.setString(2, contato.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                return true;
+            if (contato.getTelefone2() != null && contato.getTelefone() == null) {
+                stmt = con.prepareStatement("SELECT tabela_contatos.cod "
+                        + "FROM tabela_contatos "
+                        + "WHERE tabela_contatos.telefone2 = ? ");
+                stmt.setString(1, Controle.retornaTelefoneFormatado(contato.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                System.out.println(stmt);
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            } else if(contato.getTelefone() != null && contato.getTelefone2() == null) {
+                stmt = con.prepareStatement("SELECT tabela_contatos.cod "
+                        + "FROM tabela_contatos "
+                        + "WHERE tabela_contatos.telefone = ? ");
+                stmt.setString(1, Controle.retornaTelefoneFormatado(contato.getTelefone().replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }else{
+                stmt = con.prepareStatement("SELECT tabela_contatos.cod "
+                        + "FROM tabela_contatos "
+                        + "WHERE tabela_contatos.telefone = ? "
+                        + "OR tabela_contatos.telefone2 = ?");
+                stmt.setString(1, Controle.retornaTelefoneFormatado(contato.getTelefone().replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                stmt.setString(2, Controle.retornaTelefoneFormatado(contato.getTelefone2().replace("(", "").replace(")", "").replace("-", "").replace(" ", "")));
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
             }
             return false;
         } catch (SQLException ex) {

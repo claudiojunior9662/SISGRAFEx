@@ -143,7 +143,7 @@ public class Orcamento {
         this.status = status;
     }
 
-    public Orcamento(int codigo, String nomeCliente, String tipoPessoa, String dataEmissao, String dataValidade, float valorTotal, String status) {
+    public Orcamento(int codigo, String nomeCliente, String tipoPessoa, String dataEmissao, String dataValidade, float valorTotal, String status, String codEmissor) {
         this.codigo = codigo;
         this.dataValidadeString = dataValidade;
         this.dataEmissaoString = dataEmissao;
@@ -151,6 +151,7 @@ public class Orcamento {
         this.tipoPessoaString = tipoPessoa;
         this.nomeCliente = nomeCliente;
         this.valorTotal = valorTotal;
+        this.codigoEmissor = codEmissor;
     }
 
     public Orcamento(int codigo,

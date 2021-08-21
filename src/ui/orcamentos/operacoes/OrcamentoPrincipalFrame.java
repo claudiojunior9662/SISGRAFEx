@@ -38,9 +38,12 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import entities.sisgrafex.ProdOrcamento;
 import exception.EnvioExcecao;
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableCellRenderer;
 import model.tabelas.OrcamentoExtTableModel;
 import model.tabelas.OrcamentoIntTableModel;
 import ui.cadastros.acabamentos.AcabamentoDAO;
@@ -260,11 +263,11 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaConsulta = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
-        p1 = new javax.swing.JComboBox<String>();
+        p1 = new javax.swing.JComboBox<>();
         p3Texto = new javax.swing.JTextField();
         botaoPesquisar = new javax.swing.JButton();
         mostrarTodos = new javax.swing.JButton();
-        p2 = new javax.swing.JComboBox<String>();
+        p2 = new javax.swing.JComboBox<>();
         p3Data = new com.toedter.calendar.JDateChooser();
         gerarPdf = new javax.swing.JButton();
         p3Formatado = new javax.swing.JFormattedTextField();
@@ -286,6 +289,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         antPag = new javax.swing.JLabel();
         proxPag = new javax.swing.JLabel();
         pagAtual = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setTitle("ORÇAMENTO");
         setToolTipText("");
@@ -326,7 +331,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         codigoCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         credito.setEditable(false);
-        credito.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CRÉDITO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        credito.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CRÉDITO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
         credito.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
         credito.setToolTipText("ESTE CRÉDITO É ATUALIZADO DE ACORDO COM OS LANÇAMENTOS DE NOTA DE VENDA E NOTA DE CRÉDITO");
         credito.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -470,14 +475,14 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     .addComponent(removerProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(observacaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1154, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1422, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {adicionarProduto, observacaoProduto, removerProduto});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(adicionarProduto)
@@ -550,7 +555,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(1001, Short.MAX_VALUE)
+                .addContainerGap(1268, Short.MAX_VALUE)
                 .addComponent(valoresManuais)
                 .addContainerGap())
             .addComponent(jScrollPane8)
@@ -618,15 +623,15 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1228, Short.MAX_VALUE)
+            .addGap(0, 1483, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JSPImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 1228, Short.MAX_VALUE))
+                .addComponent(JSPImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 1483, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 194, Short.MAX_VALUE)
+            .addGap(0, 198, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(JSPImpressao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                .addComponent(JSPImpressao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
         );
 
         tabsInformacoes.addTab("IMPRESSÃO", jPanel14);
@@ -660,11 +665,11 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 1228, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 1483, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
         );
 
         tabsInformacoes.addTab("PAPEL", new javax.swing.ImageIcon(getClass().getResource("/icones/papeis.png")), jPanel7); // NOI18N
@@ -691,11 +696,11 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1228, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1483, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
         );
 
         tabsInformacoes.addTab("ACABAMENTOS", new javax.swing.ImageIcon(getClass().getResource("/icones/acabamentos.png")), jPanel9); // NOI18N
@@ -749,7 +754,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     .addComponent(adicionarServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(removeServico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1156, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1439, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,7 +763,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                 .addComponent(adicionarServico)
                 .addGap(7, 7, 7)
                 .addComponent(removeServico)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
             .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
@@ -774,11 +779,11 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1228, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1483, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
         );
 
         tabsInformacoes.addTab("OBSERVAÇÕES", new javax.swing.ImageIcon(getClass().getResource("/icones/editar.png")), jPanel11); // NOI18N
@@ -968,7 +973,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsInformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(tabsInformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 231, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jckbArte)
@@ -1080,7 +1085,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
 
         jLabel16.setText("PESQUISAR POR:");
 
-        p1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE...", "CÓDIGO", "CLIENTE", "DATA EMISSÃO", "DATA VALIDADE", "STATUS" }));
+        p1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "CÓDIGO", "CLIENTE", "DATA EMISSÃO", "DATA VALIDADE", "STATUS" }));
         p1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 p1ItemStateChanged(evt);
@@ -1108,7 +1113,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        p2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE..." }));
+        p2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE..." }));
         p2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 p2ItemStateChanged(evt);
@@ -1172,7 +1177,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(naoAprovadoCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enviarEmailAnexo, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                .addComponent(enviarEmailAnexo, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
         );
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {editar, excluir, naoAprovadoCliente});
@@ -1183,7 +1188,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(naoAprovadoCliente)
                     .addComponent(enviarEmailAnexo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(excluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editar))
@@ -1222,7 +1227,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                 .addComponent(enviarProducao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(enviarExpedicao)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "ORDENADOR DE DESPESAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -1273,7 +1278,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+                .addGap(0, 20, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdOdGrafica)
                     .addComponent(rdOdCliente))
@@ -1290,7 +1295,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         jLabel1.setText("PÁGINA");
 
         antPag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/anterior.png"))); // NOI18N
-        antPag.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        antPag.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         antPag.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 antPagMouseClicked(evt);
@@ -1298,7 +1303,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
         });
 
         proxPag.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/proximo.png"))); // NOI18N
-        proxPag.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        proxPag.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         proxPag.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 proxPagMouseClicked(evt);
@@ -1314,6 +1319,13 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(255, 215, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 215, 0));
+        jLabel2.setOpaque(true);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("PROPOSTAS RECEBIDAS PELO MÓDULO INTEGRADOR");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1326,7 +1338,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         .addGap(2, 2, 2)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(p1, 0, 126, Short.MAX_VALUE)
+                                .addComponent(p1, 0, 395, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(p3Data, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(p2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1341,6 +1353,10 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         .addGap(87, 87, 87))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
                             .addComponent(jLabel16)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1384,8 +1400,12 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         .addComponent(p3Texto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(mostrarTodos)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoPdf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2890,8 +2910,10 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -3098,7 +3120,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                 Controle.dataPadrao.format(orcamento.getDataValidade()),
                                 orcamento.getValorTotal(),
-                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                orcamento.getCodEmissor()
                         ));
                         break;
                     case 3:
@@ -3111,8 +3134,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         ));
                         break;
                 }
-
             }
+            corTabelaOrcamento(tabelaConsulta);
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(loading);
@@ -3160,7 +3183,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3197,7 +3221,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                                 Controle.dataPadrao.format(orcamento.getDataValidade()),
                                                 orcamento.getValorTotal(),
-                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                                orcamento.getCodEmissor()
                                         ));
                                         break;
                                     case 3:
@@ -3227,7 +3252,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                                 Controle.dataPadrao.format(orcamento.getDataValidade()),
                                                 orcamento.getValorTotal(),
-                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                                orcamento.getCodEmissor()
                                         ));
                                         break;
                                     case 3:
@@ -3260,7 +3286,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3290,7 +3317,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3308,6 +3336,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     break;
             }
             pagAtual.setValue(1);
+            corTabelaOrcamento(tabelaConsulta);
         } catch (SQLException | ParseException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(loading);
@@ -3374,7 +3403,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3410,7 +3440,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                                 Controle.dataPadrao.format(orcamento.getDataValidade()),
                                                 orcamento.getValorTotal(),
-                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                                orcamento.getCodEmissor()
                                         ));
                                         break;
                                     case 3:
@@ -3440,7 +3471,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                                 Controle.dataPadrao.format(orcamento.getDataValidade()),
                                                 orcamento.getValorTotal(),
-                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                                Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                                orcamento.getCodEmissor()
                                         ));
                                         break;
                                     case 3:
@@ -3473,7 +3505,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3503,7 +3536,8 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
                                         Controle.dataPadrao.format(orcamento.getDataValidade()),
                                         orcamento.getValorTotal(),
-                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString()
+                                        Controle.stsOrcamento.get(orcamento.getStatus() - 1).toString(),
+                                        orcamento.getCodEmissor()
                                 ));
                                 break;
                             case 3:
@@ -3520,6 +3554,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     }
                     break;
             }
+            corTabelaOrcamento(tabelaConsulta);
             loading.setVisible(false);
         } catch (SQLException | ParseException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
@@ -4410,6 +4445,52 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
             }
         }
         return codProd;
+    }
+
+    /**
+     * @param jTable tabelaControle
+     */
+    public synchronized static void corTabelaOrcamento(JTable jTable) {
+        new Thread("Cor tabela") {
+            @Override
+            public void run() {
+                try {
+                    jTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                        @Override
+                        public Component getTableCellRendererComponent(JTable table, Object value,
+                                boolean isSelected, boolean hasFocus,
+                                int row, int column) {
+                            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                            //***********************
+                            Color c = Color.WHITE;
+                            String texto = null;
+
+                            String codEmissor = jTable.getValueAt(row, 7).toString();
+
+                            switch (codEmissor) {
+                                case "SIS":
+                                    c = Color.getColor("amarelo1");
+                                    label.setForeground(Color.BLACK);
+                                    break;
+                                default:
+                                    c = Color.WHITE;
+                                    label.setForeground(Color.BLACK);
+                                    break;
+                            }
+                            label.setBackground(c);
+                            //***********************
+                            return label;
+                        }
+                    });
+                    jTable.setSelectionForeground(Color.BLUE);
+                } catch (RuntimeException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(null);
+                }
+
+            }
+        }.start();
+
     }
 
 }

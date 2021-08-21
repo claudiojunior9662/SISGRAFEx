@@ -190,6 +190,7 @@ public class IntegracaoLojaIntegrada {
                                     + Controle.CHAVE_APLICACAO))
                             .GET()
                             .build();
+                    System.out.println(request);
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                     JSONObject orderEsp = new JSONObject(response.body());
@@ -229,8 +230,11 @@ public class IntegracaoLojaIntegrada {
                             new Contato(
                                     orderEsp.getJSONObject("cliente").getString("nome").toUpperCase().split(" ")[0],
                                     orderEsp.getJSONObject("cliente").getString("email"),
-                                    Controle.retornaTelefoneFormatado(orderEsp.getJSONObject("cliente").getString("telefone_principal")),
-                                    Controle.retornaTelefoneFormatado(orderEsp.getJSONObject("cliente").getString("telefone_celular"))
+                                    orderEsp.getJSONObject("cliente").get("telefone_principal") == JSONObject.NULL ? 
+                                            Controle.retornaTelefoneFormatado(orderEsp.getJSONObject("cliente").getString("telefone_celular")) :
+                                            Controle.retornaTelefoneFormatado(orderEsp.getJSONObject("cliente").getString("telefone_principal")),
+                                    orderEsp.getJSONObject("cliente").get("telefone_celular") == JSONObject.NULL ? null : 
+                                            Controle.retornaTelefoneFormatado(orderEsp.getJSONObject("cliente").getString("telefone_celular"))
                             ),
                             new Endereco(
                                     Controle.retornaCepFormatado(orderEsp.getJSONObject("endereco_entrega").getString("cep")),

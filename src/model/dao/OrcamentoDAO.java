@@ -154,6 +154,7 @@ public class OrcamentoDAO {
                 orcamento.setValorTotal(rs.getFloat("valor_total"));
                 orcamento.setStatus(rs.getByte("status"));
                 orcamento.setTipoPessoa(rs.getInt("tipo_cliente"));
+                orcamento.setCodEmissor(rs.getString("cod_emissor"));
                 retorno.add(orcamento);
             }
             return retorno;

@@ -176,6 +176,16 @@ public class Controle {
                 preencheDadosConexaoInternet();
 
                 atualizaLogUsuario();
+
+                System.setProperty("vermelho1", "#FF0000");
+                System.setProperty("vermelho2", "#FFA500");
+                System.setProperty("amarelo1", "#FFD700");
+                System.setProperty("amarelo2", "#FFFF00");
+                System.setProperty("amarelo3", "#F0E68C");
+                System.setProperty("verde1", "#00FF00");
+                System.setProperty("verde2", "#00FF7F");
+                System.setProperty("verde3", "#90EE90");
+                System.setProperty("verde4", "#98FB98");
             }
 
         }.start();
