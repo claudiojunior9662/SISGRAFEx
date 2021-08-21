@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "5";
+    private static final String update = "6";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,12 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 4 (28-05-2021)\n"
-                            + "- Criação da regra para cancelar por prazo uma PO que venceu;\n"
-                            + "- Atualização do workflow de OP canceladas;\n"
-                            + "- Correção da seleção de status de OP no módulo produção;\n"
-                            + "- Correção na atualização da alteração de status no módulo expedição, ao faturar uma OP;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 5 (31-05-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.5.1 5 (31-05-2021)\n"
                             + "- Correção da alteração da mudança do status da PO;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 1 (06-06-2021)\n"
                             + "- Alteração nos status das OP;\n"
@@ -389,7 +384,12 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Correções ao salvar as OP;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 5 (19-08-2021)\n"
                             + "- Correção na pesquisa de notas de créditos por clientes no mód. financeiro;\n"
-                            + "- Implementação do registro de log do login do usuário por data e hora;\n\n"
+                            + "- Implementação do registro de log do login do usuário por data e hora;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 6 (21-08-2021)\n"
+                            + "- Testes e verificações da integração com a Loja Integrada (1/5) - Status: Pronto;\n"
+                            + "- Correções do PDF da proposta de orçamento;\n"
+                            + "- Testes e verificações do registro de log de OP (1/5) - Status: Pronto;\n"
+                            + "- Alterações diversas a fim de melhorar a experiência do usuário;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

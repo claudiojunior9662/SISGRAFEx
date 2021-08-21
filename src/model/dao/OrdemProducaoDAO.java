@@ -176,7 +176,7 @@ public class OrdemProducaoDAO {
             stmt.setByte(11, op.getTipoProduto());
             stmt.setInt(12, op.getCodContato());
             stmt.setInt(13, op.getCodEndereco());
-            stmt.setDate(14, new java.sql.Date(op.getDataEntgProva().getTime()));
+            stmt.setDate(14, op.getTipoProduto() == 2 ? null : new java.sql.Date(op.getDataEntgProva().getTime()));
             stmt.setString(15, op.getObsFrete());
             stmt.executeUpdate();
         } catch (SQLException ex) {

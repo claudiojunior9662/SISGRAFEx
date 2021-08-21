@@ -539,7 +539,8 @@ public class Orcamento {
                     //INFORMAÇÕES DOS CONTATOS----------------------------------
                     Contato contato = ClienteDAO.selInfoContato(orcamento.getCodContato());
                     p2 = new Paragraph("CONTATO: " + contato.getNomeContato().toString()
-                            + "        TELEFONE: " + contato.getTelefone().toString(), FontFactory.getFont("arial.ttf", 9));
+                            + "        TELEFONE PRINCIPAL: " + contato.getTelefone().toString()
+                            + "        TELEFONE SECUNDÁRIO: " + contato.getTelefone2().toString(), FontFactory.getFont("arial.ttf", 9));
                     document.add(p2);
 
                     p2 = new Paragraph("VENDEDOR: " + OrcamentoDAO.carregaNomeVendedor(orcamento.getCodEmissor()), FontFactory.getFont("arial.ttf", 9));
