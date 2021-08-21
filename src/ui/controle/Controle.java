@@ -105,7 +105,7 @@ public class Controle {
 
     //MENSAGENS PADRÃO----------------------------------------------------------
     public static String naoAdm = "VOCÊ PRECISA SER UM ADMINISTRADOR DESTE MÓDULO PARA ACESSAR ESTA FUNÇÃO";
-
+    
     /**
      *
      * @param tipo 1 - ERRO, 2 - INFORMAÇÃO
