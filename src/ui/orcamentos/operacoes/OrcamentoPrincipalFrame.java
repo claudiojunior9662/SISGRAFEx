@@ -3197,7 +3197,6 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                 ));
                                 break;
                         }
-
                     }
                     break;
                 case 2:
@@ -3331,12 +3330,10 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                 ));
                                 break;
                         }
-
                     }
                     break;
             }
             pagAtual.setValue(1);
-            corTabelaOrcamento(tabelaConsulta);
         } catch (SQLException | ParseException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(loading);
