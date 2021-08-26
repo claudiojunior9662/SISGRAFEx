@@ -1714,7 +1714,7 @@ public class ClienteDAO {
                 while (rs.next()) {
                     retorno.add(new Cliente(
                             codCliente,
-                            rs.getString("tabela_clientes_fisicos.nome"),
+                            rs.getString("tabela_clientes_juridicos.nome"),
                             rs.getString("tabela_clientes_juridicos.cnpj"),
                             (byte) 2
                     ));
