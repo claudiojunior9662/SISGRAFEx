@@ -37,8 +37,10 @@
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
                       <Component id="qtdDiasOp" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnObservacoes" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jckbHistorico" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="visualizarOrdemProducao" linkSize="10" min="-2" pref="59" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -61,6 +63,7 @@
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="qtdDiasOp" linkSize="5" alignment="3" pref="42" max="32767" attributes="0"/>
                               <Component id="btnObservacoes" linkSize="5" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="jckbHistorico" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel11" linkSize="5" alignment="0" pref="44" max="32767" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -1407,6 +1410,11 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jckbHistorico">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="HIST&#xd3;RICO"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

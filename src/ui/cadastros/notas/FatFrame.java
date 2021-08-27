@@ -27,8 +27,6 @@ import exception.EnvioExcecao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.dao.OrcamentoDAO;
 import model.dao.OrdemProducaoDAO;
 import model.dao.ClienteDAO;
@@ -214,6 +212,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
         botaoGravarNota = new javax.swing.JButton();
         botaoCancelarNota = new javax.swing.JButton();
         botaoGerarArquivo = new javax.swing.JButton();
+        jckbHistorico = new javax.swing.JCheckBox();
 
         setTitle("FATURAMENTO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/faturamento.png"))); // NOI18N
@@ -524,7 +523,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(emissor, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addComponent(emissor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -649,7 +648,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1095, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(66, 66, 66))
@@ -660,7 +659,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(99, Short.MAX_VALUE))
@@ -996,12 +995,15 @@ public class FatFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jckbHistorico.setText("HISTÓRICO");
+        jckbHistorico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
                 .addComponent(botaoPesquisarNota)
                 .addGap(18, 18, 18)
                 .addComponent(botaoIncluirNota)
@@ -1014,8 +1016,10 @@ public class FatFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(botaoCancelarNota)
                 .addGap(18, 18, 18)
-                .addComponent(botaoGerarArquivo)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jckbHistorico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoGerarArquivo))
+                .addGap(60, 60, 60))
         );
 
         jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botaoCancelarNota, botaoEditarNota, botaoExcluirNota, botaoGravarNota, botaoIncluirNota, botaoPesquisarNota});
@@ -1033,6 +1037,8 @@ public class FatFrame extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(botaoGerarArquivo)
                         .addComponent(botaoCancelarNota, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jckbHistorico)
                 .addContainerGap())
         );
 
@@ -1206,7 +1212,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
             if (NotaDAO.verificaQuantidadeEntregue(FAT.getCodOp()) < (int) qtdSolicitada.getValue()) {
                 NotaCredito.geraRecibo(FAT);
             } else {
-                OrdemProducao.gerarPdfOp(FAT.getCodOp(), FAT.getCodOrc(), (byte) 2, FAT);
+                OrdemProducao.gerarPdfOp(FAT.getCodOp(), FAT.getCodOrc(), (byte) 2, FAT, jckbHistorico.isSelected());
             }
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
@@ -1295,6 +1301,7 @@ public class FatFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JCheckBox jckbHistorico;
     public static javax.swing.JFormattedTextField larguraProduto;
     public static javax.swing.JFormattedTextField larguraVolume;
     public static javax.swing.JTextField logadouroCliente;

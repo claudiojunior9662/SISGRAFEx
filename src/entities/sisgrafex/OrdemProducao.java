@@ -114,13 +114,13 @@ public class OrdemProducao {
         this.dataEntrega = dataEntrega;
     }
 
-    public OrdemProducao(int codigo, 
-            int orcamentoBase, 
-            String dataEmissaoString, 
-            String dataEntregaString, 
-            String descricao, 
-            String statusString, 
-            String clienteString, 
+    public OrdemProducao(int codigo,
+            int orcamentoBase,
+            String dataEmissaoString,
+            String dataEntregaString,
+            String descricao,
+            String statusString,
+            String clienteString,
             String tipoPessoaString) {
         this.codigo = codigo;
         this.orcamentoBase = orcamentoBase;
@@ -660,11 +660,13 @@ public class OrdemProducao {
      * @param codOrcBase código do orçamento base
      * @param tipo tipo de emissão 1 - PARA PRODUÇÃO, 2 - PARA FATURAMENTO
      * @param fat
+     * @param historico 1 - COM HISTÓRICO, 2 - SEM HISTÓRICO
      */
     public static void gerarPdfOp(int codOp,
             int codOrcBase,
             byte tipo,
-            Faturamento fat) {
+            Faturamento fat,
+            boolean historico) {
         new Thread("Gera PDF OP") {
             @Override
             public void run() {
@@ -742,6 +744,8 @@ public class OrdemProducao {
                     tblValor.setWidthPercentage(100);
                     PdfPTable tblPostagem = new PdfPTable(new float[]{5f, 5f});
                     tblPostagem.setWidthPercentage(100);
+                    PdfPTable tblHistoricoAlteracoes = new PdfPTable(new float[]{5f, 5f, 5f});
+                    tblHistoricoAlteracoes.setWidthPercentage(100);
 
                     /**
                      * Define o formato de número
@@ -1312,6 +1316,47 @@ public class OrdemProducao {
                     tblObservacoes.addCell(cell1);
                     document.add(tblObservacoes);
                     tblObservacoes.deleteBodyRows();
+
+                    document.add(new Paragraph("\n"));
+
+                    if (historico) {
+                        cell1 = new PdfPCell(new Phrase("HISTÓRICO DE PRODUÇÃO",
+                                FontFactory.getFont("arial.ttf", 12, Font.BOLD)));
+                        cell1.setBackgroundColor(Controle.fundoDestaque);
+                        cell1.setColspan(3);
+                        cell1.setBorder(0);
+                        cell1.setHorizontalAlignment(0);
+                        tblHistoricoAlteracoes.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("ALTERAÇÃO",
+                                FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
+                        cell1.setHorizontalAlignment(1);
+                        tblHistoricoAlteracoes.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("DATA E HORA",
+                                FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
+                        cell1.setHorizontalAlignment(1);
+                        tblHistoricoAlteracoes.addCell(cell1);
+                        cell1 = new PdfPCell(new Phrase("USUÁRIO",
+                                FontFactory.getFont("arial.ttf", 9, Font.BOLD)));
+                        cell1.setHorizontalAlignment(1);
+                        tblHistoricoAlteracoes.addCell(cell1);
+                        for (AlteracoesOP alteracao : OrdemProducaoDAO.retornaAlteracoes(codOp)) {
+                            cell1 = new PdfPCell(new Phrase(alteracao.getAlteracaoDesc(),
+                                    FontFactory.getFont("arial.ttf", 6)));
+                            cell1.setHorizontalAlignment(0);
+                            tblHistoricoAlteracoes.addCell(cell1);
+
+                            cell1 = new PdfPCell(new Phrase(Controle.dataPadrao.format(alteracao.getDataHora()) + " " + Controle.horaPadrao.format(alteracao.getDataHora()),
+                                    FontFactory.getFont("arial.ttf", 6)));
+                            cell1.setHorizontalAlignment(0);
+                            tblHistoricoAlteracoes.addCell(cell1);
+
+                            cell1 = new PdfPCell(new Phrase(alteracao.getUsuario(),
+                                    FontFactory.getFont("arial.ttf", 6)));
+                            cell1.setHorizontalAlignment(0);
+                            tblHistoricoAlteracoes.addCell(cell1);
+                        }
+                        document.add(tblHistoricoAlteracoes);
+                    }
 
                     document.add(new Paragraph("\n"));
 

@@ -186,6 +186,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         qtdDiasOp = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         btnObservacoes = new javax.swing.JButton();
+        jckbHistorico = new javax.swing.JCheckBox();
 
         setTitle("TELA DE ACOMPANHAMENTO DE ORDEM DE PRODUÇÃO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/producao.png"))); // NOI18N
@@ -945,6 +946,8 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
         });
 
+        jckbHistorico.setText("HISTÓRICO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -957,8 +960,10 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11)
                         .addGap(13, 13, 13)
                         .addComponent(qtdDiasOp, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113)
+                        .addGap(33, 33, 33)
                         .addComponent(btnObservacoes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jckbHistorico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(visualizarOrdemProducao, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -979,7 +984,8 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(qtdDiasOp, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                .addComponent(btnObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jckbHistorico))
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(visualizarOrdemProducao, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
@@ -989,7 +995,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnGravar, btnObservacoes, jLabel11, qtdDiasOp, visualizarOrdemProducao});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnGravar, btnObservacoes, jLabel11, jckbHistorico, qtdDiasOp, visualizarOrdemProducao});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1388,7 +1394,8 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                 OrdemProducao.gerarPdfOp(Integer.parseInt(numeroOp.getValue().toString()),
                         Integer.parseInt(orcamentoBase.getValue().toString()),
                         (byte) 1,
-                        null);
+                        null,
+                        jckbHistorico.isSelected());
                 Producao.loadingHide();
 
                 loading.setVisible(false);
@@ -1566,6 +1573,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JButton jbtnDtEntDigital;
+    private javax.swing.JCheckBox jckbHistorico;
     public static javax.swing.JLabel jlblDtEntDigital;
     private static javax.swing.JLabel lblAvisoArquivos;
     private javax.swing.JRadioButton mesEmissao;

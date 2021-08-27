@@ -7,6 +7,7 @@ package model.dao;
 
 import connection.ConnectionFactory;
 import entities.sisgrafex.AlteraData;
+import entities.sisgrafex.AlteracoesOP;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -1786,5 +1787,41 @@ public class OrdemProducaoDAO {
                 }
             }
         }.start();
+    }
+
+    /**
+     * Retorna as alterações das Ordens de produção (histórico).
+     * @param codOp código da ordem de produção
+     * @return
+     * @throws SQLException 
+     */
+    public synchronized static List<AlteracoesOP> retornaAlteracoes(int codOp) throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<AlteracoesOP> retorno = new ArrayList();
+        
+        try{
+            stmt = con.prepareStatement("SELECT * "
+                    + "FROM log_op "
+                    + "WHERE OP = ?");
+            stmt.setInt(1, codOp);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                retorno.add(new AlteracoesOP(
+                        rs.getInt("log_op.OP"),
+                        rs.getString("log_op.ALTERACAO_DESC"),
+                        rs.getTimestamp("log_op.DATA_HORA"),
+                        UsuarioDAO.retornaNomeAtendente(rs.getString("log_op.USUARIO")),
+                        rs.getByte("log_op.ALTERACAO")     
+                ));
+            }
+            return retorno;
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
     }
 }

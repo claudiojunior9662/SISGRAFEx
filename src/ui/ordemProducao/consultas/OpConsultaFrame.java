@@ -129,6 +129,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
         btnDownloadArquivo = new javax.swing.JButton();
         rbtnV1 = new javax.swing.JRadioButton();
         rbtnV2 = new javax.swing.JRadioButton();
+        jckbHistorico = new javax.swing.JCheckBox();
 
         setTitle("CONSULTA DE ORDEM DE PRODUÇÃO");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/producao.png"))); // NOI18N
@@ -278,6 +279,8 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
         rbtnV2.setText("V2");
         rbtnV2.setEnabled(false);
 
+        jckbHistorico.setText("HISTÓRICO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -302,9 +305,11 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                             .addComponent(rbtnV1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDownloadArquivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botaoGerarPdf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jckbHistorico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoGerarPdf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(faturar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoCancelarOp))
@@ -340,33 +345,39 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                         .addComponent(p3Formatado, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(p3Texto, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(paginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(botaoCancelarOp)
-                                .addComponent(faturar)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(botaoGerarPdf)
-                                    .addComponent(btnDownloadArquivo)))
-                            .addComponent(btnUploadArquivo))
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(paginaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(paginaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtnV1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbtnV2)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnDownloadArquivo)
+                                        .addComponent(jckbHistorico)
+                                        .addComponent(botaoGerarPdf)
+                                        .addComponent(faturar)
+                                        .addComponent(botaoCancelarOp))
+                                    .addComponent(btnUploadArquivo))
+                                .addGap(8, 8, 8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(rbtnV1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtnV2)))))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, paginaAtual, paginaTotal});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoGerarPdf, jckbHistorico});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -462,7 +473,8 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
                 OrdemProducao.gerarPdfOp(Integer.parseInt(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0).toString()),
                         Integer.parseInt(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1).toString()),
                         (byte) 1,
-                        null);
+                        null,
+                        jckbHistorico.isSelected());
                 loading.setVisible(false);
             }
         }.start();
@@ -681,6 +693,7 @@ public class OpConsultaFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox jckbHistorico;
     private static javax.swing.JButton mostraTodos;
     private static javax.swing.JComboBox<String> p1;
     private static javax.swing.JComboBox<String> p2;

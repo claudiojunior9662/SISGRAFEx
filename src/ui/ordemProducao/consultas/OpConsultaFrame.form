@@ -50,9 +50,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnDownloadArquivo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="botaoGerarPdf" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jckbHistorico" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botaoGerarPdf" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="faturar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="botaoCancelarOp" min="-2" max="-2" attributes="0"/>
@@ -97,37 +99,43 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="483" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="486" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="paginaAtual" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="paginaTotal" linkSize="2" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="botaoCancelarOp" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="faturar" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="botaoGerarPdf" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDownloadArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="btnUploadArquivo" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="paginaAtual" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="paginaTotal" linkSize="2" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="rbtnV1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="rbtnV2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="btnDownloadArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jckbHistorico" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoGerarPdf" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="faturar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoCancelarOp" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnUploadArquivo" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="rbtnV1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="rbtnV2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -410,6 +418,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="V2"/>
         <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jckbHistorico">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="HIST&#xd3;RICO"/>
       </Properties>
     </Component>
   </SubComponents>
