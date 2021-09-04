@@ -193,6 +193,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        tabelaConsulta.setAutoCreateRowSorter(true);
         tabelaConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1001,19 +1002,21 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabelaConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaConsultaMouseClicked
-        cliqueTabela = true;
-        limpa();
-        numOp = (int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0);
-        atualiza();
-        if (!cliqueTabela) {
-            try {
-                OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 5);
-            } catch (SQLException ex) {
-                EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
-                EnvioExcecao.envio(loading);
+        if (evt.getClickCount() < 2) {
+            cliqueTabela = true;
+            limpa();
+            numOp = (int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0);
+            atualiza();
+            if (!cliqueTabela) {
+                try {
+                    OrdemProducaoDAO.atualizaDadosLogOp(numOp, tipoTrabalho.getSelectedItem().toString(), (byte) 5);
+                } catch (SQLException ex) {
+                    EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
+                    EnvioExcecao.envio(loading);
+                }
             }
+            statusAlteracoes.setText("");
         }
-        statusAlteracoes.setText("");
     }//GEN-LAST:event_tabelaConsultaMouseClicked
 
     private void codOpFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_codOpFiltroItemStateChanged
