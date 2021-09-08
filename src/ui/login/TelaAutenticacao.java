@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "8";
+    private static final String update = "9";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -388,7 +388,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 7 (26-08-2021)\n"
                             + "- Correção de erros enviados;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 8 (27-08-2021)\n"
-                            + "- Implementação da visualização do histórico de produção da OP;\n\n"
+                            + "- Implementação da visualização do histórico de produção da OP;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 9 (08-09-2021)\n"
+                            + "- Correção da consulta de notas de crédito;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

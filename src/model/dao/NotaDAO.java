@@ -63,17 +63,64 @@ public class NotaDAO {
                         + "FROM tabela_notas "
                         + "WHERE serie = ?");
                 stmt.setInt(1, aux);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            ClienteDAO.retornaNomeCliente(rs.getInt("cod_cliente"), rs.getByte("tipo_pessoa")),
+                            rs.getInt("cod_cliente"),
+                            rs.getInt("tipo")
+                    ));
+                }
             } else if (p1.equals("OP")) {
                 aux = Integer.valueOf(p3);
                 stmt = con.prepareStatement("SELECT * "
                         + "FROM tabela_notas "
                         + "WHERE cod_op = ?");
                 stmt.setInt(1, aux);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            ClienteDAO.retornaNomeCliente(rs.getInt("cod_cliente"), rs.getByte("tipo_pessoa")),
+                            rs.getInt("cod_cliente"),
+                            rs.getInt("tipo")
+                    ));
+                }
             } else if (p1.equals("DATA LANÇAMENTO")) {
                 stmt = con.prepareStatement("SELECT * "
                         + "FROM tabela_notas "
                         + "WHERE data = ?");
                 stmt.setString(1, p3);
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            ClienteDAO.retornaNomeCliente(rs.getInt("cod_cliente"), rs.getByte("tipo_pessoa")),
+                            rs.getInt("cod_cliente"),
+                            rs.getInt("tipo")
+                    ));
+                }
             } else if (p1.equals("CLIENTE")) {
                 if (p2.contains("CÓDIGO")) {
                     stmt = con.prepareStatement("SELECT * "
@@ -112,6 +159,7 @@ public class NotaDAO {
                         + "FROM tabela_notas "
                         + "WHERE cod_emissor = ?");
                 stmt.setString(1, p3);
+                rs = stmt.executeQuery();
                 while (rs.next()) {
                     retorno.add(new NotaCredito(
                             rs.getInt("cod"),
@@ -122,8 +170,8 @@ public class NotaDAO {
                             rs.getInt("quantidade_entregue"),
                             rs.getFloat("valor"),
                             rs.getString("data"),
-                            retornoCliente.getNome(),
-                            retornoCliente.getCodigo(),
+                            ClienteDAO.retornaNomeCliente(rs.getInt("cod_cliente"), rs.getByte("tipo_pessoa")),
+                            rs.getInt("cod_cliente"),
                             rs.getInt("tipo")
                     ));
                 }
@@ -132,8 +180,23 @@ public class NotaDAO {
                         + "FROM tabela_notas "
                         + "WHERE cod = ?");
                 stmt.setInt(1, Integer.valueOf(p3));
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            ClienteDAO.retornaNomeCliente(rs.getInt("cod_cliente"), rs.getByte("tipo_pessoa")),
+                            rs.getInt("cod_cliente"),
+                            rs.getInt("tipo")
+                    ));
+                }
             }
-
             return retorno;
         } catch (SQLException ex) {
             throw new SQLException(ex);
