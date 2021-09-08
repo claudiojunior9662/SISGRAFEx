@@ -32,11 +32,12 @@ public class NotaDAO {
 
     /**
      * Retorna a pesquisa por filtros notas de crédito
+     *
      * @param p1
      * @param p2
      * @param p3
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static List<NotaCredito> pesquisaNota(String p1, String p2, String p3) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
@@ -90,33 +91,49 @@ public class NotaDAO {
                             + "WHERE cod_cliente = ?");
                     stmt.setInt(1, Integer.valueOf(retornoCliente.getCodigo()));
                 }
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            retornoCliente.getNome(),
+                            retornoCliente.getCodigo(),
+                            rs.getInt("tipo")
+                    ));
+                }
             } else if (p1.equals("EMISSOR")) {
                 stmt = con.prepareStatement("SELECT * "
                         + "FROM tabela_notas "
                         + "WHERE cod_emissor = ?");
                 stmt.setString(1, p3);
+                while (rs.next()) {
+                    retorno.add(new NotaCredito(
+                            rs.getInt("cod"),
+                            rs.getInt("serie"),
+                            rs.getInt("cod_op"),
+                            rs.getInt("cod_orcamento"),
+                            rs.getString("cod_emissor"),
+                            rs.getInt("quantidade_entregue"),
+                            rs.getFloat("valor"),
+                            rs.getString("data"),
+                            retornoCliente.getNome(),
+                            retornoCliente.getCodigo(),
+                            rs.getInt("tipo")
+                    ));
+                }
             } else if (p1.equals("CÓDIGO")) {
                 stmt = con.prepareStatement("SELECT * "
                         + "FROM tabela_notas "
                         + "WHERE cod = ?");
                 stmt.setInt(1, Integer.valueOf(p3));
             }
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                retorno.add(new NotaCredito(
-                        rs.getInt("cod"),
-                        rs.getInt("serie"),
-                        rs.getInt("cod_op"),
-                        rs.getInt("cod_orcamento"),
-                        rs.getString("cod_emissor"),
-                        rs.getInt("quantidade_entregue"),
-                        rs.getFloat("valor"),
-                        rs.getString("data"),
-                        retornoCliente.getNome(),
-                        retornoCliente.getCodigo(),
-                        rs.getInt("tipo")
-                ));
-            }
+
             return retorno;
         } catch (SQLException ex) {
             throw new SQLException(ex);
@@ -127,10 +144,11 @@ public class NotaDAO {
 
     /**
      * Retorna código e nome do cliente na pesquisa
+     *
      * @param p1
      * @param texto
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static Cliente retornaCodNomeCliente(String p1, String texto) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
@@ -178,8 +196,9 @@ public class NotaDAO {
 
     /**
      * Mostra as 45 últimas notas de crédito
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static List<NotaCredito> mostraUltimas() throws SQLException {
         Connection con = ConnectionFactory.getConnection();
@@ -790,16 +809,15 @@ public class NotaDAO {
                         rs.getDate("faturamentos.DT_FAT"),
                         ProdutoDAO.retornaDescricaoProduto(rs.getInt("tabela_ordens_producao.cod_produto"), rs.getByte("tabela_ordens_producao.tipo_produto")),
                         rs.getDouble("faturamentos.VLR_FAT")
-                        
                 ));
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-            return retorno;
-        }
+        return retorno;
+    }
 
     //ATUALIZA NOTA DE CRÉDITO--------------------------------------------------
     /**
@@ -1146,27 +1164,28 @@ public class NotaDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     /**
      * Verifica se existe faturamento para a OP enviada
+     *
      * @param codOp código da OP
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public static boolean verificaFaturamento(int codOp) throws SQLException{
+    public static boolean verificaFaturamento(int codOp) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-        try{
+
+        try {
             stmt = con.prepareStatement("SELECT faturamentos.CODIGO_OP "
                     + "FROM faturamentos "
                     + "WHERE faturamentos.CODIGO_OP = ?");
             stmt.setInt(1, codOp);
             return (rs = stmt.executeQuery()).next();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
