@@ -45,7 +45,6 @@ import javax.swing.JPasswordField;
 import org.json.JSONObject;
 import ui.controle.Controle;
 import ui.principal.Estoque;
-import ui.principal.OrcamentoFrame;
 
 /**
  *
