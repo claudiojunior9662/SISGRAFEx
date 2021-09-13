@@ -9,7 +9,6 @@ import connection.ConnectionFactory;
 import entities.sisgrafex.Cliente;
 import entities.sisgrafex.Orcamento;
 import entities.sisgrafex.Produto;
-import exception.ConsultaSemResultadoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -463,6 +462,8 @@ public class RelatoriosOrcamentosDAO {
         return comando;
 
     }
+    
+    
 
     public static List<Orcamento> retornaResultadoQueryOrcamento(ResultSet rs,
             boolean codigoOp,

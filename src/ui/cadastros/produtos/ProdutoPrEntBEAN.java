@@ -104,12 +104,14 @@ public class ProdutoPrEntBEAN {
     public ProdutoPrEntBEAN(int codigo,
             int estoque,
             byte avisoEstoque,
-            int avisoEstoqueUn
+            int avisoEstoqueUn,
+            double vlrUnit
     ) {
         this.codigo = codigo;
         this.estoque = estoque;
         this.avisoEstoque = avisoEstoque;
         this.avisoEstoqueUn = avisoEstoqueUn;
+        this.vlrUnit = vlrUnit;
     }
 
     public ProdutoPrEntBEAN(float altura,

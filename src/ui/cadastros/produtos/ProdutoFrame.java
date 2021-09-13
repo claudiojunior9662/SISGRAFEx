@@ -1031,7 +1031,8 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                      * Carrega mais informações sobre o produto
                      */
                     ProdutoPrEntBEAN produto = ProdutoDAO.retornaPeEdicao(COD_PROD);
-
+                    jrdParaProntaEntrega.setSelected(true);
+                    
                     /**
                      * Preenche GUI
                      */
@@ -2141,7 +2142,8 @@ public final class ProdutoFrame extends javax.swing.JInternalFrame {
                                     COD_PROD,
                                     Integer.valueOf(jftfEstoqueFisicoProduto.getValue().toString()),
                                     jckbAvisoEstoqueProduto.isSelected() ? (byte) 1 : (byte) 0,
-                                    Integer.valueOf(jftfAvisoEstoqueProduto.getText())
+                                    Integer.valueOf(jftfAvisoEstoqueProduto.getText()),
+                                    Double.valueOf(jftfVlrUnitProduto.getText().replaceAll(",", "."))
                             ));
                             JOptionPane.showMessageDialog(null, "INFORMAÇÕES ATUALIZADAS COM SUCESSO.",
                                     "CONFIMAÇÃO", JOptionPane.INFORMATION_MESSAGE);

@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "9";
+    private static final String update = "10";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,9 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 2 (14-07-2021)\n"
-                            + "- Atualizações não comitadas;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 3 (22-07-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 3 (22-07-2021)\n"
                             + "- Correções na edição dos produtos pronta entrega;\n"
                             + "- Correções de atualização do módulo integrador;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)\n"
@@ -390,7 +388,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 8 (27-08-2021)\n"
                             + "- Implementação da visualização do histórico de produção da OP;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 9 (08-09-2021)\n"
-                            + "- Correção da consulta de notas de crédito;\n\n"
+                            + "- Correção da consulta de notas de crédito;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 10 (13-09-2021)\n"
+                            + "- Correção da alteração do valor unitário dos produtos a pronta entrega;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

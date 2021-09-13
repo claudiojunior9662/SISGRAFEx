@@ -1380,13 +1380,14 @@ public class ProdutoDAO {
 
         try {
             stmt = con.prepareStatement("UPDATE produtos_pr_ent "
-                    + "SET ESTOQUE = ?, AVISO_ESTOQUE = ?, AVISO_ESTOQUE_UN = ?, ULT_MOV = ? "
+                    + "SET ESTOQUE = ?, AVISO_ESTOQUE = ?, AVISO_ESTOQUE_UN = ?, ULT_MOV = ?, VLR_UNIT = ? "
                     + "WHERE CODIGO = ?");
             stmt.setInt(1, produto.getEstoque());
             stmt.setByte(2, produto.getAvisoEstoque());
             stmt.setInt(3, produto.getAvisoEstoqueUn());
             stmt.setTimestamp(4, new java.sql.Timestamp(new Date().getTime()));
-            stmt.setInt(5, produto.getCodigo());
+            stmt.setDouble(5, produto.getVlrUnit());
+            stmt.setInt(6, produto.getCodigo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new SQLException(ex);
