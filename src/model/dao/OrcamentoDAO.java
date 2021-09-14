@@ -1758,7 +1758,7 @@ public class OrcamentoDAO {
                         Controle.dataPadrao.format(rs.getDate("tabela_orcamentos.data_emissao")),
                         Controle.dataPadrao.format(rs.getDate("tabela_orcamentos.data_validade")),
                         rs.getFloat("tabela_orcamentos.valor_total"),
-                        Controle.stsOrcamento.get(rs.getInt("tabela_orcamentos.status")).toString(),
+                        rs.getInt("tabela_orcamentos.status") + " - " + Controle.getStatusByCod(rs.getInt("tabela_orcamentos.status")).toString(),
                         rs.getInt("tabela_orcamentos.status")
                         
                 ));

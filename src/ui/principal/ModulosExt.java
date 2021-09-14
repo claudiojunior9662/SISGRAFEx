@@ -62,7 +62,7 @@ public class ModulosExt extends javax.swing.JFrame {
         );
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("© Projeto Bala de Prata - Seção de Processamento de Dados - Gráfica do Exército (2018 - 2021)");
+        jLabel3.setText("© SISGRAFEx - Seção de Informática - Gráfica do Exército (2018 - 2021)");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/principal/brasaoGrafica-133x191.png"))); // NOI18N
 

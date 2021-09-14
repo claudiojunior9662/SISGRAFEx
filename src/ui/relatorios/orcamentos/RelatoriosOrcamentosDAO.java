@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.dao.OrdemProducaoDAO;
 import model.dao.ClienteDAO;
 
@@ -81,6 +83,116 @@ public class RelatoriosOrcamentosDAO {
         return retorno;
     }
 
+    /**
+     * Retorna a lista de códigos de orçamentos existentes para o comando criado
+     *
+     * @param comando comando criado
+     * @param codigoOp
+     * @param codigoOrcamento
+     * @param codigoCliente
+     * @param codigoProduto
+     * @param descricaoProduto
+     * @param tipoPessoa
+     * @param quantidade
+     * @param valorUnitario
+     * @param valorTotal
+     * @param cif
+     * @param desconto
+     * @param frete
+     * @param dataEmissao
+     * @param dataValidade
+     * @param emissor
+     * @param nomeCliente
+     * @param status
+     * @throws SQLException
+     */
+    public static void retornaCodOrcamento(String comando,
+            boolean codigoOp,
+            boolean codigoOrcamento,
+            boolean codigoCliente,
+            boolean codigoProduto,
+            boolean descricaoProduto,
+            boolean tipoPessoa,
+            boolean quantidade,
+            boolean valorUnitario,
+            boolean valorTotal,
+            boolean cif,
+            boolean desconto,
+            boolean frete,
+            boolean dataEmissao,
+            boolean dataValidade,
+            boolean emissor,
+            boolean nomeCliente,
+            boolean status) throws SQLException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            RelatorioOrcamentos.orcamentosAgrupados = new ArrayList();
+            stmt = con.prepareStatement(comando);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Orcamento orcamento = new Orcamento();
+                if (codigoOrcamento) {
+                    orcamento.setCod(rs.getInt("tabela_orcamentos.cod"));
+                }
+                if (codigoCliente | nomeCliente) {
+                    orcamento.setCodCliente(rs.getInt("tabela_orcamentos.cod_cliente"));
+                }
+                if (codigoProduto) {
+                    orcamento.setCodProduto(rs.getInt("tabela_produtos_orcamento.cod_produto"));
+                }
+                if (descricaoProduto) {
+                    orcamento.setDescricaoProduto(rs.getString("produtos.DESCRICAO"));
+                }
+                if (tipoPessoa | nomeCliente) {
+                    orcamento.setTipoPessoa(rs.getInt("tabela_orcamentos.tipo_cliente"));
+                }
+                if (quantidade) {
+                    orcamento.setQuantidade(rs.getInt("tabela_produtos_orcamento.quantidade"));
+                }
+                if (valorUnitario) {
+                    orcamento.setValor_unitario(rs.getFloat("tabela_produtos_orcamento.preco_unitario"));
+                }
+                if (valorTotal) {
+                    orcamento.setValorTotal(rs.getFloat("tabela_orcamentos.valor_total"));
+                }
+                if (cif) {
+                    orcamento.setCif(rs.getFloat("tabela_orcamentos.sif"));
+                }
+                if (desconto) {
+                    orcamento.setDesconto(rs.getFloat("tabela_orcamentos.desconto"));
+                }
+                if (frete) {
+                    orcamento.setFrete(rs.getDouble("tabela_orcamentos.frete"));
+                }
+                if (dataEmissao) {
+                    orcamento.setDataEmissao(rs.getDate("tabela_orcamentos.data_emissao"));
+                }
+                if (dataValidade) {
+                    orcamento.setDataValidade(rs.getDate("tabela_orcamentos.data_validade"));
+                }
+                if (emissor) {
+                    orcamento.setCodEmissor(rs.getString("tabela_orcamentos.cod_emissor"));
+                }
+                if (status) {
+                    orcamento.setStatus(rs.getByte("tabela_orcamentos.status"));
+                }
+                if (nomeCliente) {
+                    orcamento.setNomeCliente(ClienteDAO.retornaNomeCliente(orcamento.getCodCliente(), (byte) orcamento.getTipoPessoa()));
+                }
+                if (codigoOp) {
+                    orcamento.setCodigoOp(OrdemProducaoDAO.retornaCodOpOrcProd(rs.getInt("tabela_orcamentos.cod"),
+                            rs.getInt("tabela_produtos_orcamento.cod_produto")));
+                }
+                RelatorioOrcamentos.orcamentosAgrupados.add(orcamento);
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+    }
+
     public static String retornaComandoOrcamento(boolean codigoOp,
             boolean codigoOrcamento,
             boolean codigoCliente,
@@ -110,7 +222,7 @@ public class RelatoriosOrcamentosDAO {
             Date periodoInicial,
             Date periodoFinal,
             Cliente cliente,
-            Produto produto) {
+            Produto produto) throws SQLException {
 
         String comando = "SELECT";
         int primeiro = 0;
@@ -408,6 +520,80 @@ public class RelatoriosOrcamentosDAO {
                 break;
         }
 
+        String comandoCodOrc = comando;
+        comandoCodOrc += " GROUP BY tabela_orcamentos.cod";
+
+        //-----Ordenar para lista de códigos--------------------------
+        /*     @param condicaoOrdenar
+        2 - codigo orcamento
+        3 - quantidade crescente
+        4 - quantidade decrescente
+        5 - emissor
+        6 - tipo pessoa
+        7 - valor total
+        8 - cif
+        9 - desconto
+        10 - valor frete
+        11 - data emissao
+        12 - data validade
+         */
+        switch (condicaoOrdenar) {
+            case 2:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.cod ASC";
+                break;
+            case 3:
+                comandoCodOrc += " ORDER BY tabela_produtos_orcamento.quantidade ASC";
+                break;
+            case 4:
+                comandoCodOrc += " ORDER BY tabela_produtos_orcamento.quantidade DESC";
+                break;
+            case 5:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.cod_emissor";
+                break;
+            case 6:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.tipo_cliente";
+                break;
+            case 7:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.valor_total";
+                break;
+            case 8:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.sif";
+                break;
+            case 9:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.desconto";
+                break;
+            case 10:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.frete";
+                break;
+            case 11:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.data_emissao";
+                break;
+            case 12:
+                comandoCodOrc += " ORDER BY tabela_orcamentos.data_validade";
+                break;
+        }
+        //-----Ordenar para lista de códigos--------------------------
+
+        retornaCodOrcamento(comandoCodOrc,
+                codigoOp,
+                codigoOrcamento,
+                codigoCliente,
+                 codigoProduto,
+                descricaoProduto,
+                tipoPessoa,
+                quantidade,
+                valorUnitario,
+                valorTotal,
+                cif,
+                desconto,
+                frete,
+                dataEmissao,
+                dataValidade,
+                emissor,
+                nomeCliente,
+                status
+        );
+
         /*     @param condicaoOrdenar
         2 - codigo orcamento
         3 - quantidade crescente
@@ -462,8 +648,6 @@ public class RelatoriosOrcamentosDAO {
         return comando;
 
     }
-    
-    
 
     public static List<Orcamento> retornaResultadoQueryOrcamento(ResultSet rs,
             boolean codigoOp,

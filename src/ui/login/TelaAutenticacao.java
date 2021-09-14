@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "10";
+    private static final String update = "11";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,10 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.6.0 3 (22-07-2021)\n"
-                            + "- Correções na edição dos produtos pronta entrega;\n"
-                            + "- Correções de atualização do módulo integrador;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)\n"
                             + "- Implementação do controle de arquivos dentro do sistema para as OP;\n"
                             + "- Correção no cabeçalho da proposta de orçamento;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
@@ -390,7 +387,10 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 9 (08-09-2021)\n"
                             + "- Correção da consulta de notas de crédito;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 10 (13-09-2021)\n"
-                            + "- Correção da alteração do valor unitário dos produtos a pronta entrega;\n\n"
+                            + "- Correção da alteração do valor unitário dos produtos a pronta entrega;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 11 (13-09-2021)\n"
+                            + "- Ajuste do relatório de orçamentos (Agrupamento e somatório);\n"
+                            + "- Ajuste do relatório de detalhamento de cliente (somatório das propostas de orçamento)\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

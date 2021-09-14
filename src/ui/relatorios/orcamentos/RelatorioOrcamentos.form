@@ -1038,7 +1038,9 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="campoCodigoOrcamento">
               <Properties>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="C&#xd3;DIGO OR&#xc7;AMENTO"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoCodigoOrcamentoItemStateChanged"/>

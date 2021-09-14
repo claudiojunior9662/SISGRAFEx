@@ -115,7 +115,7 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&#xa9; Projeto Bala de Prata - Se&#xe7;&#xe3;o de Processamento de Dados - Gr&#xe1;fica do Ex&#xe9;rcito (2018 - 2021)"/>
+        <Property name="text" type="java.lang.String" value="&#xa9; SISGRAFEx - Se&#xe7;&#xe3;o de Inform&#xe1;tica - Gr&#xe1;fica do Ex&#xe9;rcito (2018 - 2021)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

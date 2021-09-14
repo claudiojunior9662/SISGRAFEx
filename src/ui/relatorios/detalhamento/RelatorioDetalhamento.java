@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -416,13 +417,10 @@ public class RelatorioDetalhamento extends javax.swing.JInternalFrame {
                     tabelaPropostas.setWidthPercentage(100);
                     document.add(tabelaPropostas);
                     
-                    document.add(new Phrase("(1) - O valor total referente as propostas de orçamento não é somado ao saldo final.", FontFactory.getFont("arial.ttf", 8, Font.BOLD)));
-                    
                     document.add(new Paragraph("\n\n"));
                     PdfPTable tabelaSaldoFinal = geraTabelaSaldoFinal();
                     tabelaSaldoFinal.setWidthPercentage(100);
                     document.add(tabelaSaldoFinal);
-                    
 
                     document.close();
 
@@ -767,7 +765,22 @@ public class RelatorioDetalhamento extends javax.swing.JInternalFrame {
      */
     public PdfPTable geraTabelaPropostasOrcamento() {
         PdfPTable retorno = new PdfPTable(new float[]{5f, 5f, 5f, 5f, 5f, 5f});
-        Double vlrTotal = 0d;
+
+        Double valorTotalStatus1 = 0d;
+        Double valorTotalStatus2 = 0d;
+        Double valorTotalStatus3 = 0d;
+        Double valorTotalStatus4 = 0d;
+        Double valorTotalStatus5 = 0d;
+        Double valorTotalStatus6 = 0d;
+        Double valorTotalStatus7 = 0d;
+        Double valorTotalStatus8 = 0d;
+        Double valorTotalStatus9 = 0d;
+        Double valorTotalStatus10 = 0d;
+        Double valorTotalStatus11 = 0d;
+        Double valorTotalStatus12 = 0d;
+        Double valorTotalStatus13 = 0d;
+        Double valorTotalStatus14 = 0d;
+        Double valorTotalStatus15 = 0d;
 
         if (jrbPorCodigo.isSelected()) {
             cliente = new Cliente();
@@ -786,10 +799,10 @@ public class RelatorioDetalhamento extends javax.swing.JInternalFrame {
             celula = new PdfPCell(new Phrase("Nº DA PROPOSTA", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
             celula.setHorizontalAlignment(Element.ALIGN_CENTER);
             retorno.addCell(celula);
-            celula = new PdfPCell(new Phrase("DATA DE EMISSÃO", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
+            celula = new PdfPCell(new Phrase("DATA DE VALIDADE", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
             celula.setHorizontalAlignment(Element.ALIGN_CENTER);
             retorno.addCell(celula);
-            celula = new PdfPCell(new Phrase("DATA DE VALIDADE", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
+            celula = new PdfPCell(new Phrase("DATA DE EMISSÃO", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
             celula.setHorizontalAlignment(Element.ALIGN_CENTER);
             retorno.addCell(celula);
             celula = new PdfPCell(new Phrase("PRODUTOS", FontFactory.getFont("arial.ttf", 6, Font.BOLD)));
@@ -830,13 +843,198 @@ public class RelatorioDetalhamento extends javax.swing.JInternalFrame {
                 celula.setHorizontalAlignment(Element.ALIGN_CENTER);
                 retorno.addCell(celula);
 
-                vlrTotal += orcamento.getValorTotal();
-
+                switch (orcamento.getStatus()) {
+                    case 1:
+                        valorTotalStatus1 += orcamento.getValorTotal();
+                        break;
+                    case 2:
+                        valorTotalStatus2 += orcamento.getValorTotal();
+                        break;
+                    case 3:
+                        valorTotalStatus3 += orcamento.getValorTotal();
+                        break;
+                    case 4:
+                        valorTotalStatus4 += orcamento.getValorTotal();
+                        break;
+                    case 5:
+                        valorTotalStatus5 += orcamento.getValorTotal();
+                        break;
+                    case 6:
+                        valorTotalStatus6 += orcamento.getValorTotal();
+                        break;
+                    case 7:
+                        valorTotalStatus7 += orcamento.getValorTotal();
+                        break;
+                    case 8:
+                        valorTotalStatus8 += orcamento.getValorTotal();
+                        break;
+                    case 9:
+                        valorTotalStatus9 += orcamento.getValorTotal();
+                        break;
+                    case 10:
+                        valorTotalStatus10 += orcamento.getValorTotal();
+                        break;
+                    case 11:
+                        valorTotalStatus11 += orcamento.getValorTotal();
+                        break;
+                    case 12:
+                        valorTotalStatus12 += orcamento.getValorTotal();
+                        break;
+                    case 13:
+                        valorTotalStatus13 += orcamento.getValorTotal();
+                        break;
+                    case 14:
+                        valorTotalStatus14 += orcamento.getValorTotal();
+                        break;
+                    case 15:
+                        valorTotalStatus15 += orcamento.getValorTotal();
+                        break;
+                }
             }
-            celula = new PdfPCell(new Phrase("VALOR TOTAL: (-) R$ " + Controle.formatoVlrPadrao.format(vlrTotal) + " *(1)", FontFactory.getFont("arial.ttf", 8, Font.BOLD)));
+
+            DecimalFormat df = new DecimalFormat("###,##0.00");
+            celula = new PdfPCell(new Phrase("TOTAL DAS PROPOSTAS DE ORÇAMENTO",
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD, BaseColor.WHITE)));
             celula.setColspan(6);
-            celula.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celula.setBackgroundColor(BaseColor.BLACK);
+            celula.setHorizontalAlignment(Element.ALIGN_CENTER);
             retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 1),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus1),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 2),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus2),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 3),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus3),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 4),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus4),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 5),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus5),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 6),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus6),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 7),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus7),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 7),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus7),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 9),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus9),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 10),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus10),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 11),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus11),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 12),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus12),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 13),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus13),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 14),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus14),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+
+            celula = new PdfPCell(new Phrase(Controle.getStatusByCod((byte) 15),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            celula = new PdfPCell(new Phrase("R$ " + df.format(valorTotalStatus15),
+                    FontFactory.getFont("arial.ttf", 7, com.itextpdf.text.Font.BOLD)));
+            celula.setColspan(3);
+            retorno.addCell(celula);
+            
             return retorno;
         } catch (SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
