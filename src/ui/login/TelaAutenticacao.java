@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "11";
+    private static final String update = "12";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -390,7 +390,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Correção da alteração do valor unitário dos produtos a pronta entrega;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 11 (13-09-2021)\n"
                             + "- Ajuste do relatório de orçamentos (Agrupamento e somatório);\n"
-                            + "- Ajuste do relatório de detalhamento de cliente (somatório das propostas de orçamento)\n\n"
+                            + "- Ajuste do relatório de detalhamento de cliente (somatório das propostas de orçamento)\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 12 (16-09-2021)\n"
+                            + "- Ajuste na definição de datas no módulo produção;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"
