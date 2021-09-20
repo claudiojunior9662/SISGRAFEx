@@ -351,9 +351,10 @@ public class OrcamentoDAO {
 
     /**
      * Altera o status da proposta de orçamento
+     *
      * @param cod código da proposta
      * @param status status a mudar
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static void alteraStatus(int cod, int status) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
@@ -1343,6 +1344,7 @@ public class OrcamentoDAO {
 
     /**
      * Retorna os status cadastrados no banco de dados
+     *
      * @return List<> lista de status
      * @throws java.sql.SQLException
      * @see retornaStsOrcamento
@@ -1663,7 +1665,7 @@ public class OrcamentoDAO {
     }
 
     /**
-     *
+     * Consulta as alterações de recálculo das OP
      * @return @throws SQLException
      */
     public static List<AlteraData> consultarAlteracoes() throws SQLException {
@@ -1674,22 +1676,20 @@ public class OrcamentoDAO {
         List<AlteraData> listaAlteracoes = new ArrayList();
 
         try {
-            stmt = con.prepareStatement("SELECT alteracoes_ordem_producao.ALTERACAO FROM alteracoes_ordem_producao ORDER BY alteracoes_ordem_producao.ALTERACAO DESC LIMIT 1");
+            stmt = con.prepareStatement("SELECT * "
+                    + "FROM alteracoes_ordem_producao "
+                    + "ORDER BY alteracoes_ordem_producao.CODIGO "
+                    + "DESC "
+                    + "LIMIT 3");
             rs = stmt.executeQuery();
-            if (rs.next()) {
-                alteracao = rs.getTimestamp("alteracoes_ordem_producao.ALTERACAO");
-                stmt = con.prepareStatement("SELECT * FROM alteracoes_ordem_producao WHERE CAST(alteracoes_ordem_producao.ALTERACAO AS DATE) = ?");
-                stmt.setDate(1, new java.sql.Date(alteracao.getTime()));
-                rs = stmt.executeQuery();
-                while (rs.next()) {
-                    listaAlteracoes.add(new AlteraData(
-                            rs.getInt("alteracoes_ordem_producao.OP"),
-                            rs.getTimestamp("alteracoes_ordem_producao.ALTERACAO"),
-                            rs.getDate("alteracoes_ordem_producao.DATA_ANTERIOR"),
-                            rs.getString("alteracoes_ordem_producao.USUARIO"),
-                            rs.getString("alteracoes_ordem_producao.MOTIVO")
-                    ));
-                }
+            while (rs.next()) {
+                listaAlteracoes.add(new AlteraData(
+                        rs.getInt("alteracoes_ordem_producao.OP"),
+                        rs.getTimestamp("alteracoes_ordem_producao.ALTERACAO"),
+                        rs.getDate("alteracoes_ordem_producao.DATA_ANTERIOR"),
+                        rs.getString("alteracoes_ordem_producao.USUARIO"),
+                        rs.getString("alteracoes_ordem_producao.MOTIVO")
+                ));
             }
 
             return listaAlteracoes;
@@ -1702,8 +1702,9 @@ public class OrcamentoDAO {
 
     /**
      * Retorna as propostas de orçamentos que venceram por prazo de validade
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static List<Orcamento> consultaPropostasVencidas() throws SQLException {
         Connection con = ConnectionFactory.getConnection();
@@ -1732,27 +1733,28 @@ public class OrcamentoDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     /**
      * Retorna as propostas de orçamento associadas ao cliente
+     *
      * @param cliente
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public static List<Orcamento> retornaPropostasCliente(Cliente cliente) throws SQLException{
+    public static List<Orcamento> retornaPropostasCliente(Cliente cliente) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Orcamento> retorno = new ArrayList();
-        
-        try{
+
+        try {
             stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, tabela_orcamentos.data_emissao, tabela_orcamentos.data_validade, tabela_orcamentos.status, tabela_orcamentos.valor_total "
                     + "FROM tabela_orcamentos "
                     + "WHERE tabela_orcamentos.cod_cliente = ? AND tabela_orcamentos.tipo_cliente = ?");
             stmt.setInt(1, cliente.getCodigo());
             stmt.setByte(2, cliente.getTipoPessoa());
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 retorno.add(new Orcamento(
                         rs.getInt("tabela_orcamentos.cod"),
                         Controle.dataPadrao.format(rs.getDate("tabela_orcamentos.data_emissao")),
@@ -1760,36 +1762,36 @@ public class OrcamentoDAO {
                         rs.getFloat("tabela_orcamentos.valor_total"),
                         rs.getInt("tabela_orcamentos.status") + " - " + Controle.getStatusByCod(rs.getInt("tabela_orcamentos.status")).toString(),
                         rs.getInt("tabela_orcamentos.status")
-                        
                 ));
             }
             return retorno;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
+
     /**
      * Retorna os produtos associados à proposta de orçamento
+     *
      * @param orcamento
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public static List<ProdOrcamento> retornaProdutosOrcamento(Orcamento orcamento) throws SQLException{
+    public static List<ProdOrcamento> retornaProdutosOrcamento(Orcamento orcamento) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<ProdOrcamento> retorno = new ArrayList();
-        
-        try{
+
+        try {
             stmt = con.prepareStatement("SELECT tabela_produtos_orcamento.cod_produto, tabela_produtos_orcamento.descricao_produto, tabela_produtos_orcamento.quantidade, tabela_produtos_orcamento.preco_unitario "
                     + "FROM tabela_produtos_orcamento "
                     + "WHERE tabela_produtos_orcamento.cod_orcamento = ?");
             stmt.setInt(1, orcamento.getCod());
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 retorno.add(new ProdOrcamento(
                         rs.getInt("tabela_produtos_orcamento.cod_produto"),
                         rs.getString("tabela_produtos_orcamento.descricao_produto"),
@@ -1798,19 +1800,19 @@ public class OrcamentoDAO {
                 ));
             }
             return retorno;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
-    
-    public static Boolean verificaOrcamentoExistente(int codOrcamento) throws SQLException{
+
+    public static Boolean verificaOrcamentoExistente(int codOrcamento) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-        try{
+
+        try {
             stmt = con.prepareStatement("SELECT tabela_orcamentos.cod "
                     + "FROM tabela_orcamentos "
                     + "WHERE tabela_orcamentos.cod = ? "
@@ -1819,13 +1821,13 @@ public class OrcamentoDAO {
                     + "LIMIT 1");
             stmt.setInt(1, codOrcamento);
             rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return true;
             }
             return false;
         } catch (SQLException ex) {
             throw new SQLException(ex);
-        }finally{
+        } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }

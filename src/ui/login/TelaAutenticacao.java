@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "12";
+    private static final String update = "13";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,10 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 1 (15-08-2021)\n"
-                            + "- Implementação do controle de arquivos dentro do sistema para as OP;\n"
-                            + "- Correção no cabeçalho da proposta de orçamento;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
                             + "- Correção da pesquisa de status por OP no módulo Produção;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 3 (18-08-2021)\n"
                             + "- Correção ao gerar o relatório de nota de crédito;\n"
@@ -393,6 +390,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Ajuste do relatório de detalhamento de cliente (somatório das propostas de orçamento)\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 12 (16-09-2021)\n"
                             + "- Ajuste na definição de datas no módulo produção;\n\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 13 (19-09-2021)\n"
+                            + "- Adição dos status das OP 14 - GRAVAÇÃO DE CHAPAS e 15 - ESPERANDO ARQUIVO;\n"
+                            + "- Verificação na seleção de datas no módulo produção;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

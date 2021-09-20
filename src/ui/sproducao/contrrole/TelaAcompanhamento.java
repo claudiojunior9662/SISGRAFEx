@@ -756,7 +756,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
         });
 
-        statusOrdemProducao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 - EM AVALIAÇÃO PELA SEÇ TÉCNICA", "2 - ENCAMINHADO PARA PRÉ-IMPRESSÃO", "3 - EM DIAGRAMAÇÃO", "4 - PRODUZINDO PROVA", "5 - AGUARDANDO APROVAÇÃO DO CLIENTE", "6 - ENCAMINHADO PARA A OFFSET", "7 - ENCAMINHADO PARA A DIGITAL", "8 - ENCAMINHADO PARA A TIPOGRAFIA", "9 - ENCAMINHADO PARA O ACABAMENTO", "10 - ENCAMINHADO PARA EXPEDIÇÃO" }));
+        statusOrdemProducao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 - EM AVALIAÇÃO PELA SEÇ TÉCNICA", "2 - ENCAMINHADO PARA PRÉ-IMPRESSÃO", "3 - EM DIAGRAMAÇÃO", "4 - PRODUZINDO PROVA", "5 - AGUARDANDO APROVAÇÃO DO CLIENTE", "6 - ENCAMINHADO PARA A OFFSET", "7 - ENCAMINHADO PARA A DIGITAL", "8 - ENCAMINHADO PARA A TIPOGRAFIA", "9 - ENCAMINHADO PARA O ACABAMENTO", "10 - ENCAMINHADO PARA EXPEDIÇÃO", "14 - GRAVAÇÃO DE CHAPAS", "15 - ESPERANDO ARQUIVO" }));
         statusOrdemProducao.setBorder(javax.swing.BorderFactory.createTitledBorder("STATUS"));
         statusOrdemProducao.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

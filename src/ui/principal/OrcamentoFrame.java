@@ -111,7 +111,21 @@ public class OrcamentoFrame extends javax.swing.JFrame {
             StringBuilder listaAlteracoes = new StringBuilder();
             listaAlteracoes.append("ALTERAÇÕES NAS DATAS DE ENTREGA DE OP!!\n\n");
             for (AlteraData ad : OrcamentoDAO.consultarAlteracoes()) {
-                listaAlteracoes.append("OP: " + ad.getCodigoOp() + "\n" + "DATA: " + Controle.dataPadrao.format(OrdemProducaoDAO.retornaDataEntregaOp(ad.getCodigoOp())) + "\n" + "MOTIVO: " + ad.getMotivo() + "\n" + "USUÁRIO: " + ad.getUsuario() + "\n\n");
+                listaAlteracoes.append(
+                        "OP: " + ad.getCodigoOp()
+                        + "\n"
+                        + "DATA ANTERIOR: "
+                        + Controle.dataPadrao.format(ad.getDataAnterior())
+                        + "\n"
+                        + "NOVA DATA: "
+                        + Controle.dataPadrao.format(OrdemProducaoDAO.retornaDataEntregaOp(ad.getCodigoOp()))
+                        + "\n"
+                        + "MOTIVO: "
+                        + ad.getMotivo()
+                        + "\n"
+                        + "USUÁRIO: "
+                        + ad.getUsuario()
+                        + "\n\n");
             }
             JOptionPane.showMessageDialog(null, listaAlteracoes.toString(), "ALTERAÇÕES DE ORDEM DE PRODUÇÃO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
@@ -640,7 +654,7 @@ public class OrcamentoFrame extends javax.swing.JFrame {
                 try {
                     List<Orcamento> listaPropostas = OrcamentoDAO.consultaPropostasVencidas();
                     for (Orcamento po : listaPropostas) {
-                        
+
                         OrcamentoDAO.alteraStatus(po.getCod(), (byte) 14);
                     }
                 } catch (SQLException ex) {

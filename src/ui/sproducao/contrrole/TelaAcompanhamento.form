@@ -1163,7 +1163,7 @@
         <Component class="javax.swing.JComboBox" name="statusOrdemProducao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="10">
+              <StringArray count="12">
                 <StringItem index="0" value="1 - EM AVALIA&#xc7;&#xc3;O PELA SE&#xc7; T&#xc9;CNICA"/>
                 <StringItem index="1" value="2 - ENCAMINHADO PARA PR&#xc9;-IMPRESS&#xc3;O"/>
                 <StringItem index="2" value="3 - EM DIAGRAMA&#xc7;&#xc3;O"/>
@@ -1174,6 +1174,8 @@
                 <StringItem index="7" value="8 - ENCAMINHADO PARA A TIPOGRAFIA"/>
                 <StringItem index="8" value="9 - ENCAMINHADO PARA O ACABAMENTO"/>
                 <StringItem index="9" value="10 - ENCAMINHADO PARA EXPEDI&#xc7;&#xc3;O"/>
+                <StringItem index="10" value="14 - GRAVA&#xc7;&#xc3;O DE CHAPAS"/>
+                <StringItem index="11" value="15 - ESPERANDO ARQUIVO"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
