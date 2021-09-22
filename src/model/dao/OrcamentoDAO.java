@@ -67,6 +67,7 @@ public class OrcamentoDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO tabela_orcamentos(cod, "
+                    + "COD_LI, "
                     + "cod_cliente,  "
                     + "data_validade, "
                     + "data_emissao, "
@@ -85,22 +86,23 @@ public class OrcamentoDAO {
                     + "ARTE) "
                     + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, orcamento.getCod());
-            stmt.setInt(2, orcamento.getCodCliente());
-            stmt.setDate(3, new java.sql.Date(orcamento.getDataValidade().getTime()));
-            stmt.setDate(4, new java.sql.Date(orcamento.getDataEmissao().getTime()));
-            stmt.setFloat(5, orcamento.getValorUnitario());
-            stmt.setFloat(6, orcamento.getCif());
-            stmt.setFloat(7, orcamento.getValorTotal());
-            stmt.setByte(8, (byte) 1);
-            stmt.setString(9, orcamento.getDescricao());
-            stmt.setInt(10, orcamento.getTipoPessoa());
-            stmt.setString(11, orcamento.getCodEmissor());
-            stmt.setFloat(12, orcamento.getDesconto());
-            stmt.setInt(13, orcamento.getCodContato());
-            stmt.setInt(14, orcamento.getCodEndereco());
-            stmt.setInt(15, orcamento.getPrecosManuais());
-            stmt.setFloat(16, Float.valueOf(orcamento.getFrete().toString()));
-            stmt.setFloat(17, Float.valueOf(orcamento.getArte().toString()));
+            stmt.setInt(2, orcamento.getCodigoLI());
+            stmt.setInt(3, orcamento.getCodCliente());
+            stmt.setDate(4, new java.sql.Date(orcamento.getDataValidade().getTime()));
+            stmt.setDate(5, new java.sql.Date(orcamento.getDataEmissao().getTime()));
+            stmt.setFloat(6, orcamento.getValorUnitario());
+            stmt.setFloat(7, orcamento.getCif());
+            stmt.setFloat(8, orcamento.getValorTotal());
+            stmt.setByte(9, (byte) 1);
+            stmt.setString(10, orcamento.getDescricao());
+            stmt.setInt(11, orcamento.getTipoPessoa());
+            stmt.setString(12, orcamento.getCodEmissor());
+            stmt.setFloat(13, orcamento.getDesconto());
+            stmt.setInt(14, orcamento.getCodContato());
+            stmt.setInt(15, orcamento.getCodEndereco());
+            stmt.setInt(16, orcamento.getPrecosManuais());
+            stmt.setFloat(17, Float.valueOf(orcamento.getFrete().toString()));
+            stmt.setFloat(18, Float.valueOf(orcamento.getArte().toString()));
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new SQLException(ex);

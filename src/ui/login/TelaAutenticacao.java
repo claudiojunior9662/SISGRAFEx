@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "13";
+    private static final String update = "14";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,9 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 2 (17-08-2021)\n"
-                            + "- Correção da pesquisa de status por OP no módulo Produção;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 3 (18-08-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 3 (18-08-2021)\n"
                             + "- Correção ao gerar o relatório de nota de crédito;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 4 (18-08-2021)\n"
                             + "- Implementação dos registros de alterações das OP (*histórico);\n"
@@ -392,7 +390,10 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Ajuste na definição de datas no módulo produção;\n\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 13 (19-09-2021)\n"
                             + "- Adição dos status das OP 14 - GRAVAÇÃO DE CHAPAS e 15 - ESPERANDO ARQUIVO;\n"
-                            + "- Verificação na seleção de datas no módulo produção;\n\n"
+                            + "- Verificação na seleção de datas no módulo produção;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 14 (21-09-2021)\n"
+                            + "- Testes e verificações da integração com a Loja Integrada (2/5) - Status: Pronto;\n"
+                            + "- Ajuste no botão de observações da OP, na tela de controle de OP;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

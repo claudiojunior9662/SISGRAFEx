@@ -22,6 +22,8 @@ import entities.sisgrafex.Servicos;
 import entities.sisgrafex.StsOp;
 import exception.EnvioExcecao;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static model.dao.OrdemProducaoDAO.alteraDtCancelamento;
 import static model.dao.OrdemProducaoDAO.alteraStatusOp;
 import static model.dao.OrdemProducaoDAO.consultaOp;
@@ -1823,6 +1825,38 @@ public class OrdemProducaoDAO {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    /**
+     * Verifica se existe observações para a OP passada no banco de dados.
+     * @param codOp código da ordem de produção
+     * @return 1 - existe observação, 2 - não existe observação
+     * @throws SQLException 
+     */
+    public synchronized static int verificaObservacoes(int codOp) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = con.prepareStatement("SELECT CODIGO_OP "
+                    + "FROM obs_ordem_producao "
+                    + "WHERE CODIGO_OP = ? "
+                    + "ORDER BY CODIGO_OP "
+                    + "DESC "
+                    + "LIMIT 1");
+            stmt.setInt(1, codOp);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return 1;
+            }else{
+                return 2;
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }finally{
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }

@@ -22,8 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -31,6 +29,9 @@ import model.dao.ArquivosDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import entities.sisgrafex.Usuario;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 import model.dao.UsuarioDAO;
 import model.dao.ClienteDAO;
 import model.dao.ProdutoDAO;
@@ -938,6 +939,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setText("QUANTIDADE DE DIAS PARA ENTREGA PREVISTA:");
 
+        btnObservacoes.setBackground(new java.awt.Color(204, 204, 255));
         btnObservacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/editar.png"))); // NOI18N
         btnObservacoes.setText("OBSERVAÇÕES");
         btnObservacoes.setToolTipText("GRAVAR ALTERAÇÕES");
@@ -1827,6 +1829,8 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             } else {
                 lblAvisoArquivos.setVisible(false);
             }
+            
+            piscaObservacoes(OrdemProducaoDAO.verificaObservacoes(numOp));
 
             /**
              * Define o estado da GUI
@@ -2216,5 +2220,23 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
             }
         }.start();
 
+    }
+    
+    /**
+     * Pisca o botão observações da OP caso tenha alguma observação.
+     * @param estado 1 - Com observação, 2 - Sem observação
+     */
+    public synchronized static void piscaObservacoes(int estado){
+        Icon icon;
+        switch(estado){
+            case 1:
+                icon = new ImageIcon("src/icones/alerta.gif");
+               btnObservacoes.setIcon(icon);
+                break;
+            case 2:
+               icon = new ImageIcon("src/icones/editar.png");
+               btnObservacoes.setIcon(icon);
+                break;
+        }
     }
 }

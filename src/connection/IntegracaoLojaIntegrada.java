@@ -243,11 +243,13 @@ public class IntegracaoLojaIntegrada {
                                     orderEsp.getJSONObject("endereco_entrega").getString("endereco"),
                                     orderEsp.getJSONObject("endereco_entrega").getString("bairro"),
                                     orderEsp.getJSONObject("endereco_entrega").getString("estado"),
-                                    orderEsp.getJSONObject("endereco_entrega").getString("complemento"),
+                                    orderEsp.getJSONObject("endereco_entrega").get("complemento") == JSONObject.NULL ? null :
+                                            orderEsp.getJSONObject("endereco_entrega").getString("complemento"),
                                     orderEsp.getJSONObject("endereco_entrega").getString("cidade")
                             ),
                             new Orcamento(
                                     0,
+                                    orderEsp.getInt("id"),
                                     0,
                                     "SIS",
                                     Timestamp.valueOf(orderEsp.getString("data_expiracao").replace("T", " ")),
@@ -266,8 +268,7 @@ public class IntegracaoLojaIntegrada {
                                     orderEsp.getJSONArray("envios").getJSONObject(0).getDouble("valor"),
                                     0d
                             ),
-                            orderProductsList,
-                            orderEsp.isNull("id_externo") ? 0 : (int) orderEsp.get("id_externo")
+                            orderProductsList
                     );
                 case 4:
                     break;
@@ -784,6 +785,7 @@ public class IntegracaoLojaIntegrada {
                                         orderDet.getOrcamento().setTipoPessoa(orderDet.getCliente().getTipoPessoa());
                                         orderDet.getOrcamento().setCodContato(orderDet.getContato().getCod());
                                         orderDet.getOrcamento().setCodEndereco(orderDet.getEndereco().getCodigo());
+                                        
                                         OrcamentoDAO.createOrcamentos(orderDet.getOrcamento());
 
                                         /**

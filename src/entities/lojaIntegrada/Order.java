@@ -75,14 +75,12 @@ public class Order {
             Contato contato,
             Endereco endereco,
             Orcamento orcamento,
-            List<ProdOrcamento> produtos,
-            int idExterno) {
+            List<ProdOrcamento> produtos) {
         this.cliente = cliente;
         this.contato = contato;
         this.endereco = endereco;
         this.orcamento = orcamento;
         this.produtos = produtos;
-        this.idExterno = idExterno;
     }
 
     public int getIdExterno() {

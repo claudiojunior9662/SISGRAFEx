@@ -71,6 +71,7 @@ public class Orcamento {
     private Double arte;
     private String descricaoProduto;
     private int codigoOp;
+    private int codigoLI;
 
     //TABELA CONSULTA
     private String tipoPessoaString;
@@ -109,6 +110,42 @@ public class Orcamento {
             Double frete,
             Double arte) {
         this.codigo = codigo;
+        this.codigoCliente = codigoCliente;
+        this.codigoEmissor = codigoEmissor;
+        this.dataValidade = dataValidade;
+        this.dataEmissao = dataEmissao;
+        this.sif = sif;
+        this.status = status;
+        this.descricao = descricao;
+        this.tipoPessoa = tipoPessoa;
+        this.desconto = desconto;
+        this.valorTotal = valorTotal;
+        this.codContato = codContato;
+        this.codEndereco = codEndereco;
+        this.precosManuais = precosManuais;
+        this.frete = frete;
+        this.arte = arte;
+    }
+    
+    public Orcamento(int codigo,
+            int codigoLI,
+            int codigoCliente,
+            String codigoEmissor,
+            Date dataValidade,
+            Date dataEmissao,
+            float sif,
+            int status,
+            String descricao,
+            int tipoPessoa,
+            float desconto,
+            float valorTotal,
+            int codContato,
+            int codEndereco,
+            int precosManuais,
+            Double frete,
+            Double arte) {
+        this.codigo = codigo;
+        this.codigoLI = codigoLI;
         this.codigoCliente = codigoCliente;
         this.codigoEmissor = codigoEmissor;
         this.dataValidade = dataValidade;
@@ -173,6 +210,14 @@ public class Orcamento {
         this.status = status;
     }
 
+    public int getCodigoLI() {
+        return codigoLI;
+    }
+
+    public void setCodigoLI(int codigoLI) {
+        this.codigoLI = codigoLI;
+    }
+    
     public Double getArte() {
         return arte;
     }
