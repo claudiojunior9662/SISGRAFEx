@@ -2019,9 +2019,6 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
      * Salva as alterações de edição dos atributos da OP
      */
     public synchronized static void salvaAlteracoes() {
-        new Thread("Salva Alterações OP") {
-            @Override
-            public void run() {
                 try {
                     loading.setVisible(true);
                     loading.setText("AGUARDE, SALVANDO ALTERAÇÕES...");
@@ -2217,9 +2214,6 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
                     EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
                     EnvioExcecao.envio(loading);
                 }
-            }
-        }.start();
-
     }
     
     /**

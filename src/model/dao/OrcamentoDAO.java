@@ -84,7 +84,7 @@ public class OrcamentoDAO {
                     + "precos_manuais, "
                     + "frete, "
                     + "ARTE) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, orcamento.getCod());
             stmt.setInt(2, orcamento.getCodigoLI());
             stmt.setInt(3, orcamento.getCodCliente());
