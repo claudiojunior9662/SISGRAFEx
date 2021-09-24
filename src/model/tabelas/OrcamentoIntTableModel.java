@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class OrcamentoIntTableModel extends AbstractTableModel{
 
     private List<Orcamento> dados = new ArrayList<>();
-    private String[] colunas = {"PROPOSTA", "CLIENTE", "TIPO PESSOA", "DATA EMISSÃO", "DATA VALIDADE", "VALOR TOTAL", "STATUS", "EMISSOR"};
+    private String[] colunas = {"CÓD PROPOSTA", "CÓD VENDAS", "CLIENTE", "TIPO PESSOA", "DATA EMISSÃO", "DATA VALIDADE", "VALOR TOTAL", "STATUS", "EMISSOR"};
     
     @Override
     public String getColumnName(int col){
@@ -40,18 +40,20 @@ public class OrcamentoIntTableModel extends AbstractTableModel{
             case 0:
                 return dados.get(linha).getCod();
             case 1:
+                return dados.get(linha).getCodigoLI();
+            case 2:
                 return dados.get(linha).getNomeCliente();
-            case 2: 
+            case 3: 
                 return dados.get(linha).getTipoPessoaString();
-            case 3:
-                return dados.get(linha).getDataEmissaoString();
             case 4:
-                return dados.get(linha).getDataValidadeString();
+                return dados.get(linha).getDataEmissaoString();
             case 5:
-                return dados.get(linha).getValorTotal();
+                return dados.get(linha).getDataValidadeString();
             case 6:
-                return dados.get(linha).getStatusString();
+                return dados.get(linha).getValorTotal();
             case 7:
+                return dados.get(linha).getStatusString();
+            case 8:
                 return dados.get(linha).getCodEmissor();
         }
         return null;

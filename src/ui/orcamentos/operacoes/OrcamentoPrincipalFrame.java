@@ -3115,6 +3115,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     case 2:
                         modelInt.addRow(new Orcamento(
                                 orcamento.getCod(),
+                                orcamento.getCodigoLI(),
                                 OrcamentoDAO.carregaNomeCliente(orcamento.getTipoPessoa(), orcamento.getCodCliente()),
                                 orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3178,6 +3179,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                             case 2:
                                 modelInt.addRow(new Orcamento(
                                         orcamento.getCod(),
+                                        orcamento.getCodigoLI(),
                                         orcamento.getNomeCliente(),
                                         orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3215,6 +3217,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                     case 2:
                                         modelInt.addRow(new Orcamento(
                                                 orcamento.getCod(),
+                                                orcamento.getCodigoLI(),
                                                 orcamento.getNomeCliente(),
                                                 orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3246,6 +3249,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                     case 2:
                                         modelInt.addRow(new Orcamento(
                                                 orcamento.getCod(),
+                                                orcamento.getCodigoLI(),
                                                 orcamento.getNomeCliente(),
                                                 orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                                 Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3280,6 +3284,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                             case 2:
                                 modelInt.addRow(new Orcamento(
                                         orcamento.getCod(),
+                                        orcamento.getCodigoLI(),
                                         orcamento.getNomeCliente(),
                                         orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3311,6 +3316,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                             case 2:
                                 modelInt.addRow(new Orcamento(
                                         orcamento.getCod(),
+                                        orcamento.getCodigoLI(),
                                         orcamento.getNomeCliente(),
                                         orcamento.getTipoPessoa() == 1 ? "PESSOA FÍSICA" : "PESSOA JURÍDICA",
                                         Controle.dataPadrao.format(orcamento.getDataEmissao()),
@@ -3333,6 +3339,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     }
                     break;
             }
+            corTabelaOrcamento(tabelaConsulta);
             pagAtual.setValue(1);
         } catch (SQLException | ParseException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
@@ -4462,7 +4469,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                             Color c = Color.WHITE;
                             String texto = null;
 
-                            String codEmissor = jTable.getValueAt(row, 7).toString();
+                            String codEmissor = jTable.getValueAt(row, 8).toString();
 
                             switch (codEmissor) {
                                 case "SIS":

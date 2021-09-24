@@ -190,6 +190,18 @@ public class Orcamento {
         this.valorTotal = valorTotal;
         this.codigoEmissor = codEmissor;
     }
+    
+    public Orcamento(int codigo, int codigoLI, String nomeCliente, String tipoPessoa, String dataEmissao, String dataValidade, float valorTotal, String status, String codEmissor) {
+        this.codigo = codigo;
+        this.codigoLI = codigoLI;
+        this.dataValidadeString = dataValidade;
+        this.dataEmissaoString = dataEmissao;
+        this.statusString = status;
+        this.tipoPessoaString = tipoPessoa;
+        this.nomeCliente = nomeCliente;
+        this.valorTotal = valorTotal;
+        this.codigoEmissor = codEmissor;
+    }
 
     public Orcamento(int codigo,
             int codCliente,

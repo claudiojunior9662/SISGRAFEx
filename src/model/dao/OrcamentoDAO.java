@@ -150,6 +150,7 @@ public class OrcamentoDAO {
             while (rs.next()) {
                 Orcamento orcamento = new Orcamento();
                 orcamento.setCod(rs.getInt("cod"));
+                orcamento.setCodigoLI(rs.getInt("COD_LI"));
                 orcamento.setCodCliente(rs.getInt("cod_cliente"));
                 orcamento.setDataEmissao(rs.getDate("data_emissao"));
                 orcamento.setDataValidade(rs.getDate("data_validade"));
@@ -609,6 +610,7 @@ public class OrcamentoDAO {
                 switch (p1) {
                     case 1:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -627,6 +629,7 @@ public class OrcamentoDAO {
                         break;
                     case 3:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -642,6 +645,7 @@ public class OrcamentoDAO {
                         break;
                     case 4:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -657,6 +661,7 @@ public class OrcamentoDAO {
                         break;
                     case 5:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -677,6 +682,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - CÓDIGO":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -694,6 +700,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - NOME":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -710,6 +717,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - CPF (SOMENTE NÚMEROS)":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -727,6 +735,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - CÓDIGO":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -744,6 +753,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - NOME":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -760,6 +770,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - NOME FANTASIA":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -776,6 +787,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - CNPJ (SOMENTE NÚMEROS)":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -795,6 +807,7 @@ public class OrcamentoDAO {
                     while (rs.next()) {
                         Orcamento aux = new Orcamento();
                         aux.setCod(rs.getInt("tabela_orcamentos.cod"));
+                        aux.setCodigoLI(rs.getInt("tabela_orcamentos.COD_LI"));
                         aux.setNomeCliente(rs.getInt("tabela_orcamentos.tipo_cliente") == 1
                                 ? retornaNomeCliente(rs.getInt("tabela_clientes_fisicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente"))
                                 : retornaNomeCliente(rs.getInt("tabela_clientes_juridicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente")));
@@ -810,6 +823,7 @@ public class OrcamentoDAO {
                     while (rs.next()) {
                         Orcamento aux = new Orcamento();
                         aux.setCod(rs.getInt("tabela_orcamentos.cod"));
+                        aux.setCodigoLI(rs.getInt("tabela_orcamentos.COD_LI"));
                         aux.setNomeCliente(retornaNomeCliente(rs.getInt("tabela_orcamentos.cod_cliente"), rs.getInt("tabela_orcamentos.tipo_cliente")));
                         aux.setTipoPessoa(rs.getInt("tabela_orcamentos.tipo_cliente"));
                         aux.setDataEmissao(rs.getDate("tabela_orcamentos.data_emissao"));
@@ -833,6 +847,7 @@ public class OrcamentoDAO {
                 switch (p1) {
                     case 1:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -851,6 +866,7 @@ public class OrcamentoDAO {
                         break;
                     case 3:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -866,6 +882,7 @@ public class OrcamentoDAO {
                         break;
                     case 4:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -881,6 +898,7 @@ public class OrcamentoDAO {
                         break;
                     case 5:
                         stmt = con.prepareStatement("SELECT tabela_orcamentos.cod, "
+                                + "tabela_orcamentos.COD_LI, "
                                 + "tabela_orcamentos.cod_cliente, "
                                 + "tabela_orcamentos.tipo_cliente, "
                                 + "tabela_orcamentos.data_emissao, "
@@ -901,6 +919,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - CÓDIGO":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -920,6 +939,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - NOME":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -938,6 +958,7 @@ public class OrcamentoDAO {
                         case "PESSOA FÍSICA - CPF (SOMENTE NÚMEROS)":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -957,6 +978,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - CÓDIGO":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -976,6 +998,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - NOME":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -994,6 +1017,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - NOME FANTASIA":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -1012,6 +1036,7 @@ public class OrcamentoDAO {
                         case "PESSOA JURÍDICA - CNPJ (SOMENTE NÚMEROS)":
                             stmt = con.prepareStatement("SELECT "
                                     + "tabela_orcamentos.cod, "
+                                    + "tabela_orcamentos.COD_LI, "
                                     + "tabela_orcamentos.tipo_cliente, "
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
@@ -1033,6 +1058,7 @@ public class OrcamentoDAO {
                     while (rs.next()) {
                         Orcamento aux = new Orcamento();
                         aux.setCod(rs.getInt("tabela_orcamentos.cod"));
+                        aux.setCodigoLI(rs.getInt("tabela_orcamentos.COD_LI"));
                         aux.setNomeCliente(rs.getInt("tabela_orcamentos.tipo_cliente") == 1
                                 ? retornaNomeCliente(rs.getInt("tabela_clientes_fisicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente"))
                                 : retornaNomeCliente(rs.getInt("tabela_clientes_juridicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente")));
@@ -1048,6 +1074,7 @@ public class OrcamentoDAO {
                     while (rs.next()) {
                         Orcamento aux = new Orcamento();
                         aux.setCod(rs.getInt("tabela_orcamentos.cod"));
+                        aux.setCodigoLI(rs.getInt("tabela_orcamentos.COD_LI"));
                         aux.setNomeCliente(rs.getInt("tabela_orcamentos.tipo_cliente") == 1
                                 ? retornaNomeCliente(rs.getInt("tabela_clientes_fisicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente"))
                                 : retornaNomeCliente(rs.getInt("tabela_clientes_juridicos.cod"), rs.getInt("tabela_orcamentos.tipo_cliente")));

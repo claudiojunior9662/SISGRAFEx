@@ -249,7 +249,7 @@ public class IntegracaoLojaIntegrada {
                             ),
                             new Orcamento(
                                     0,
-                                    orderEsp.getInt("id"),
+                                    orderEsp.getInt("numero"),
                                     0,
                                     "SIS",
                                     Timestamp.valueOf(orderEsp.getString("data_expiracao").replace("T", " ")),
