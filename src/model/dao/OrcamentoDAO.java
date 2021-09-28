@@ -616,7 +616,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.cod = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -635,7 +636,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.data_emissao = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -651,7 +653,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.data_validade = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -667,7 +670,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.status = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -687,7 +691,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.cod = tabela_orcamentos.cod_cliente "
@@ -705,7 +710,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.nome LIKE '%" + p3 + "%' "
@@ -722,7 +728,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.cpf = ? "
@@ -740,7 +747,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.cod = tabela_orcamentos.cod_cliente "
@@ -758,7 +766,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.nome LIKE '%" + p3 + "%' "
@@ -775,7 +784,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.nome_fantasia LIKE '%" + p3 + "%' "
@@ -792,7 +802,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.cnpj = ? "
@@ -816,6 +827,7 @@ public class OrcamentoDAO {
                         aux.setDataValidade(rs.getDate("tabela_orcamentos.data_validade"));
                         aux.setValorTotal(rs.getFloat("tabela_orcamentos.valor_total"));
                         aux.setStatus(rs.getInt("tabela_orcamentos.status"));
+                        aux.setCodEmissor(rs.getString("tabela_orcamentos.cod_emissor"));
                         retorno.add(aux);
                     }
                 } else {
@@ -830,6 +842,7 @@ public class OrcamentoDAO {
                         aux.setDataValidade(rs.getDate("tabela_orcamentos.data_validade"));
                         aux.setValorTotal(rs.getFloat("tabela_orcamentos.valor_total"));
                         aux.setStatus(rs.getInt("tabela_orcamentos.status"));
+                        aux.setCodEmissor(rs.getString("tabela_orcamentos.cod_emissor"));
                         retorno.add(aux);
                     }
                 }
@@ -853,7 +866,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.cod = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -872,7 +886,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.data_emissao = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -888,7 +903,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.data_validade = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -904,7 +920,8 @@ public class OrcamentoDAO {
                                 + "tabela_orcamentos.data_emissao, "
                                 + "tabela_orcamentos.data_validade, "
                                 + "tabela_orcamentos.valor_total, "
-                                + "tabela_orcamentos.status "
+                                + "tabela_orcamentos.status, "
+                                + "tabela_orcamentos.cod_emissor "
                                 + "FROM tabela_orcamentos "
                                 + "WHERE tabela_orcamentos.status = ? "
                                 + "ORDER BY tabela_orcamentos.cod "
@@ -924,7 +941,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.cod = tabela_orcamentos.cod_cliente "
@@ -944,7 +962,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.nome LIKE '%" + p3 + "%' "
@@ -963,7 +982,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_fisicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_fisicos ON tabela_clientes_fisicos.cpf = ? "
@@ -983,7 +1003,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.cod = tabela_orcamentos.cod_cliente "
@@ -1003,7 +1024,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.nome LIKE '%" + p3 + "%' "
@@ -1022,7 +1044,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.nome_fantasia LIKE '%" + p3 + "%' "
@@ -1041,7 +1064,8 @@ public class OrcamentoDAO {
                                     + "tabela_orcamentos.data_emissao, "
                                     + "tabela_orcamentos.data_validade, "
                                     + "tabela_orcamentos.valor_total, "
-                                    + "tabela_orcamentos.status,"
+                                    + "tabela_orcamentos.status, "
+                                    + "tabela_orcamentos.cod_emissor, "
                                     + "tabela_clientes_juridicos.cod "
                                     + "FROM tabela_orcamentos "
                                     + "INNER JOIN tabela_clientes_juridicos ON tabela_clientes_juridicos.cnpj = ? "
@@ -1067,6 +1091,7 @@ public class OrcamentoDAO {
                         aux.setDataValidade(rs.getDate("tabela_orcamentos.data_validade"));
                         aux.setValorTotal(rs.getFloat("tabela_orcamentos.valor_total"));
                         aux.setStatus(rs.getInt("tabela_orcamentos.status"));
+                        aux.setCodEmissor(rs.getString("tabela_orcamentos.cod_emissor"));
                         retorno.add(aux);
                     }
                 } else {
@@ -1083,6 +1108,7 @@ public class OrcamentoDAO {
                         aux.setDataValidade(rs.getDate("tabela_orcamentos.data_validade"));
                         aux.setValorTotal(rs.getFloat("tabela_orcamentos.valor_total"));
                         aux.setStatus(rs.getInt("tabela_orcamentos.status"));
+                        aux.setCodEmissor(rs.getString("tabela_orcamentos.cod_emissor"));
                         retorno.add(aux);
                     }
                 }
@@ -1695,6 +1721,7 @@ public class OrcamentoDAO {
 
     /**
      * Consulta as alterações de recálculo das OP
+     *
      * @return @throws SQLException
      */
     public static List<AlteraData> consultarAlteracoes() throws SQLException {

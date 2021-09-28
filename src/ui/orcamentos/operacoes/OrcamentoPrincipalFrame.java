@@ -1724,7 +1724,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                         case 1:
                         case 2:
                             statusSplit = tabelaConsulta.getValueAt(
-                                    tabelaConsulta.getSelectedRow(), 6).toString().split(" ");
+                                    tabelaConsulta.getSelectedRow(), 7).toString().split(" ");
                             STATUS = Integer.valueOf(statusSplit[0]);
                             break;
                         case 3:
@@ -2208,7 +2208,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     Orcamento.geraPdf((int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0),
                             true,
                             false,
-                            Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString().substring(0, 1)),
+                            Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 7).toString().substring(0, 1)),
                             loading,
                             false);
                     break;
@@ -2228,7 +2228,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                     Orcamento.geraPdf((int) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 0),
                             true,
                             true,
-                            Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString().substring(0, 1)),
+                            Integer.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 7).toString().substring(0, 1)),
                             loading,
                             false);
                     break;
@@ -2265,7 +2265,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
 
             //VERIFICA SE O CLIENTE POSSUI CRÉDITO SUFICIENTE-------------------
             if ((ClienteDAO.retornaCredCliente(orcamento.getCodCliente(), orcamento.getTipoPessoa())
-                    < Float.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 5).toString()))
+                    < Float.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()))
                     & STATUS != 4) {
                 int dialogButton = JOptionPane.YES_NO_OPTION;
                 int dialogResult = JOptionPane.showConfirmDialog(this,
@@ -2304,7 +2304,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                 EnviarOrdemProducaoFrame.ORC_BASE = CODIGO_ORCAMENTO;
                 EnviarOrdemProducaoFrame.codigoOrcamentoBase.setValue(CODIGO_ORCAMENTO);
                 EnviarOrdemProducaoFrame.setVLR_ORC(
-                        Double.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 5).toString()));
+                        Double.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()));
 
                 //ZERAR AS TABELAS----------------------------------------------
                 modeloProdutos.setNumRows(0);
@@ -2684,7 +2684,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
 
             //VERIFICA SE O CLIENTE POSSUI CRÉDITO SUFICIENTE-------------------
             if ((ClienteDAO.retornaCredCliente(orcamento.getCodCliente(), orcamento.getTipoPessoa())
-                    < Float.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 5).toString()))
+                    < Float.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()))
                     & STATUS != 4) {
                 int dialogButton = JOptionPane.YES_NO_OPTION;
                 int dialogResult = JOptionPane.showConfirmDialog(this,
@@ -2721,7 +2721,7 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                 EnviarOrdemProducaoFrame.ORC_BASE = CODIGO_ORCAMENTO;
                 EnviarOrdemProducaoFrame.codigoOrcamentoBase.setValue(CODIGO_ORCAMENTO);
                 EnviarOrdemProducaoFrame.setVLR_ORC(
-                        Double.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 5).toString()));
+                        Double.valueOf(tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 6).toString()));
 
                 //ZERAR AS TABELAS----------------------------------------------
                 modeloProdutos.setNumRows(0);

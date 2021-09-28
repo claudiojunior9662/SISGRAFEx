@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "16";
+    private static final String update = "17";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,10 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 5 (19-08-2021)\n"
-                            + "- Correção na pesquisa de notas de créditos por clientes no mód. financeiro;\n"
-                            + "- Implementação do registro de log do login do usuário por data e hora;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 6 (21-08-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 6 (21-08-2021)\n"
                             + "- Testes e verificações da integração com a Loja Integrada (1/5) - Status: Pronto;\n"
                             + "- Correções do PDF da proposta de orçamento;\n"
                             + "- Testes e verificações do registro de log de OP (1/5) - Status: Pronto;\n"
@@ -393,7 +390,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Ajuste na alteração da seleção das datas no módulo Produção;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 16 (24-09-2021)\n"
                             + "- Testes e verificações da integração com a Loja Integrada (2/5) - Status: Pronto;\n"
-                            + "- Inclusão da coluna de código do ecommerce na consulta de orçamentos;\n\n"
+                            + "- Inclusão da coluna de código do ecommerce na consulta de orçamentos;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 17 (27-09-2021)\n"
+                            + "- Correção na pesquisa dos orçamentos;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"
