@@ -30,7 +30,7 @@ import model.dao.OrdemProducaoDAO;
 public class TelaAutenticacao extends javax.swing.JFrame {
     
     private static final String codVersao = "2.7.0";
-    private static final String update = "17";
+    private static final String update = "18";
     private static Usuario atendenteLogado;
 
     public static Usuario getUsrLogado() {
@@ -362,12 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 6 (21-08-2021)\n"
-                            + "- Testes e verificações da integração com a Loja Integrada (1/5) - Status: Pronto;\n"
-                            + "- Correções do PDF da proposta de orçamento;\n"
-                            + "- Testes e verificações do registro de log de OP (1/5) - Status: Pronto;\n"
-                            + "- Alterações diversas a fim de melhorar a experiência do usuário;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 7 (26-08-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 7 (26-08-2021)\n"
                             + "- Correção de erros enviados;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 8 (27-08-2021)\n"
                             + "- Implementação da visualização do histórico de produção da OP;\n"
@@ -392,7 +387,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "- Testes e verificações da integração com a Loja Integrada (2/5) - Status: Pronto;\n"
                             + "- Inclusão da coluna de código do ecommerce na consulta de orçamentos;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 17 (27-09-2021)\n"
-                            + "- Correção na pesquisa dos orçamentos;\n\n"
+                            + "- Correção na pesquisa dos orçamentos;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 18 (30-09-2021)\n"
+                            + "- Adição do tipo de trabalho 'PLOTTER' no controle da Produção;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"

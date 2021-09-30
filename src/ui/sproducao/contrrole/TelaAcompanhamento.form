@@ -589,12 +589,13 @@
         <Component class="javax.swing.JComboBox" name="tipoTrabalho">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
+              <StringArray count="6">
                 <StringItem index="0" value="SELECIONE..."/>
                 <StringItem index="1" value="OFFSET"/>
-                <StringItem index="2" value="DIGITAL"/>
-                <StringItem index="3" value="TIPOGRAFIA"/>
-                <StringItem index="4" value="ACABAMENTO"/>
+                <StringItem index="2" value="PLOTTER"/>
+                <StringItem index="3" value="DIGITAL"/>
+                <StringItem index="4" value="TIPOGRAFIA"/>
+                <StringItem index="5" value="ACABAMENTO"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

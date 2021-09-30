@@ -450,7 +450,7 @@ public final class TelaAcompanhamento extends javax.swing.JInternalFrame {
         observacoesOrcamento.setBorder(javax.swing.BorderFactory.createTitledBorder("OBSERVAÇÕES DO ORÇAMENTO"));
         jScrollPane2.setViewportView(observacoesOrcamento);
 
-        tipoTrabalho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "OFFSET", "DIGITAL", "TIPOGRAFIA", "ACABAMENTO" }));
+        tipoTrabalho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE...", "OFFSET", "PLOTTER", "DIGITAL", "TIPOGRAFIA", "ACABAMENTO" }));
         tipoTrabalho.setBorder(javax.swing.BorderFactory.createTitledBorder("TIPO DE TRABALHO"));
         tipoTrabalho.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
