@@ -59,7 +59,7 @@ public class Controle {
     //CONTROLE DE ARQUIVOS------------------------------------------------------
     public static String ESTOQUE_NAME = "estoque";
     public static String TEMP_DIR = System.getProperty("java.io.tmpdir") + "SISGRAFEx";
-    public static String SENHA_ESTOQUE = "JMW#3645";
+    public static String SENHA_ESTOQUE = "gr@f1c@!002";
 
     //VARIÁVEIS PARA CONEXÃO COM FIREBIRD (SIMATEX)-----------------------------
     final static public String DRIVER_FIREBIRD = "org.firebirdsql.jdbc.FBDriver";
@@ -300,7 +300,8 @@ public class Controle {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT DIR_ARQUIVOS FROM tabela_controle");
+            stmt = con.prepareStatement("SELECT DIR_ARQUIVOS "
+                    + "FROM tabela_controle");
             rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getString("DIR_ARQUIVOS");

@@ -1863,6 +1863,12 @@ public class OrcamentoDAO {
         }
     }
 
+    /**
+     * Verifica se o código do orçamento existe
+     * @param codOrcamento código do orçamento
+     * @return
+     * @throws SQLException 
+     */
     public static Boolean verificaOrcamentoExistente(int codOrcamento) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -1887,5 +1893,32 @@ public class OrcamentoDAO {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
+    
+    public static int retornaMaquinaImpressao(int codOrcamento, int codProduto) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = con.prepareStatement("SELECT tabela_produtos_orcamento.maquina "
+                    + "FROM tabela_produtos_orcamento "
+                    + "WHERE tabela_produtos_orcamento.cod_orcamento = ? "
+                    + "AND tabela_produtos_orcamento.cod_produto = ?");
+            stmt.setInt(1, codOrcamento);
+            stmt.setInt(2, codProduto);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("tabela_produtos_orcamento.maquina");
+            }else{
+                return 0;
+            }
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    
 
 }

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import entities.sisgrafex.Papel;
+import java.util.Date;
 import ui.cadastros.papeis.PapelBEAN;
 
 /**
@@ -319,11 +320,11 @@ public class PapelDAO {
         }
     }
 
-    /*
+    /**
     @param codProd código do produto a ser selecionado os papéis
     @return papel papel selecionado
     @see retornaPapeisOrcamento
-     */
+     **/
     public static List<Papel> retornaPapeisOrcamento(int codProd) throws SQLException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -385,6 +386,60 @@ public class PapelDAO {
         } catch (SQLException ex) {
             throw new SQLException(ex);
         } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
+    /**
+     * Atualiza o contador de clique de impressão digital
+     * @param cliques
+     * @throws SQLException 
+     */
+    public static void atualizaContadorCliques(Papel contador) throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try{
+            stmt = con.prepareStatement("UPDATE tabela_contadores "
+                    + "SET VALOR_ATUAL = ?, ALTERACAO = ? "
+                    + "WHERE COD = 1");
+            stmt.setInt(1, contador.getValorAtual());
+            stmt.setTimestamp(2, new java.sql.Timestamp(new Date().getTime()));
+            stmt.executeUpdate();
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
+    /**
+     * Retorna a quantidade de cliques armazenados
+     * @return quantidade de cliques armazenados
+     * @throws SQLException 
+     */
+    public static Papel retornaContadorCliques() throws SQLException{
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            stmt = con.prepareStatement("SELECT tabela_contadores.VALOR_ATUAL, tabela_contadores.VALOR_LIMITE, tabela_contadores.ALTERACAO "
+                    + "FROM tabela_contadores "
+                    + "WHERE COD = 1");
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return new Papel(
+                        rs.getInt("tabela_contadores.VALOR_ATUAL"),
+                        rs.getInt("tabela_contadores.VALOR_LIMITE"),
+                        rs.getTimestamp("tabela_contadores.ALTERACAO")
+                );
+            }else{
+                return null;
+            }
+        }catch(SQLException ex){
+            throw new SQLException(ex);
+        }finally{
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }

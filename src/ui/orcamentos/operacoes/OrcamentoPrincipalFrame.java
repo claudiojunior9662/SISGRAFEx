@@ -21,6 +21,7 @@ import ui.cadastros.papeis.PapelBEAN;
 import entities.sisgrafex.ProdutoBEAN;
 import entities.sisgrafex.Orcamento;
 import entities.sisgrafex.CalculosOp;
+import entities.sisgrafex.Papel;
 import model.dao.ProdutoDAO;
 import model.dao.OrcamentoDAO;
 import entities.sisgrafex.Servicos;
@@ -2411,7 +2412,11 @@ public class OrcamentoPrincipalFrame extends javax.swing.JInternalFrame {
                                     calculosBEAN.getFormato(),
                                     calculosBEAN.getQtdChapas()
                                 });
-
+                                EnviarOrdemProducaoFrame.contadorCliques = new Papel(
+                                        papeisCadastroBEAN.getCorFrente(),
+                                        papeisCadastroBEAN.getCorVerso(),
+                                        calculosBEAN.getQtdFolhasTotal()
+                                );
                             }
                         }
                         //------------------------------------------------------

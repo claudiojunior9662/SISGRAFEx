@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import entities.sisgrafex.OrdemProducao;
-import entities.sisgrafex.CalculosOp;
+import entities.sisgrafex.Papel;
 import exception.EnvioExcecao;
+import exception.LimiteContadorException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
     private static int COD_ENDERECO = 0;
     private static double VLR_ORC = 0d;
     private static byte TIPO_PROD = 0;
+    public static Papel contadorCliques = null;
 
     public static byte getTIPO_PROD() {
         return TIPO_PROD;
@@ -542,7 +544,7 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(codigoOrcamentoBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel31))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -555,8 +557,9 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
     private void confirmarEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarEnvioActionPerformed
         try {
             OrdemProducao op = new OrdemProducao();
-            CalculosOp calculosBEAN = new CalculosOp();
 
+            Papel.contaCliques(contadorCliques);
+            
             //VERIFICA SE EXISTEM PRODUTOS SEM A DATA DE ENTREGA SELECIONADA--------
             for (int i = 0; i < tabelaProdutos.getRowCount(); i++) {
                 if (tabelaProdutos.getValueAt(i, 5).equals("")) {
@@ -610,7 +613,8 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
                                     getTIPO_PROD(),
                                     Integer.valueOf(tabelaPapeis.getValueAt(j, 1).toString()),
                                     codOp,
-                                    tabelaPapeis.getValueAt(j, 3).toString());
+                                    tabelaPapeis.getValueAt(j, 3).toString()
+                            );
                         }
                     }
                 }
@@ -676,6 +680,8 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
         } catch (ParseException | SQLException ex) {
             EnvioExcecao envioExcecao = new EnvioExcecao(Controle.getDefaultGj(), ex);
             EnvioExcecao.envio(loading);
+        } catch(LimiteContadorException ex){
+            Controle.avisosUsuario((byte) 1, "O LIMITE DE CLIQUES PARA IMPRESSÃO DIGITAL FOI ATINGIDO!");
         }
     }//GEN-LAST:event_confirmarEnvioActionPerformed
 

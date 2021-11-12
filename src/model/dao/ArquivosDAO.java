@@ -137,7 +137,7 @@ public class ArquivosDAO {
                         case "0":
                             sftp.mkdir(codOp);
                             sftp.cd(codOp);
-                            sftp.chmod(777, sftp.pwd());
+                            ConnectionFactory.write("chmod 777 " + sftp.pwd());
                             //Verifica se a pasta da versão existe, caso negativo a cria
                             switch (ConnectionFactory.write("cd " + dirArquivo + "/" + codOp + " && [ -d V" + String.valueOf(tipoVersao) + " ] && echo 1 || echo 0").replace("\n", "")) {
                                 case "1":
