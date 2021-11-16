@@ -362,9 +362,7 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                     mInt.setVisible(true);
                     this.setVisible(false);
 
-                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 8 (27-08-2021)\n"
-                            + "- Implementação da visualização do histórico de produção da OP;\n"
-                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 9 (08-09-2021)\n"
+                    Controle.avisosUsuario((byte) 2, "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 9 (08-09-2021)\n"
                             + "- Correção da consulta de notas de crédito;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 10 (13-09-2021)\n"
                             + "- Correção da alteração do valor unitário dos produtos a pronta entrega;\n"
@@ -389,7 +387,9 @@ public class TelaAutenticacao extends javax.swing.JFrame {
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 18 (30-09-2021)\n"
                             + "- Adição do tipo de trabalho 'PLOTTER' no controle da Produção;\n"
                             + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.0 19 (11-11-2021)\n"
-                            + "- Ajuste no upload dos arquivos;\n\n"
+                            + "- Ajuste no upload dos arquivos;\n"
+                            + "CORREÇÕES E ATUALIZAÇÕES DA v.2.7.1 1 (16-11-2021)\n"
+                            + "- Implementação do contador de cliques para a impressão digital;\n\n"
                             + "AVISOS:\n"
                             + "- Todas as sugestões de melhoria de usabilidade do programa serão estudadas, mas não há previsão de implementação;\n"
                             + "- Qualquer problema nas correções acima expostas deverão ser informados o mais rápido possível à seção;\n"
