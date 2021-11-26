@@ -558,7 +558,9 @@ public class EnviarOrdemProducaoFrame extends javax.swing.JInternalFrame {
         try {
             OrdemProducao op = new OrdemProducao();
 
-            Papel.contaCliques(contadorCliques);
+            if(TIPO_PROD != 2){
+                Papel.contaCliques(contadorCliques);
+            }
             
             //VERIFICA SE EXISTEM PRODUTOS SEM A DATA DE ENTREGA SELECIONADA--------
             for (int i = 0; i < tabelaProdutos.getRowCount(); i++) {
